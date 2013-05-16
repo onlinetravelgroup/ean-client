@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Server: Apache-Coyote/1.1
+Content-Type: application/xml
+Content-Encoding: gzip
+Vary: Accept-Encoding
+Content-Length: 610
+Date: Thu, 16 May 2013 03:06:20 GMT
+Connection: keep-alive
+
+<ns2:HotelRoomReservationResponse xmlns:ns2="http://v3.hotel.wsapi.ean.com/"><EanWsError><itineraryId>117439420</itineraryId><handling>RECOVERABLE</handling><category>CREDITCARD</category><exceptionConditionId>1586</exceptionConditionId><ErrorAttributes><errorAttributesMap><entry><key>SUPPLIER_ERROR_CODE</key><value>Reservation Credit Card failure.</value></entry></errorAttributesMap></ErrorAttributes><presentationMessage>We're sorry, our system can not authenticate the information you have provided. An information mismatch has occurred. Please verify your credit card and billing information are correct and try again.</presentationMessage><verboseMessage>error.creditCardDeclined: This verbose message is that this is a test of the Credit Card Failure message.: Reservation Credit Card failure. &lt;TNOWERROR_ATTR>&lt;SUPPLIER_ERROR_CODE>Reservation Credit Card failure.&lt;/SUPPLIER_ERROR_CODE>&lt;/TNOWERROR_ATTR></verboseMessage><ServerInfo serverTime="22:06:19.964-0500" timestamp="1368673579" instance="127" /></EanWsError><customerSessionId>0ABAAA7F-F68B-5913-EAB2-4D05F790418B</customerSessionId></ns2:HotelRoomReservationResponse>

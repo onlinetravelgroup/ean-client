@@ -6,6 +6,7 @@ use Guzzle\Common\Collection;
 use Guzzle\Service\Client;
 use Guzzle\Service\Description\ServiceDescription;
 use Guzzle\Common\Event;
+use Otg\Ean\Plugin\EanError\EanErrorPlugin;
 
 /**
  * Client object for executing commands against the EAN Hotel API
@@ -43,7 +44,8 @@ class HotelClient extends Client
         $client->setDescription($description);
 
         // Add common elements to the request
-        $client->getEventDispatcher()->addListener('client.command.create',
+        $dispatcher = $client->getEventDispatcher();
+        $dispatcher->addListener('client.command.create',
             function (Event $event) use ($config) {
                 $event['command']->set('booking_endpoint', $config['booking_endpoint']);
                 $event['command']->set('general_endpoint', $config['general_endpoint']);
@@ -52,6 +54,8 @@ class HotelClient extends Client
                 $event['command']->set('customerIpAddress', $config['ip']);
                 $event['command']->set('customerUserAgent', $config['agent']);
             });
+
+        $dispatcher->addSubscriber(new EanErrorPlugin());
 
         return $client;
     }

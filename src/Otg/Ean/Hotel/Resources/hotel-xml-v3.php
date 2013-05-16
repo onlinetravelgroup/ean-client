@@ -61,6 +61,11 @@ return array(
                     'default' => 'gzip,deflate'
                 )
             ),
+            'errorResponses' => array(
+                array('handling' => 'RECOVERABLE', 'class' => 'Otg\\Ean\\Hotel\\Exception\\RecoverableException'),
+                array('handling' => 'UNRECOVERABLE', 'class' => 'Otg\\Ean\\Hotel\\Exception\\UnrecoverableException'),
+                array('handling' => 'AGENT_ATTENTION', 'class' => 'Otg\\Ean\\Hotel\\Exception\\AgentAttentionException'),
+            ),
         ),
         'GetRoomAvailability' => array(
             'extends' => 'AbstractOperation',

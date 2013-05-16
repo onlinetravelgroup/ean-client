@@ -20,6 +20,43 @@ class IntegrationTest extends GuzzleTestCase
         )
     );
 
+    protected $resParameters = array();
+
+    public function setUp()
+    {
+        $this->resParameters = array_merge($this->baseParameters, array(
+            'supplierType' => 'E',
+            'roomTypeCode' => '198058',
+            'rateCode' => '484072',
+            'RoomGroup' => array(
+                array(
+                    'numberOfAdults' => 2,
+                    'firstName' => 'Test',
+                    'lastName' => 'Test'
+                )
+            ),
+            'chargeableRate' => '389.0',
+            'ReservationInfo' => array(
+                'creditCardExpirationMonth' => '01',
+                'creditCardExpirationYear' => '2016',
+                'creditCardIdentifier' => '123',
+                'creditCardNumber' => '4564456445644564',
+                'creditCardType' => 'VI',
+                'email' => 'developer@hotels.com.au',
+                'firstName' => 'Test',
+                'homePhone' => '0312345678',
+                'lastName' => 'Test',
+            ),
+            'AddressInfo' => array(
+                'address1' => 'travelnow',
+                'city' => 'travelnow',
+                'countryCode' => 'AU',
+                'stateProvinceCode' => 'VC',
+                'postalCode' => '3105',
+            )
+        ));
+    }
+
     /**
      * The XML declaration string of <?xml version="1.0"?>\n added by SimpleXML::asXML
      * is stripped from the XML string before being appended to the URI
@@ -126,40 +163,20 @@ class IntegrationTest extends GuzzleTestCase
         $client = $this->getServiceBuilder()->get('hotel', true);
         $this->setMockResponse($client, 'reservation_response');
 
-        $parameters = array_merge($this->baseParameters, array(
-            'supplierType' => 'E',
-            'roomTypeCode' => '198058',
-            'rateCode' => '484072',
-            'RoomGroup' => array(
-                array(
-                    'numberOfAdults' => 2,
-                    'firstName' => 'Test',
-                    'lastName' => 'Test'
-                )
-            ),
-            'chargeableRate' => '389.0',
-            'ReservationInfo' => array(
-                'creditCardExpirationMonth' => '01',
-                'creditCardExpirationYear' => '2016',
-                'creditCardIdentifier' => '123',
-                'creditCardNumber' => '4564456445644564',
-                'creditCardType' => 'VI',
-                'email' => 'developer@hotels.com.au',
-                'firstName' => 'Test',
-                'homePhone' => '0312345678',
-                'lastName' => 'Test',
-            ),
-            'AddressInfo' => array(
-                'address1' => 'travelnow',
-                'city' => 'travelnow',
-                'countryCode' => 'AU',
-                'stateProvinceCode' => 'VC',
-                'postalCode' => '3105',
-            )
-        ));
-        $result = $client->getCommand('PostReservation', $parameters)->getResult();
+        $result = $client->getCommand('PostReservation', $this->resParameters)->getResult();
 
         $this->assertEquals(645.86, $result->get('RateInfos')[0]['ChargeableRateInfo']['total']);
     }
 
+    /**
+     * EanWsError responses should thrown an Exception
+     * @expectedException \Otg\Ean\Hotel\Exception\RecoverableException
+     */
+    public function testReservationErrorThrowsException()
+    {
+        $client = $this->getServiceBuilder()->get('hotel', true);
+        $this->setMockResponse($client, 'reservation_error_creditcard');
+
+        $client->getCommand('PostReservation', $this->resParameters)->getResult();
+    }
 }
