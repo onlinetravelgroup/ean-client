@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="./tests/bootstrap.php" colors="true">
+    <php>
+        <server name="CONFIG" value="/src/Otg/Ean/services.php" />
+        <server name="CID" value="" />
+        <server name="API_KEY" value="" />
+        <server name="REMOTE_ADDR" value="10.0.0.2" />
+        <server name="HTTP_USER_AGENT" value="Chrome/26.0.1410.63 Safari/537.31" />
+    </php>
+    <testsuites>
+        <testsuite name="ean-client">
+            <directory suffix="Test.php">./tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

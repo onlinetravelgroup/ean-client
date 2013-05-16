@@ -1,0 +1,20 @@
+{
+    "name": "onlinetravelgroup/ean-client",
+    "description": "Client for consuming the EAN API",
+    "require": {
+        "guzzle/guzzle": "~3.5"
+    },
+    "autoload": {
+        "psr-0": {
+            "Otg\\Ean": "src/",
+            "Otg\\Ean\\Tests": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ryan Hughes",
+            "email": "rhughes@hotels.com.au"
+        }
+    ],
+    "license": "proprietary"
+}
