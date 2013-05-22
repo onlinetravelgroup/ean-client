@@ -17,6 +17,8 @@ class QueryCommand extends OperationCommand
      */
     protected static $xmlQueryVisitor;
 
+    protected static $xmlResponseVisitor;
+
     protected function init()
     {
 
@@ -24,6 +26,12 @@ class QueryCommand extends OperationCommand
             self::$xmlQueryVisitor = new XmlQueryVisitor();
         }
 
+        if (!self::$xmlResponseVisitor) {
+            self::$xmlResponseVisitor = new XmlResponseVisitor();
+        }
+
         $this->getRequestSerializer()->addVisitor('xml.query', self::$xmlQueryVisitor);
+
+        $this->getResponseParser()->addVisitor('xml', self::$xmlResponseVisitor);
     }
 }

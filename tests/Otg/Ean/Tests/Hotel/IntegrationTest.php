@@ -179,4 +179,27 @@ class IntegrationTest extends GuzzleTestCase
 
         $client->getCommand('PostReservation', $this->resParameters)->getResult();
     }
+
+    /**
+     * XML array wrapper '@attributes' are dropped and do not end up as additional elements in the array
+     *
+     */
+    public function testXmlArraysDoNotContainAttributesElement()
+    {
+        $client = $this->getServiceBuilder()->get('hotel', true);
+        $this->setMockResponse($client, 'reservation_response');
+
+        $result = $client->getCommand('PostReservation', $this->resParameters)->getResult();
+
+        $surcharges = $result->get('RateInfos')[0]['ChargeableRateInfo']['Surcharges'];
+
+        $this->assertEquals(array(
+            0 => array(
+                'description' => 'TaxAndServiceFee',
+                'amount' => 42.26
+            )
+        ), $surcharges);
+
+        $this->assertArrayNotHasKey('@attributes', $surcharges);
+    }
 }
