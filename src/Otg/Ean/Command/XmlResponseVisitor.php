@@ -1,5 +1,5 @@
 <?php
-// Copyright 2013 Online Travel Group (info@onlinetravelgroup.com.au)
+
 namespace Otg\Ean\Command;
 
 use Guzzle\Service\Command\LocationVisitor\Response;

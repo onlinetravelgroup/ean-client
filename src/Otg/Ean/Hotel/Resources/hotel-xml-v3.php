@@ -1,5 +1,4 @@
 <?php
-// Copyright 2013 Online Travel Group (info@onlinetravelgroup.com.au)
 
 /**
  * Description of the EAN Hotel API
