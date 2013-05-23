@@ -15,7 +15,7 @@ class IntegrationTest extends GuzzleTestCase
             array(
                 'numberOfAdults' => 1,
                 'numberOfChildren' => 2,
-                'childAges' => '13,15'
+                'childAges' => array('13', '15')
             )
         )
     );
@@ -201,5 +201,45 @@ class IntegrationTest extends GuzzleTestCase
         ), $surcharges);
 
         $this->assertArrayNotHasKey('@attributes', $surcharges);
+    }
+
+    public function testRoomChildAgesSerializesAsString()
+    {
+        $parameters = array_merge($this->baseParameters, array(
+            'RoomGroup' => array(
+                array(
+                    'numberOfAdults' => 2,
+                    'numberOfChildren' => 2,
+                    'childAges' => array(7,8)
+                )
+            )
+        ));
+        $client = $this->getServiceBuilder()->get('hotel', true);
+        $request = $client->getCommand('GetRoomAvailability', $parameters)->prepare();
+
+        $xml = simplexml_load_string($request->getQuery()->get('xml'));
+
+        $this->assertEquals('7,8', (string) $xml->RoomGroup->Room[0]->childAges);
+    }
+
+    public function testReservationChildAgesSerializesAsString()
+    {
+        $parameters = array_merge($this->resParameters, array(
+            'RoomGroup' => array(
+                array(
+                    'firstName' => 'Test',
+                    'lastName' => 'Test',
+                    'numberOfAdults' => 2,
+                    'numberOfChildren' => 2,
+                    'childAges' => array(7,8)
+                )
+            )
+        ));
+        $client = $this->getServiceBuilder()->get('hotel', true);
+        $request = $client->getCommand('PostReservation', $parameters)->prepare();
+
+        $xml = simplexml_load_string($request->getQuery()->get('xml'));
+
+        $this->assertEquals('7,8', (string) $xml->RoomGroup->Room[0]->childAges);
     }
 }

@@ -129,7 +129,9 @@ return array(
                                 'type' => 'numeric',
                             ),
                             'childAges' => array(
-                                'type' => 'string'
+                                'filters' => array(
+                                    'Otg\Ean\Filter\StringFilter::joinValues'
+                                )
                             )
                         )
                     )
@@ -226,7 +228,9 @@ return array(
                                 'type' => 'numeric'
                             ),
                             'childAges' => array(
-                                'type' => 'string'
+                                'filters' => array(
+                                    'Otg\Ean\Filter\StringFilter::joinValues'
+                                )
                             ),
                             'firstName' => array(
                                 'type' => 'string',

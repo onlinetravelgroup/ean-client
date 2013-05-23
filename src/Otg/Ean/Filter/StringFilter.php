@@ -78,4 +78,15 @@ class StringFilter
     {
         return preg_replace('~\R~u', '', $value);
     }
+
+    /**
+     * Converts values to a comma-separated string
+     *
+     * @param  mixed  $values
+     * @return string
+     */
+    public static function joinValues($values)
+    {
+        return implode(',', (array) $values);
+    }
 }

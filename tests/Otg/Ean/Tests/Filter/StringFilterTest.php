@@ -130,4 +130,29 @@ EOD;
         $specialInformation = "\x0A,\x0B,\x0C,\x0D,\xC2\x85,\xE2\x80\xA8,\xE2\x80\xA9,";
         $this->assertEquals(',,,,,,,', StringFilter::removeNewLines($specialInformation));
     }
+
+    /**
+     * joinValues converts arrays to a comma-separated string (same as implode)
+     */
+    public function testCommaSeparated()
+    {
+        $this->assertEquals('1,2', StringFilter::joinValues(array(1,2)));
+    }
+
+    /**
+     * Strings pass through joinValues without changes
+     */
+    public function testJoinSingleString()
+    {
+        $this->assertEquals('5', StringFilter::joinValues('5'));
+        $this->assertEquals('5,6', StringFilter::joinValues('5,6'));
+    }
+
+    /**
+     * joinValues converts ints to strings
+     */
+    public function testJoinSingleInt()
+    {
+        $this->assertEquals('5', StringFilter::joinValues(5));
+    }
 }
