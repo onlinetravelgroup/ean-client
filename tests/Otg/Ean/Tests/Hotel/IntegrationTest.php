@@ -242,4 +242,28 @@ class IntegrationTest extends GuzzleTestCase
 
         $this->assertEquals('7,8', (string) $xml->RoomGroup->Room[0]->childAges);
     }
+
+    /**
+     * Only one room is returned in Hotel Collect results where rateCode and roomTypeCode are specified
+     * @group single
+     */
+    public function testGetSingleRoomFromAvailability()
+    {
+        $parameters = array_merge($this->baseParameters, array(
+            'rateCode' => '2214897',
+            'roomTypeCode' => '2214897'
+        ));
+        $client = $this->getServiceBuilder()->get('hotel', true);
+
+        // 2214897 is the second room in the result
+        $this->setMockResponse($client, 'room_availability_double_response');
+
+        $result = $client->getCommand('GetRoomAvailability', $parameters)->getResult();
+
+        // roomTypeCode and rateCode are generally the same name for HotelCollect results
+        // although in theory they could be different.
+        $room = $result->getRoom('2214897', '2214897');
+        $this->assertEquals('2214897', $room['rateCode']);
+        $this->assertEquals('2214897', $room['roomTypeCode']);
+    }
 }

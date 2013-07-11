@@ -21,6 +21,7 @@ class QueryCommand extends OperationCommand
 
     protected function init()
     {
+        $this->setResponseParser(QueryCommandResponseParser::getInstance());
 
         if (!self::$xmlQueryVisitor) {
             self::$xmlQueryVisitor = new XmlQueryVisitor();

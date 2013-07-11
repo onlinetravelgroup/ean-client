@@ -77,6 +77,7 @@ return array(
                 'xmlRoot' => array(
                     'name' => 'HotelRoomAvailabilityRequest',
                 ),
+                'alternativeModel' => 'Otg\Ean\Hotel\Model\RoomAvailabilityModel',
             ),
             'parameters' => array(
                 'hotelId' => array(
