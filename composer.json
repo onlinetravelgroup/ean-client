@@ -2,7 +2,7 @@
     "name": "onlinetravelgroup/ean-client",
     "description": "Client for consuming the EAN API",
     "require": {
-        "guzzle/guzzle": "~3.5"
+        "guzzle/guzzle": "~3.7"
     },
     "autoload": {
         "psr-0": {

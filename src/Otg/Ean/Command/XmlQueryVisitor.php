@@ -14,19 +14,6 @@ use Guzzle\Service\Command\LocationVisitor\Request\XmlVisitor;
  */
 class XmlQueryVisitor extends XmlVisitor
 {
-
-    /**
-     * {@inheritdoc}
-     */
-    public function visit(CommandInterface $command, RequestInterface $request, Parameter $param, $value)
-    {
-        $xml = isset($this->data[$command])
-            ? $this->data[$command]
-            : $this->createRootElement($command->getOperation());
-        $this->addXml($xml, $param, $value);
-        $this->data[$command] = $xml;
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -36,7 +23,7 @@ class XmlQueryVisitor extends XmlVisitor
 
         // If data was found that needs to be serialized, then do so
         if (isset($this->data[$command])) {
-            $xml = $this->data[$command]->asXML();
+            $xml = $this->finishDocument($this->writer);
             unset($this->data[$command]);
         } else {
             // Check if XML should always be sent for the command
