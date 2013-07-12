@@ -17,11 +17,11 @@ class QueryCommandResponseParser extends OperationResponseParser
 
         // check for an alternative to Guzzle\Service\Resource\Model
         $operation = $command->getOperation();
-        if ($operation->getData('alternativeModel')) {
-            $alternativeModel = $operation->getData('alternativeModel');
+        if ($operation->getData('modelClass')) {
+            $modelClass = $operation->getData('modelClass');
 
-            // extract innards from Guzzle\Service\Resource\Model, frankenstein into $alternativeModel
-            return new $alternativeModel($model->toArray(), $model->getStructure());
+            // extract innards from Guzzle\Service\Resource\Model, frankenstein into $modelClass
+            return new $modelClass($model->toArray(), $model->getStructure());
         }
 
         return $model;

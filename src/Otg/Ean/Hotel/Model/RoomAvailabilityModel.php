@@ -7,12 +7,13 @@ use Guzzle\Service\Resource\Model as GuzzleModel;
 class RoomAvailabilityModel extends GuzzleModel
 {
     /**
-     * Returns the Room element matching the roomTypeCode and rateCode or false if not found
+     * Returns the Room element matching the roomTypeCode and rateCode
      *
      * @param string $roomTypeCode
      * @param string $rateCode
      *
-     * @return array|boolean
+     * @return array
+     * @throws \UnexpectedValueException When room is not found
      */
     public function getRoom($roomTypeCode, $rateCode)
     {
@@ -22,6 +23,7 @@ class RoomAvailabilityModel extends GuzzleModel
             }
         }
 
-        return false;
+        // sold out responses are caught before this point.
+        throw new \UnexpectedValueException('The selected room does not exist');
     }
 }
