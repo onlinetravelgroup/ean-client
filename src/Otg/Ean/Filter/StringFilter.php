@@ -13,7 +13,11 @@ class StringFilter
 
     public static function formatUsDate($dateString)
     {
-        $date = new \DateTime($dateString);
+        if ($dateString instanceof \DateTime) {
+            $date = $dateString;
+        } else {
+            $date = new \DateTime($dateString);
+        }
 
         return $date->format(self::US_DATE_FORMAT);
     }

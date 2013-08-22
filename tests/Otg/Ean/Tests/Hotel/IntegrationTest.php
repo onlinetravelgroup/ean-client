@@ -264,4 +264,56 @@ class IntegrationTest extends GuzzleTestCase
         $this->assertEquals('S1D', $room['roomTypeCode']);
         $this->assertEquals('OCY', $room['rateCode']);
     }
+
+    public function testReservationArrivalDateTimeObject()
+    {
+        $parameters = array_merge($this->resParameters, array(
+            'arrivalDate' => new \DateTime('2013-Aug-22')
+        ));
+        $client = $this->getServiceBuilder()->get('hotel', true);
+        $request = $client->getCommand('PostReservation', $parameters)->prepare();
+
+        $xml = simplexml_load_string($request->getQuery()->get('xml'));
+
+        $this->assertEquals('08/22/2013', (string) $xml->arrivalDate);
+    }
+
+    public function testReservationDepartureDateTimeObject()
+    {
+        $parameters = array_merge($this->resParameters, array(
+            'departureDate' => new \DateTime('2013-Aug-22')
+        ));
+        $client = $this->getServiceBuilder()->get('hotel', true);
+        $request = $client->getCommand('PostReservation', $parameters)->prepare();
+
+        $xml = simplexml_load_string($request->getQuery()->get('xml'));
+
+        $this->assertEquals('08/22/2013', (string) $xml->departureDate);
+    }
+
+    public function testAvailabilityArrivalDateTimeObject()
+    {
+        $parameters = array_merge($this->baseParameters, array(
+            'arrivalDate' => new \DateTime('2013-Aug-22')
+        ));
+        $client = $this->getServiceBuilder()->get('hotel', true);
+        $request = $client->getCommand('GetRoomAvailability', $parameters)->prepare();
+
+        $xml = simplexml_load_string($request->getQuery()->get('xml'));
+
+        $this->assertEquals('08/22/2013', (string) $xml->arrivalDate);
+    }
+
+    public function testAvailabilityDepartureDateTimeObject()
+    {
+        $parameters = array_merge($this->baseParameters, array(
+            'departureDate' => new \DateTime('2013-Aug-22')
+        ));
+        $client = $this->getServiceBuilder()->get('hotel', true);
+        $request = $client->getCommand('GetRoomAvailability', $parameters)->prepare();
+
+        $xml = simplexml_load_string($request->getQuery()->get('xml'));
+
+        $this->assertEquals('08/22/2013', (string) $xml->departureDate);
+    }
 }

@@ -86,7 +86,6 @@ return array(
                     'location' => 'xml.query'
                 ),
                 'arrivalDate' => array(
-                    'type' => 'string',
                     'required' => true,
                     'location' => 'xml.query',
                     'filters' => array(
@@ -94,7 +93,6 @@ return array(
                     )
                 ),
                 'departureDate' => array(
-                    'type' => 'string',
                     'required' => true,
                     'location' => 'xml.query',
                     'filters' => array(
@@ -177,7 +175,6 @@ return array(
                     'location' => 'xml.query'
                 ),
                 'arrivalDate' => array(
-                    'type' => 'string',
                     'required' => true,
                     'location' => 'xml.query',
                     'filters' => array(
@@ -185,7 +182,6 @@ return array(
                     )
                 ),
                 'departureDate' => array(
-                    'type' => 'string',
                     'required' => true,
                     'location' => 'xml.query',
                     'filters' => array(
