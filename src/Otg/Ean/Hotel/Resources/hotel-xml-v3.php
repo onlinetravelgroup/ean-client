@@ -29,7 +29,7 @@ return array(
                 'minorRev' => array(
                     'location' => 'query',
                     'required' => true,
-                    'default' => '22'
+                    'default' => '26'
                 ),
                 'locale' => array(
                     'location' => 'query',
@@ -440,7 +440,213 @@ return array(
                     )
                 ),
             )
-        )
+        ),
+        'GetHotelList' => array(
+            'extends' => 'AbstractOperation',
+            'httpMethod' => 'GET',
+            'uri' => '{+general_endpoint}/ean-services/rs/hotel/v3/list',
+            'summary' => 'Retrieve a list of hotels by location or a list of specific hotelIds.',
+            'responseClass' => 'HotelListResult',
+            'class' => 'Otg\Ean\\Command\\QueryCommand',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'HotelListRequest',
+                )
+            ),
+            'parameters' => array(
+                'arrivalDate' => array(
+                    'required' => true,
+                    'location' => 'xml.query',
+                    'filters' => array(
+                        'Otg\Ean\Filter\StringFilter::formatUsDate'
+                    )
+                ),
+                'departureDate' => array(
+                    'required' => true,
+                    'location' => 'xml.query',
+                    'filters' => array(
+                        'Otg\Ean\Filter\StringFilter::formatUsDate'
+                    )
+                ),
+                'numberOfResults' => array(
+                    'type' => 'numeric',
+                    'location' => 'xml.query'
+                ),
+                'RoomGroup' => array(
+                    'type' => 'array',
+                    'location' => 'xml.query',
+                    'items' => array(
+                        'type' => 'object',
+                        'sentAs' => 'Room',
+                        'properties' => array(
+                            'numberOfAdults' => array(
+                                'type' => 'numeric',
+                                'minimum' => 1,
+                                'required' => true
+                            ),
+                            'numberOfChildren' => array(
+                                'type' => 'numeric',
+                            ),
+                            'childAges' => array(
+                                'filters' => array(
+                                    'Otg\Ean\Filter\StringFilter::joinValues'
+                                )
+                            )
+                        )
+                    )
+                ),
+                'includeDetails' => array(
+                    'type' => 'boolean',
+                    'location' => 'xml.query'
+                ),
+                'includeHotelFeeBreakdown' => array(
+                    'type' => 'boolean',
+                    'location' => 'xml.query'
+                ),
+
+                /* Use only one of the following methods to limit hotels returned */
+
+                /* Method 1: City/state/country search */
+                'city' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+                'stateProvinceCode' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+                'countryCode' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+
+                /* Method 2: Use a free text destination string */
+                'destinationString' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+
+                /* Method 3: Use a destinationId */
+                'destinationId' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+
+                /* Method 4: Use a list of hotelIds */
+                'hotelIdList' => array(
+                    'location' => 'xml.query',
+                    'filters' => array(
+                        'Otg\Ean\Filter\StringFilter::joinValues'
+                    )
+                ),
+
+                /* Method 5: Search within a geographical area */
+                'latitude' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+                'longitude' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+                'searchRadius' => array(
+                    'type' => 'numeric',
+                    'location' => 'xml.query'
+                ),
+                'searchRadiusUnit' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+
+                /* Additional (secondary) search methods */
+                'address' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+                'postalCode' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+                'propertyName' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+
+                /* Filtering */
+
+                'includeSurrounding' => array(
+                    'type' => 'boolean',
+                    'location' => 'xml.query'
+                ),
+                'propertyCategory' => array(
+                    'location' => 'xml.query',
+                    'filters' => array(
+                        'Otg\Ean\Filter\StringFilter::joinValues'
+                    )
+                ),
+                /* note: amenities is deprecated in favour of local filtering
+                 * http://dev.ean.com/docs/hotel-list/#amenities
+                 */
+                'amenities' => array(
+                    'location' => 'xml.query',
+                    'filters' => array(
+                        'Otg\Ean\Filter\StringFilter::joinValues'
+                    )
+                ),
+                'maxStarRating' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+                'minStarRating' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+                'minRate' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+                'maxRate' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+                'numberOfBedRooms' => array(
+                    'type' => 'numeric',
+                    'location' => 'xml.query'
+                ),
+                'supplierType' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+                'maxRatePlanCount' => array(
+                    'type' => 'numeric',
+                    'location' => 'xml.query'
+                ),
+
+                /**/
+
+                'sort' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+                'options' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+                'supplierCacheTolerance' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+                'cacheKey' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+                'cacheLocation' => array(
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ),
+
+            )
+        ),
     ),
     'models' => array(
         // extended by ChargeableRateInfo and ConvertedRateInfo
@@ -611,6 +817,160 @@ return array(
                         'data' => array(
                             'xmlAttribute' => true
                         )
+                    ),
+                    'HotelFeeBreakdown' => array(
+                        'type' => 'object',
+                        'properties' => array(
+                            'unit' => array(
+                                'type' => 'string',
+                                'data' => array(
+                                    'xmlAttribute' => true
+                                )
+                            ),
+                            'frequency' => array(
+                                'type' => 'string',
+                                'data' => array(
+                                    'xmlAttribute' => true
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        ),
+        'AbstractBedTypes' => array(
+            'type' => 'array',
+            'items' => array(
+                'type' => 'object',
+                'sentAs' => 'BedType',
+                'properties' => array(
+                    'id' => array(
+                        'data' => array(
+                            'xmlAttribute' => true
+                        )
+                    ),
+                    'description' => array(
+                        'type' => 'string'
+                    )
+                )
+            ),
+            'filters' => array(
+                array(
+                    'method' => 'Otg\Ean\Filter\ArrayFilter::reIndex',
+                    'args' => array('@value', 'id', 'description')
+                )
+            )
+        ),
+        'AbstractValueAdds' => array(
+            'type' => 'array',
+            'items' => array(
+                'type' => 'object',
+                'sentAs' => 'ValueAdd',
+                'properties' => array(
+                    'id' => array(
+                        'data' => array(
+                            'xmlAttribute' => true
+                        )
+                    ),
+                    'description' => array(
+                        'type' => 'string'
+                    )
+                )
+            )
+        ),
+        'AbstractRateInfos' => array(
+            'type' => 'array',
+            'items' => array(
+                'sentAs' => 'RateInfo',
+                'type' => 'object',
+                'properties' => array(
+                    'priceBreakdown' => array(
+                        'type' => 'boolean',
+                        'data' => array(
+                            'xmlAttribute' => true
+                        )
+                    ),
+                    'promo' => array(
+                        'type' => 'boolean',
+                        'data' => array(
+                            'xmlAttribute' => true
+                        )
+                    ),
+                    'rateChange' => array(
+                        'type' => 'boolean',
+                        'data' => array(
+                            'xmlAttribute' => true
+                        )
+                    ),
+                    'promoId' => array(
+                        'type' => 'string'
+                    ),
+                    'promoDescription' => array(
+                        'type' => 'string'
+                    ),
+                    'promoDetailText' => array(
+                        'type' => 'string'
+                    ),
+                    'taxRate' => array(
+                        'type' => 'string'
+                    ),
+                    'nonRefundable' => array(
+                        'type' => 'boolean'
+                    ),
+                    'guaranteeRequired' => array(
+                        'type' => 'boolean'
+                    ),
+                    'depositRequired' => array(
+                        'type' => 'boolean'
+                    ),
+                    'deposit' => array(
+                        'sentAs' => 'Deposit',
+                        'type' => 'numeric'
+                    ),
+                    'rateType' => array(
+                        'type' => 'string'
+                    ),
+                    'currentAllotment' => array(
+                        'type' => 'numeric'
+                    ),
+                    'cancellationPolicy' => array(
+                        'type' => 'string'
+                    ),
+                    'CancelPolicyInfoList' => array(
+                        'extends' => 'AbstractCancelPolicyInfoList'
+                    ),
+                    'ChargeableRateInfo' => array(
+                        'extends' => 'AbstractRateObject'
+                    ),
+                    'ConvertedRateInfo' => array(
+                        'extends' => 'AbstractRateObject'
+                    ),
+                    'RoomGroup' => array(
+                        'type' => 'array',
+                        'items' => array(
+                            'type' => 'object',
+                            'sentAs' => 'Room',
+                            'properties' => array(
+                                'numberOfAdults' => array(
+                                    'type' => 'numeric',
+                                ),
+                                'numberOfChildren' => array(
+                                    'type' => 'numeric',
+                                ),
+                                'childAges' => array(
+                                    'type' => 'string'
+                                ),
+                                'rateKey' => array(
+                                    'type' => 'string'
+                                )
+                            )
+                        )
+                    ),
+                    'promoType' => array(
+                        'type' => 'string'
+                    ),
+                    'HotelFees' => array(
+                        'extends' => 'AbstractHotelFees'
                     )
                 )
             )
@@ -705,44 +1065,10 @@ return array(
                                 'type' => 'string',
                             ),
                             'BedTypes' => array(
-                                'type' => 'array',
-                                'items' => array(
-                                    'type' => 'object',
-                                    'sentAs' => 'BedType',
-                                    'properties' => array(
-                                        'id' => array(
-                                            'data' => array(
-                                                'xmlAttribute' => true
-                                            )
-                                        ),
-                                        'description' => array(
-                                            'type' => 'string'
-                                        )
-                                    )
-                                ),
-                                'filters' => array(
-                                    array(
-                                        'method' => 'Otg\Ean\Filter\ArrayFilter::reIndex',
-                                        'args' => array('@value', 'id', 'description')
-                                    )
-                                )
+                                'extends' => 'AbstractBedTypes'
                             ),
                             'ValueAdds' => array(
-                                'type' => 'array',
-                                'items' => array(
-                                    'type' => 'object',
-                                    'sentAs' => 'ValueAdd',
-                                    'properties' => array(
-                                        'id' => array(
-                                            'data' => array(
-                                                'xmlAttribute' => true
-                                            )
-                                        ),
-                                        'description' => array(
-                                            'type' => 'string'
-                                        )
-                                    )
-                                )
+                                'extends' => 'AbstractValueAdds'
                             ),
                             'RoomImages' => array(
                                 'type' => 'array',
@@ -864,98 +1190,7 @@ return array(
                                 )
                             ),
                             'RateInfos' => array(
-                                'type' => 'array',
-                                'items' => array(
-                                    'sentAs' => 'RateInfo',
-                                    'type' => 'object',
-                                    'properties' => array(
-                                        'priceBreakdown' => array(
-                                            'type' => 'boolean',
-                                            'data' => array(
-                                                'xmlAttribute' => true
-                                            )
-                                        ),
-                                        'promo' => array(
-                                            'type' => 'boolean',
-                                            'data' => array(
-                                                'xmlAttribute' => true
-                                            )
-                                        ),
-                                        'rateChange' => array(
-                                            'type' => 'boolean',
-                                            'data' => array(
-                                                'xmlAttribute' => true
-                                            )
-                                        ),
-                                        'promoId' => array(
-                                            'type' => 'string'
-                                        ),
-                                        'promoDescription' => array(
-                                            'type' => 'string'
-                                        ),
-                                        'promoDetailText' => array(
-                                            'type' => 'string'
-                                        ),
-                                        'taxRate' => array(
-                                            'type' => 'string'
-                                        ),
-                                        'nonRefundable' => array(
-                                            'type' => 'boolean'
-                                        ),
-                                        'guaranteeRequired' => array(
-                                            'type' => 'boolean'
-                                        ),
-                                        'depositRequired' => array(
-                                            'type' => 'boolean'
-                                        ),
-                                        'deposit' => array(
-                                            'sentAs' => 'Deposit',
-                                            'type' => 'numeric'
-                                        ),
-                                        'rateType' => array(
-                                            'type' => 'string'
-                                        ),
-                                        'currentAllotment' => array(
-                                            'type' => 'numeric'
-                                        ),
-                                        'cancellationPolicy' => array(
-                                            'type' => 'string'
-                                        ),
-                                        'CancelPolicyInfoList' => array(
-                                            'extends' => 'AbstractCancelPolicyInfoList'
-                                        ),
-                                        'ChargeableRateInfo' => array(
-                                            'extends' => 'AbstractRateObject'
-                                        ),
-                                        'ConvertedRateInfo' => array(
-                                            'extends' => 'AbstractRateObject'
-                                        ),
-                                        'RoomGroup' => array(
-                                            'type' => 'array',
-                                            'items' => array(
-                                                'type' => 'object',
-                                                'sentAs' => 'Room',
-                                                'properties' => array(
-                                                    'numberOfAdults' => array(
-                                                        'type' => 'numeric',
-                                                    ),
-                                                    'numberOfChildren' => array(
-                                                        'type' => 'numeric',
-                                                    ),
-                                                    'childAges' => array(
-                                                        'type' => 'string'
-                                                    )
-                                                )
-                                            )
-                                        ),
-                                        'promoType' => array(
-                                            'type' => 'string'
-                                        ),
-                                        'HotelFees' => array(
-                                            'extends' => 'AbstractHotelFees'
-                                        )
-                                    )
-                                )
+                                'extends' => 'AbstractRateInfos'
                             )
                         ),
                     )
@@ -1161,6 +1396,269 @@ return array(
                                 )
                             ),
 
+                        )
+                    )
+                )
+            )
+        ),
+        'HotelListResult' => array(
+            'type' => 'object',
+            'properties' => array(
+                'moreResultsAvailable' => array(
+                    'location' => 'xml',
+                    'type' => 'boolean'
+                ),
+                'numberOfRoomsRequested' => array(
+                    'location' => 'xml',
+                    'type' => 'numeric'
+                ),
+                'cacheKey' => array(
+                    'location' => 'xml',
+                    'type' => 'string'
+                ),
+                'cacheLocation' => array(
+                    'location' => 'xml',
+                    'type' => 'string'
+                ),
+                'HotelList' => array(
+                    'location' => 'xml',
+                    'type' => 'array',
+                    'items' => array(
+                        'sentAs' => 'HotelSummary',
+                        'type' => 'object',
+                        'properties' => array(
+                            'hotelId' => array(
+                                'type' => 'numeric'
+                            ),
+                            'name' => array(
+                                'type' => 'string'
+                            ),
+                            'address1' => array(
+                                'type' => 'string'
+                            ),
+                            'city' => array(
+                                'type' => 'string'
+                            ),
+                            'stateProvinceCode' => array(
+                                'type' => 'string'
+                            ),
+                            'countryCode' => array(
+                                'type' => 'string'
+                            ),
+                            'postalCode' => array(
+                                'type' => 'string'
+                            ),
+                            'airportCode' => array(
+                                'type' => 'string'
+                            ),
+                            'supplierType' => array(
+                                'type' => 'string'
+                            ),
+                            'propertyCategory' => array(
+                                'type' => 'string'
+                            ),
+                            'hotelRating' => array(
+                                'type' => 'string'
+                            ),
+                            'confidenceRating' => array(
+                                'type' => 'numeric'
+                            ),
+                            'amenityMask' => array(
+                                'type' => 'numeric'
+                            ),
+                            'shortDescription' => array(
+                                'type' => 'string'
+                            ),
+                            'locationDescription' => array(
+                                'type' => 'string'
+                            ),
+                            'lowRate' => array(
+                                'type' => 'string'
+                            ),
+                            'highRate' => array(
+                                'type' => 'string'
+                            ),
+                            'rateCurrencyCode' => array(
+                                'type' => 'string'
+                            ),
+                            'latitude' => array(
+                                'type' => 'string'
+                            ),
+                            'longitude' => array(
+                                'type' => 'string'
+                            ),
+                            'proximityDistance' => array(
+                                'type' => 'string'
+                            ),
+                            'proximityUnit' => array(
+                                'type' => 'string'
+                            ),
+                            'hotelInDestination' => array(
+                                'type' => 'boolean'
+                            ),
+                            'thumbnailPath' => array(
+                                'type' => 'string',
+                                'sentAs' => 'thumbNailUrl'
+                            ),
+                            'deepLink' => array(
+                                'type' => 'string'
+                            ),
+                            'RoomRateDetailsList' => array(
+                                'type' => 'array',
+                                'items' => array(
+                                    'sentAs' => 'RoomRateDetails',
+                                    'type' => 'object',
+                                    'properties' => array(
+                                        'roomTypeCode' => array(
+                                            'type' => 'string'
+                                        ),
+                                        'rateCode' => array(
+                                            'type' => 'string'
+                                        ),
+                                        'maxRoomOccupancy' => array(
+                                            'type' => 'numeric'
+                                        ),
+                                        'quotedRoomOccupancy' => array(
+                                            'type' => 'numeric'
+                                        ),
+                                        'minGuestAge' => array(
+                                            'type' => 'numeric'
+                                        ),
+                                        'roomDescription' => array(
+                                            'type' => 'string'
+                                        ),
+                                        'promoId' => array(
+                                            'type' => 'string'
+                                        ),
+                                        'promoDescription' => array(
+                                            'type' => 'string'
+                                        ),
+                                        'promoDetailText' => array(
+                                            'type' => 'string'
+                                        ),
+                                        'currentAllotment' => array(
+                                            'type' => 'numeric'
+                                        ),
+                                        'propertyAvailable' => array(
+                                            'type' => 'boolean'
+                                        ),
+                                        'propertyRestricted' => array(
+                                            'type' => 'boolean'
+                                        ),
+                                        'expediaPropertyId' => array(
+                                            'type' => 'string'
+                                        ),
+                                        'BedTypes' => array(
+                                            'extends' => 'AbstractBedTypes'
+                                        ),
+                                        'rateKey' => array(
+                                            'type' => 'string'
+                                        ),
+                                        'smokingPreferences' => array(
+                                            'type' => 'string'
+                                        ),
+                                        'nonRefundable' => array(
+                                            'type' => 'boolean'
+                                        ),
+                                        'ValueAdds' => array(
+                                            'extends' => 'AbstractValueAdds'
+                                        ),
+                                        'RateInfos' => array(
+                                            'extends' => 'AbstractRateInfos'
+                                        )
+                                    )
+                                )
+                            ),
+                        )
+                    )
+                ),
+                'cachedSupplierResponse' => array(
+                    'location' => 'xml',
+                    'type' => 'object',
+                    'properties' => array(
+                        'cacheEntryHitNum' => array(
+                            'type' => 'numeric',
+                            'data' => array(
+                                'xmlAttribute' => true
+                            )
+                        ),
+                        'cacheEntryMissNum' => array(
+                            'type' => 'numeric',
+                            'data' => array(
+                                'xmlAttribute' => true
+                            )
+                        ),
+                        'cacheEntryExpiredNum' => array(
+                            'type' => 'numeric',
+                            'data' => array(
+                                'xmlAttribute' => true
+                            )
+                        ),
+                        'cacheRetrievalTime' => array(
+                            'type' => 'numeric',
+                            'data' => array(
+                                'xmlAttribute' => true
+                            )
+                        ),
+                        'supplierRequestNum' => array(
+                            'type' => 'numeric',
+                            'data' => array(
+                                'xmlAttribute' => true
+                            )
+                        ),
+                        'supplierResponseNum' => array(
+                            'type' => 'numeric',
+                            'data' => array(
+                                'xmlAttribute' => true
+                            )
+                        ),
+                        'supplierResponseTime' => array(
+                            'type' => 'numeric',
+                            'data' => array(
+                                'xmlAttribute' => true
+                            )
+                        ),
+                        'candidatePrepTime' => array(
+                            'type' => 'numeric',
+                            'data' => array(
+                                'xmlAttribute' => true
+                            )
+                        ),
+                        'otherOverheadTime' => array(
+                            'type' => 'numeric',
+                            'data' => array(
+                                'xmlAttribute' => true
+                            )
+                        ),
+                        'tpidUsed' => array(
+                            'type' => 'numeric',
+                            'data' => array(
+                                'xmlAttribute' => true
+                            )
+                        ),
+                        'matchedCurrency' => array(
+                            'type' => 'boolean',
+                            'data' => array(
+                                'xmlAttribute' => true
+                            )
+                        ),
+                        'matchedLocale' => array(
+                            'type' => 'boolean',
+                            'data' => array(
+                                'xmlAttribute' => true
+                            )
+                        ),
+                        'extrapolatedCurrency' => array(
+                            'type' => 'boolean',
+                            'data' => array(
+                                'xmlAttribute' => true
+                            )
+                        ),
+                        'extrapolatedLocale' => array(
+                            'type' => 'boolean',
+                            'data' => array(
+                                'xmlAttribute' => true
+                            )
                         )
                     )
                 )
