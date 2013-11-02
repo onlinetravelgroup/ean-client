@@ -99,9 +99,9 @@ class IntegrationTest extends GuzzleTestCase
         // values defined in phpunit.xml and hotel-v3.php
         $this->assertEquals($_SERVER['CID'],             $query->get('cid'));
         $this->assertEquals($_SERVER['API_KEY'],         $query->get('apiKey'));
-        $this->assertEquals(22,                          $query->get('minorRev'));
-        $this->assertEquals('en_US',                     $query->get('locale'));
-        $this->assertEquals('AUD',                       $query->get('currencyCode'));
+        $this->assertNotEmpty($query->get('minorRev'));
+        $this->assertNotEmpty($query->get('locale'));
+        $this->assertNotEmpty($query->get('currencyCode'));
         $this->assertEquals($_SERVER['REMOTE_ADDR'],     $query->get('customerIpAddress'));
         $this->assertEquals($_SERVER['HTTP_USER_AGENT'], $query->get('customerUserAgent'));
     }
