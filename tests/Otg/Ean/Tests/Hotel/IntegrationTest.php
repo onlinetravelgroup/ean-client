@@ -142,7 +142,7 @@ class IntegrationTest extends GuzzleTestCase
         $result = $client->getCommand('GetRoomAvailability', $this->baseParameters)->getResult();
 
         $this->assertInternalType('array', $result->get('Rooms'));
-        $this->assertEquals(200995943, $result->get('Rooms')[0]['rateCode']);
+        $this->assertEquals(200995943, $result['Rooms'][0]['rateCode']);
     }
 
     /**
@@ -155,7 +155,7 @@ class IntegrationTest extends GuzzleTestCase
 
         $result = $client->getCommand('GetRoomAvailability', $this->baseParameters)->getResult();
 
-        $this->assertEquals(635.06, $result->get('Rooms')[0]['RateInfos'][0]['ChargeableRateInfo']['total']);
+        $this->assertEquals(635.06, $result['Rooms'][0]['RateInfos'][0]['ChargeableRateInfo']['total']);
     }
 
     public function testReservationResult()
@@ -165,7 +165,7 @@ class IntegrationTest extends GuzzleTestCase
 
         $result = $client->getCommand('PostReservation', $this->resParameters)->getResult();
 
-        $this->assertEquals(645.86, $result->get('RateInfos')[0]['ChargeableRateInfo']['total']);
+        $this->assertEquals(645.86, $result['RateInfos'][0]['ChargeableRateInfo']['total']);
     }
 
     /**
@@ -191,7 +191,7 @@ class IntegrationTest extends GuzzleTestCase
 
         $result = $client->getCommand('PostReservation', $this->resParameters)->getResult();
 
-        $surcharges = $result->get('RateInfos')[0]['ChargeableRateInfo']['Surcharges'];
+        $surcharges = $result['RateInfos'][0]['ChargeableRateInfo']['Surcharges'];
 
         $this->assertEquals(array(
             0 => array(
