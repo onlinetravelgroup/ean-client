@@ -20,10 +20,10 @@ class HotelClient extends Client
      * Gets a new HotelClient
      *
      * @param array $config
-     * - cid: EAN CID
-     * - key: API Key
-     * - ip: Customer's IP Address
-     * - agent: Customer's User Agent
+     * - ean_cid: EAN CID
+     * - api_key: API Key
+     * - customer_ip_address: Customer's IP Address
+     * - customer_user_agent: Customer's User Agent
      *
      * @return HotelClient|Client
      */
@@ -34,7 +34,7 @@ class HotelClient extends Client
             'general_endpoint' => 'http://api.ean.com',
         );
 
-        $required = array('cid', 'key', 'booking_endpoint', 'general_endpoint');
+        $required = array('ean_cid', 'api_key', 'booking_endpoint', 'general_endpoint');
         $config = Collection::fromConfig($config, $default, $required);
 
         $client = new self(null, $config);
@@ -49,10 +49,10 @@ class HotelClient extends Client
             function (Event $event) use ($config) {
                 $event['command']->set('booking_endpoint', $config['booking_endpoint']);
                 $event['command']->set('general_endpoint', $config['general_endpoint']);
-                $event['command']->set('cid', $config['cid']);
-                $event['command']->set('apiKey', $config['key']);
-                $event['command']->set('customerIpAddress', $config['ip']);
-                $event['command']->set('customerUserAgent', $config['agent']);
+                $event['command']->set('cid', $config['ean_cid']);
+                $event['command']->set('apiKey', $config['api_key']);
+                $event['command']->set('customerIpAddress', $config['customer_ip_address']);
+                $event['command']->set('customerUserAgent', $config['customer_user_agent']);
             });
 
         $dispatcher->addSubscriber(new EanErrorPlugin());

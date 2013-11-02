@@ -9,8 +9,8 @@ GuzzleTestCase::setMockBasePath(__DIR__ . '/mock');
 
 GuzzleTestCase::setServiceBuilder(
     ServiceBuilder::factory(__DIR__ . '/..' . $_SERVER['CONFIG'], array(
-        'cid'   => $_SERVER['CID'],
-        'key'   => $_SERVER['API_KEY'],
-        'ip'    => $_SERVER['REMOTE_ADDR'],
-        'agent' => $_SERVER['HTTP_USER_AGENT']
+        'ean_cid'   => $_SERVER['CID'],
+        'api_key'   => $_SERVER['API_KEY'],
+        'customer_ip_address' => $_SERVER['REMOTE_ADDR'],
+        'customer_user_agent' => $_SERVER['HTTP_USER_AGENT']
 )));
