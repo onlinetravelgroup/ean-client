@@ -1,5 +1,5 @@
 <?php
-// Copyright 2013 Online Travel Group (info@onlinetravelgroup.com.au)
+
 require __DIR__ . '/../vendor/autoload.php';
 
 use Guzzle\Tests\GuzzleTestCase;
