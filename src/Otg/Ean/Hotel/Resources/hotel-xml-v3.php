@@ -456,14 +456,12 @@ return array(
             ),
             'parameters' => array(
                 'arrivalDate' => array(
-                    'required' => true,
                     'location' => 'xml.query',
                     'filters' => array(
                         'Otg\Ean\Filter\StringFilter::formatUsDate'
                     )
                 ),
                 'departureDate' => array(
-                    'required' => true,
                     'location' => 'xml.query',
                     'filters' => array(
                         'Otg\Ean\Filter\StringFilter::formatUsDate'
