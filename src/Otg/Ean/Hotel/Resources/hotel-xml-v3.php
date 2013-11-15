@@ -451,7 +451,8 @@ return array(
             'data' => array(
                 'xmlRoot' => array(
                     'name' => 'HotelListRequest',
-                )
+                ),
+                'modelClass' => 'Otg\Ean\Hotel\Model\HotelListResponse',
             ),
             'parameters' => array(
                 'arrivalDate' => array(
