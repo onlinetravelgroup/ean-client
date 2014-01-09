@@ -646,6 +646,40 @@ return array(
 
             )
         ),
+        'GetRoomCancellation' => array(
+            'extends' => 'AbstractOperation',
+            'httpMethod' => 'GET',
+            'uri' => '{+general_endpoint}/ean-services/rs/hotel/v3/cancel',
+            'summery' => 'Cancel the room reservation by confirmation number',
+            'responseClass' => 'RoomCancellationResult',
+            'class' => 'Otg\Ean\\Command\\QueryCommand',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'HotelRoomCancellationRequest',
+                ),
+            ),
+            'parameters' => array(
+                'itineraryId' => array(
+                    'location' => 'xml.query',
+                    'type' => 'numeric',
+                    'required' => true,
+                ),
+                'email' => array(
+                    'location' => 'xml.query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'confirmationNumber' => array(
+                    'location' => 'xml.query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'reason' => array(
+                    'location' => 'xml.query',
+                    'type' => 'string'
+                )
+            ),
+        ),
     ),
     'models' => array(
         // extended by ChargeableRateInfo and ConvertedRateInfo
@@ -1662,6 +1696,19 @@ return array(
                     )
                 )
             )
-        )
+        ),
+        'RoomCancellationResult' => array(
+            'type' => 'object',
+            'properties' => array(
+                'cancellationNumber' => array(
+                    'location' => 'xml',
+                    'type' => 'string'
+                ),
+                'customerSessionId' => array(
+                    'location' => 'xml',
+                    'type' => 'string'
+                )
+            )
+        ),
     )
 );
