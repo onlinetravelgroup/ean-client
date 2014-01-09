@@ -1,13 +1,17 @@
 # ean-client
 
-PHP client for consuming the EAN API, based on Guzzle
+PHP client for consuming the EAN API, based on Guzzle.
 
-## API
+## Example
+
+### Get Hotel List
 
 ```php
+<?php
+
 use Otg\Ean\Hotel\HotelClient;
 
-// instantiate the client
+// Instantiate the client
 
 $config = array(
     'api_key' => 'cbrzfta369qwyrm9t5b8y8kf',
@@ -18,7 +22,7 @@ $config = array(
 
 $client = HotelClient::factory($config);
 
-// retrieve hotel availability
+// Retrieve hotel availability
 
 $hotels = $client->getCommand('GetHotelList', array(
     'city' => 'Montpellier',
@@ -31,7 +35,13 @@ $hotels = $client->getCommand('GetHotelList', array(
 ))->getResult();
 ```
 
-Other commands available at the moment are `GetRoomAvailability` and `PostReservation`.
+Other commands available at the moment are `GetRoomAvailability`, `GetRoomCancellation` and `PostReservation`.
+
+## Related Projects
+
+* [Guzzle][] - PHP HTTP client and framework
+
+[guzzle]: http://guzzlephp.org
 
 ## License
 
