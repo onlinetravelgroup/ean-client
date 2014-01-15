@@ -316,4 +316,47 @@ class IntegrationTest extends GuzzleTestCase
 
         $this->assertEquals('08/22/2013', (string) $xml->departureDate);
     }
+
+    /**
+     * The XML query parameter for room cancellation is according to service description
+     */
+    public function testRoomCancellationRequestXml()
+    {
+        $parameters = array(
+            'email' => 'developer@hotels.com.au',
+            'confirmationNumber' => 'C1234',
+            'itineraryId' => 1234,
+            'reason' => 'HOC',
+        );
+        $client = $this->getServiceBuilder()->get('hotel', true);
+        $request = $client->getCommand('GetRoomCancellation', $parameters)->prepare();
+
+        //Ensure the valid xml request generated
+        $xml = simplexml_load_string($request->getQuery()->get('xml'));
+
+        $this->assertEquals('HotelRoomCancellationRequest', (string)$xml->getName());
+        $this->assertEquals(1234, (integer)$xml->itineraryId);
+        $this->assertEquals('C1234', (string)$xml->confirmationNumber);
+        $this->assertEquals('developer@hotels.com.au', (string)$xml->email);
+        $this->assertEquals('HOC', (string)$xml->reason);
+    }
+
+    /**
+     * Response XML from room cancellation contains fields from service description properties
+     */
+    public function testRoomCancellationResponse()
+    {
+        $parameters =array(
+            'email' => 'developer@hotels.com.au',
+            'confirmationNumber' => 'C1234',
+            'itineraryId' => 1234,
+        );
+        $client = $this->getServiceBuilder()->get('hotel', true);
+        $this->setMockResponse($client, 'room_cancellation_response');
+
+        $result = $client->getCommand('GetRoomCancellation', $parameters)->getResult();
+
+        $this->assertEquals("CA5678", $result['cancellationNumber']);
+        $this->assertEquals("S1020", $result['customerSessionId']);
+    }
 }
