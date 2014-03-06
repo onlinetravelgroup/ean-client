@@ -23,14 +23,14 @@ class XmlQueryVisitor extends XmlVisitor
 
         // If data was found that needs to be serialized, then do so
         if (isset($this->data[$command])) {
-            $xml = $this->finishDocument($this->writer);
+            $xml = $this->finishDocument($this->data[$command]);
             unset($this->data[$command]);
         } else {
             // Check if XML should always be sent for the command
             $operation = $command->getOperation();
             if ($operation->getData('xmlAllowEmpty')) {
-                $xml = $this->createRootElement($operation)->asXML();
-
+                $xmlWriter = $this->createRootElement($operation);
+                $xml = $this->finishDocument($xmlWriter);
             }
         }
 
