@@ -1,12 +1,16 @@
 {
     "name": "onlinetravelgroup/ean-client",
-    "description": "Client for consuming the EAN API, based on Guzzle",
+    "description": "Client for consuming the EAN Hotel API, based on Guzzle",
     "require": {
-        "guzzle/guzzle": "~3.8.1"
+        "php": ">=5.4",
+        "guzzlehttp/guzzle-services": "~0.3"
+    },
+    "require-dev": {
+        "guzzlehttp/log-subscriber": "~1.0"
     },
     "autoload": {
-        "psr-0": {
-            "Otg\\Ean": "src/"
+        "psr-4": {
+            "Otg\\Ean\\": "src/"
         }
     },
     "authors": [
@@ -15,5 +19,10 @@
             "email": "rhughes@hotels.com.au"
         }
     ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    },
     "license": "MIT"
 }
