@@ -2,11 +2,11 @@
 
 A PHP implementation of the EAN Hotel API.
 
+This project currently implements the Hotel List, Room Availability, Book Reservation and Cancel Reservation requests. For information on the API and possible request parameters refer to EANs official documentation, http://dev.ean.com/
+
 ## Usage
 
 You will need an API Key and CID to run the examples. You can get them from EAN by signing up as a developer https://devsecure.ean.com/member/register
-
-For information on the API and possible request parameters refer to EANs official documentation, http://dev.ean.com/. This project currently implements the Hotel List, Room Availability, Book Reservation and Cancel Reservation requests.
 
 ### Basic hotel search
 
