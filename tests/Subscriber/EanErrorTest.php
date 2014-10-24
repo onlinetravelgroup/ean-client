@@ -70,4 +70,48 @@ class EanErrorTest extends \PHPUnit_Framework_TestCase
 
         $client->execute($command);
     }
+
+    /**
+     * Some API responses contain an EanWsError attribute instead of EanError
+     */
+    public function testEanErrorException_EanWsError()
+    {
+        $client = HotelClient::factory();
+
+        $mock = new Mock(array(new Response(200, ['Content-Type' => 'application/xml'], Stream::factory(
+            '<ns2:HotelListResponse xmlns:ns2="http://v3.hotel.wsapi.ean.com/">' .
+                '<EanWsError>' .
+                    '<itineraryId>-1</itineraryId>' .
+                    '<handling>RECOVERABLE</handling>' .
+                    '<category>DATA_VALIDATION</category>' .
+                    '<exceptionConditionId>-1</exceptionConditionId>' .
+                    '<presentationMessage>Data in this request could not be ' .
+                        'validated: Specified city could not be resolved as valid ' .
+                        'location.' .
+                    '</presentationMessage>' .
+                    '<verboseMessage>Data in this request could not be validated: ' .
+                        'Specified city could not be resolved as valid location.' .
+                    '</verboseMessage>' .
+                    '<ServerInfo instance="131" timestamp="1413960307" serverTime="01:45:07.109-0500"/>' .
+                '</EanWsError>' .
+                '<customerSessionId>0ABAAA83-0D3B-C891-4932-697275196B14</customerSessionId>' .
+            '</ns2:HotelListResponse>'
+        ))));
+
+        $client->getHttpClient()->getEmitter()->attach($mock);
+        $client->getEmitter()->attach(new EanError());
+
+        $command = $client->getCommand('GetHotelList');
+
+        try {
+            $client->execute($command);
+        } catch (EanErrorException $e) {
+            $this->assertEquals('RECOVERABLE', $e->getHandling());
+            $this->assertEquals('DATA_VALIDATION', $e->getCategory());
+
+            return true;
+        }
+
+        $this->fail("An EanErrorException was not thrown");
+    }
 }

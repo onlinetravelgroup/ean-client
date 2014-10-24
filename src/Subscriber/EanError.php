@@ -21,13 +21,16 @@ class EanError implements SubscriberInterface
     {
         $response = $event->getResponse()->xml();
 
-        if (isset($response->EanError)) {
-            $e = new EanErrorException((string) $response->EanError->presentationMessage);
+        $eanError = $response->EanError ?: $response->EanWsError;
 
-            $e->setHandling((string) $response->EanError->handling);
-            $e->setCategory((string) $response->EanError->category);
-            $e->setVerboseMessage((string) $response->EanError->verboseMessage);
-            $e->setItineraryId((string) $response->EanError->itineraryId);
+        if ($eanError) {
+
+            $e = new EanErrorException((string) $eanError->presentationMessage);
+
+            $e->setHandling((string) $eanError->handling);
+            $e->setCategory((string) $eanError->category);
+            $e->setVerboseMessage((string) $eanError->verboseMessage);
+            $e->setItineraryId((string) $eanError->itineraryId);
 
             CommandEvents::emitError($event->getTransaction(), $e);
         }

@@ -5,4 +5,7 @@
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
+    <php>
+        <ini name="error_reporting" value="2147483647"/> <!-- E_ALL -->
+    </php>
 </phpunit>
