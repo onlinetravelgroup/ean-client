@@ -2,7 +2,7 @@
 
 namespace Otg\Ean\Subscriber;
 
-use GuzzleHttp\Command\Event\PrepareEvent;
+use GuzzleHttp\Command\Event\PreparedEvent;
 use GuzzleHttp\Event\SubscriberInterface;
 
 class ContentLength  implements SubscriberInterface
@@ -12,10 +12,10 @@ class ContentLength  implements SubscriberInterface
      */
     public function getEvents()
     {
-        return ['prepare' => ['onPrepare', 'last']];
+        return ['prepared' => ['onPrepared', 'last']];
     }
 
-    public function onPrepare(PrepareEvent $event)
+    public function onPrepared(PreparedEvent $event)
     {
         // no requests have a body but EAN/Akamai still requires this header
         $event->getRequest()->setHeader('Content-Length', '0');

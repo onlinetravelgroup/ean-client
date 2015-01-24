@@ -2,7 +2,7 @@
 
 namespace Otg\Ean\RequestLocation;
 
-use GuzzleHttp\Command\Guzzle\GuzzleCommandInterface;
+use GuzzleHttp\Command\CommandInterface;
 use GuzzleHttp\Command\Guzzle\Operation;
 use GuzzleHttp\Command\Guzzle\RequestLocation\XmlLocation;
 use GuzzleHttp\Message\RequestInterface;
@@ -18,7 +18,7 @@ class XmlQueryLocation extends XmlLocation
      * {@inheritdoc}
      */
     public function after(
-        GuzzleCommandInterface $command,
+        CommandInterface $command,
         RequestInterface $request,
         Operation $operation,
         array $context

@@ -2,7 +2,9 @@
 
 namespace Otg\Ean;
 
-class EanErrorException extends \UnexpectedValueException
+use GuzzleHttp\Command\Exception\CommandException;
+
+class EanErrorException extends CommandException
 {
     /**
      * @var string Handling code for the error

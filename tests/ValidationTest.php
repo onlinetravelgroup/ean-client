@@ -12,7 +12,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
     public function testReservationSpecialInformationFiltersNewLines()
     {
         $client = HotelClient::factory();
-        $param = $client->getCommand('PostReservation')->getOperation()->getParam('specialInformation');
+        $param = $client->getDescription()->getOperation('PostReservation')->getParam('specialInformation');
 
         $this->assertEquals("I want thisAnd this", $param->filter("I want this\nAnd this"), 'specialInformation cannot contain new lines');
     }
@@ -24,7 +24,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
     public function testReservationMaxSpecialInformation()
     {
         $client = HotelClient::factory();
-        $param = $client->getCommand('PostReservation')->getOperation()->getParam('specialInformation');
+        $param = $client->getDescription()->getOperation('PostReservation')->getParam('specialInformation');
 
         $input = str_repeat('a', 300);
 
@@ -41,7 +41,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
         $input = str_repeat('a', 300);
 
-        $param = $client->getCommand('PostReservation')->getOperation()->getParam('RoomGroup')->getItems()->getProperty('firstName');
+        $param = $client->getDescription()->getOperation('PostReservation')->getParam('RoomGroup')->getItems()->getProperty('firstName');
         $this->assertEquals(25, strlen($param->filter($input)), 'Room.firstName cannot contain more than 25 characters');
     }
 
@@ -55,7 +55,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
         $input = str_repeat('a', 300);
 
-        $param = $client->getCommand('PostReservation')->getOperation()->getParam('ReservationInfo')->getProperty('firstName');
+        $param = $client->getDescription()->getOperation('PostReservation')->getParam('ReservationInfo')->getProperty('firstName');
         $this->assertEquals(25, strlen($param->filter($input)), 'ReservationInfo.firstName cannot contain more than 25 characters');
     }
 
@@ -69,7 +69,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
         $input = str_repeat('a', 300);
 
-        $param = $client->getCommand('PostReservation')->getOperation()->getParam('RoomGroup')->getItems()->getProperty('lastName');
+        $param = $client->getDescription()->getOperation('PostReservation')->getParam('RoomGroup')->getItems()->getProperty('lastName');
         $this->assertEquals(40, strlen($param->filter($input)), 'Room.lastName cannot contain more than 40 characters');
     }
 
@@ -83,7 +83,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
         $input = str_repeat('a', 300);
 
-        $param = $client->getCommand('PostReservation')->getOperation()->getParam('ReservationInfo')->getProperty('lastName');
+        $param = $client->getDescription()->getOperation('PostReservation')->getParam('ReservationInfo')->getProperty('lastName');
         $this->assertEquals(40, strlen($param->filter($input)), 'ReservationInfo.lastName cannot contain more than 40 characters');
     }
 
@@ -97,7 +97,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
         $input = str_repeat('a', 300);
 
-        $param = $client->getCommand('PostReservation')->getOperation()->getParam('ReservationInfo')->getProperty('extension');
+        $param = $client->getDescription()->getOperation('PostReservation')->getParam('ReservationInfo')->getProperty('extension');
         $this->assertEquals(5, strlen($param->filter($input)), 'ReservationInfo.extension cannot contain more than 5 characters');
     }
 
@@ -111,13 +111,13 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
         $input = str_repeat('a', 300);
 
-        $param = $client->getCommand('PostReservation')->getOperation()->getParam('AddressInfo')->getProperty('address1');
+        $param = $client->getDescription()->getOperation('PostReservation')->getParam('AddressInfo')->getProperty('address1');
         $this->assertEquals(28, strlen($param->filter($input)), 'AddressInfo.address1 cannot contain more than 28 characters');
 
-        $param = $client->getCommand('PostReservation')->getOperation()->getParam('AddressInfo')->getProperty('address2');
+        $param = $client->getDescription()->getOperation('PostReservation')->getParam('AddressInfo')->getProperty('address2');
         $this->assertEquals(28, strlen($param->filter($input)), 'AddressInfo.address2 cannot contain more than 28 characters');
 
-        $param = $client->getCommand('PostReservation')->getOperation()->getParam('AddressInfo')->getProperty('address3');
+        $param = $client->getDescription()->getOperation('PostReservation')->getParam('AddressInfo')->getProperty('address3');
         $this->assertEquals(28, strlen($param->filter($input)), 'AddressInfo.address3 cannot contain more than 28 characters');
     }
 
@@ -131,7 +131,7 @@ class ValidationTest extends \PHPUnit_Framework_TestCase
 
         $input = str_repeat('a', 300);
 
-        $param = $client->getCommand('PostReservation')->getOperation()->getParam('AddressInfo')->getProperty('postalCode');
+        $param = $client->getDescription()->getOperation('PostReservation')->getParam('AddressInfo')->getProperty('postalCode');
         $this->assertEquals(10, strlen($param->filter($input)), 'AddressInfo.postalCode cannot contain more than 10 characters');
     }
 }

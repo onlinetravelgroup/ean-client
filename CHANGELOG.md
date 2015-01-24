@@ -1,3 +1,10 @@
+### 0.4.0
+
+ * Commands now return arrays instead of GuzzleHttp\Command\Model objects 
+ * Removed Otg\Ean\Result\HotelListResult and Otg\Ean\ResultRoomAvailabilityResult
+ * Otg\Ean\EanErrorException now extends GuzzleHttp\Command\Exception\CommandException and is no longer an \UnexpectedValueException
+
+
 ### 0.3.0
 
   * Break: Migrated from Guzzle 3 to Guzzle 4

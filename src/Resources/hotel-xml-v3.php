@@ -1004,7 +1004,6 @@ return array(
         ),
         'RoomAvailabilityResponse' => array(
             'type' => 'object',
-            'class' => 'Otg\Ean\Result\RoomAvailabilityResult',
             'properties' => array(
                 'hotelId' => array(
                     'location' => 'xml',
@@ -1431,7 +1430,6 @@ return array(
         ),
         'HotelListResponse' => array(
             'type' => 'object',
-            'class' => 'Otg\Ean\Result\HotelListResult',
             'properties' => array(
                 'moreResultsAvailable' => array(
                     'location' => 'xml',
