@@ -18,7 +18,14 @@ class EanErrorTest extends \PHPUnit_Framework_TestCase
      */
     public function testEanErrorException()
     {
-        $client = HotelClient::factory();
+        $client = HotelClient::factory([
+            'defaults' => [
+                'cid' => '',
+                'apiKey' => '',
+                'customerIpAddress'  => '',
+                'customerUserAgent'  => '',
+            ]
+        ]);
 
         $mock = new Mock(array(new Response(200, ['Content-Type' => 'application/xml'], Stream::factory(
             '<ns2:HotelRoomReservationResponse xmlns:ns2="http://v3.hotel.wsapi.ean.com/">' .
@@ -76,7 +83,14 @@ class EanErrorTest extends \PHPUnit_Framework_TestCase
      */
     public function testEanErrorException_EanWsError()
     {
-        $client = HotelClient::factory();
+        $client = HotelClient::factory([
+            'defaults' => [
+                'cid' => '',
+                'apiKey' => '',
+                'customerIpAddress'  => '',
+                'customerUserAgent'  => '',
+            ]
+        ]);
 
         $mock = new Mock(array(new Response(200, ['Content-Type' => 'application/xml'], Stream::factory(
             '<ns2:HotelListResponse xmlns:ns2="http://v3.hotel.wsapi.ean.com/">' .

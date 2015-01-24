@@ -35,19 +35,10 @@ class HotelClient extends GuzzleClient
         $defaults = array(
             'serializer' => new Serializer($description, array(
                 'xml.query' => new XmlQueryLocation('xml.query')
-            )),
-            'defaults' => array(
-                'booking_endpoint' => 'https://book.api.ean.com',
-                'general_endpoint' => 'http://api.ean.com',
-                'cid' => '',
-                'apiKey' => '',
-                'customerIpAddress' => '',
-                'customerUserAgent' => '',
-            )
+            ))
         );
 
         $config += $defaults;
-        $config['defaults'] += $defaults['defaults'];
 
         $httpClient = new HttpClient($httpConfig);
 

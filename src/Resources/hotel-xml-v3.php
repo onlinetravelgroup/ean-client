@@ -10,13 +10,15 @@ return array(
     'operations' => array(
         'AbstractOperation' => array(
             'parameters' => array(
-                'general_endpoint' => array(
+                'generalEndpoint' => array(
                     'location' => 'uri',
-                    'required' => true
+                    'required' => true,
+                    'default' => 'http://api.ean.com'
                 ),
-                'booking_endpoint' => array(
+                'bookingEndpoint' => array(
                     'location' => 'uri',
-                    'required' => true
+                    'required' => true,
+                    'default' => 'https://book.api.ean.com'
                 ),
                 'cid' => array(
                     'location' => 'query',
@@ -69,7 +71,7 @@ return array(
         'GetRoomAvailability' => array(
             'extends' => 'AbstractOperation',
             'httpMethod' => 'GET',
-            'uri' => '{+general_endpoint}/ean-services/rs/hotel/v3/avail',
+            'uri' => '{+generalEndpoint}/ean-services/rs/hotel/v3/avail',
             'summary' => 'Retrieve all available rooms at a specific hotel that accommodate the provided guest count and any other criteria.',
             'responseModel' => 'RoomAvailabilityResponse',
             'data' => array(
@@ -157,7 +159,7 @@ return array(
         'PostReservation' => array(
             'extends' => 'AbstractOperation',
             'httpMethod' => 'POST',
-            'uri' => '{+booking_endpoint}/ean-services/rs/hotel/v3/res',
+            'uri' => '{+bookingEndpoint}/ean-services/rs/hotel/v3/res',
             'summary' => 'Requests a reservation for the specified room(s)',
             'responseModel' => 'ReservationResponse',
             'data' => array(
@@ -441,7 +443,7 @@ return array(
         'GetHotelList' => array(
             'extends' => 'AbstractOperation',
             'httpMethod' => 'GET',
-            'uri' => '{+general_endpoint}/ean-services/rs/hotel/v3/list',
+            'uri' => '{+generalEndpoint}/ean-services/rs/hotel/v3/list',
             'summary' => 'Retrieve a list of hotels by location or a list of specific hotelIds.',
             'responseModel' => 'HotelListResponse',
             'data' => array(
@@ -644,7 +646,7 @@ return array(
         'GetRoomCancellation' => array(
             'extends' => 'AbstractOperation',
             'httpMethod' => 'GET',
-            'uri' => '{+general_endpoint}/ean-services/rs/hotel/v3/cancel',
+            'uri' => '{+generalEndpoint}/ean-services/rs/hotel/v3/cancel',
             'summery' => 'Cancel the room reservation by confirmation number',
             'responseModel' => 'RoomCancellationResponse',
             'data' => array(

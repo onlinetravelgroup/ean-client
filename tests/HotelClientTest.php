@@ -30,7 +30,14 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $client = HotelClient::factory();
+        $client = HotelClient::factory([
+            'defaults' => [
+                'cid' => '',
+                'apiKey' => '',
+                'customerIpAddress'  => '',
+                'customerUserAgent'  => '',
+            ]
+        ]);
         $mock = new Mock(array(new Response(200)));
         $history = new History();
 

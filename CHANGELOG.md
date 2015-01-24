@@ -3,7 +3,7 @@
  * Commands now return arrays instead of GuzzleHttp\Command\Model objects 
  * Removed Otg\Ean\Result\HotelListResult and Otg\Ean\ResultRoomAvailabilityResult
  * Otg\Ean\EanErrorException now extends GuzzleHttp\Command\Exception\CommandException and is no longer an \UnexpectedValueException
-
+ * Renamed the `booking_endpoint` and `general_endpoint` config options to `bookingEndpoint` and `generalEndpoint` respectively
 
 ### 0.3.0
 
