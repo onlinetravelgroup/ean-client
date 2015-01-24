@@ -136,7 +136,7 @@ EOD;
      */
     public function testCommaSeparated()
     {
-        $this->assertEquals('1,2', StringFilter::joinValues(array(1,2)));
+        $this->assertEquals('1,2', StringFilter::joinValues([1,2]));
     }
 
     /**

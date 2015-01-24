@@ -23,16 +23,16 @@ class Formatter extends \GuzzleHttp\Subscriber\Log\Formatter
         RequestInterface $request,
         ResponseInterface $response = null,
         \Exception $error = null,
-        array $customData = array()
+        array $customData = []
     ) {
-        $customData = array_merge(array(
+        $customData = array_merge([
             'url' => $this->mask((string) $request->getUrl()),
             'resource' => $this->mask($request->getResource()),
             'request' => $this->mask((string) $request),
             'response' => $this->mask((string) $response),
             'res_body' => $response ? $this->mask((string) $response) : 'NULL',
             'req_body' => $this->mask((string) $request->getBody()),
-        ), $customData);
+        ], $customData);
 
         return parent::format($request, $response, $error, $customData);
     }

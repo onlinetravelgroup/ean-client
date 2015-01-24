@@ -16,19 +16,19 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testXmlDeclarationRemoved()
     {
-        $params = array(
+        $params = [
             'hotelId' => 204421,
             'arrivalDate' => '05/29/2013',
             'departureDate' => '05/31/2013',
-            'RoomGroup' => array(
-                array('numberOfAdults' => 2),
-                array(
+            'RoomGroup' => [
+                ['numberOfAdults' => 2],
+                [
                     'numberOfAdults' => 1,
                     'numberOfChildren' => 2,
-                    'childAges' => array('13', '15')
-                )
-            )
-        );
+                    'childAges' => ['13', '15']
+                ]
+            ]
+        ];
 
         $client = HotelClient::factory([
             'defaults' => [
@@ -38,7 +38,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'customerUserAgent'  => '',
             ]
         ]);
-        $mock = new Mock(array(new Response(200)));
+        $mock = new Mock([new Response(200)]);
         $history = new History();
 
         $emitter = $client->getHttpClient()->getEmitter();
@@ -56,21 +56,21 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testRoomAvailabilityRequest()
     {
-        $params = array(
+        $params = [
             'hotelId' => 204421,
             'arrivalDate' => new DateTime('2013-05-29'),
             'departureDate' => new DateTime('2013-05-31'),
-            'RoomGroup' => array(
-                array(
+            'RoomGroup' => [
+                [
                     'numberOfAdults' => 2,
                     'numberOfChildren' => 2,
-                    'childAges' => array(7,8)
-                )
-            )
-        );
+                    'childAges' => [7,8]
+                ]
+            ]
+        ];
 
-        $client = HotelClient::factory(array(
-            'defaults' => array(
+        $client = HotelClient::factory([
+            'defaults' => [
                 'cid' => '55505',
                 'apiKey' => 'cbrzfta369qwyrm9t5b8y8kf',
                 'minorRev' => 26,
@@ -79,10 +79,10 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'customerSessionId'  => 'x',
                 'customerIpAddress'  => 'y',
                 'customerUserAgent'  => 'z',
-            )
-        ));
+            ]
+        ]);
 
-        $mock = new Mock(array(new Response(200)));
+        $mock = new Mock([new Response(200)]);
         $history = new History();
 
         $emitter = $client->getHttpClient()->getEmitter();
@@ -127,24 +127,24 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testPostReservationRequest()
     {
-        $params = array(
+        $params = [
             'hotelId' => 204421,
             'arrivalDate' => new DateTime('2013-05-29'),
             'departureDate' => new DateTime('2013-05-31'),
-            'RoomGroup' => array(
-                array(
+            'RoomGroup' => [
+                [
                     'numberOfAdults' => 2,
                     'numberOfChildren' => 2,
-                    'childAges' => array(7,8),
+                    'childAges' => [7,8],
                     'firstName' => 'Test',
                     'lastName' => 'Test'
-                )
-            ),
+                ]
+            ],
             'supplierType' => 'E',
             'roomTypeCode' => '198058',
             'rateCode' => '484072',
             'chargeableRate' => '389.0',
-            'ReservationInfo' => array(
+            'ReservationInfo' => [
                 'creditCardExpirationMonth' => '01',
                 'creditCardExpirationYear' => '2016',
                 'creditCardIdentifier' => '123',
@@ -154,18 +154,18 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'firstName' => 'Test',
                 'homePhone' => '0312345678',
                 'lastName' => 'Test',
-            ),
-            'AddressInfo' => array(
+            ],
+            'AddressInfo' => [
                 'address1' => 'travelnow',
                 'city' => 'travelnow',
                 'countryCode' => 'AU',
                 'stateProvinceCode' => 'VC',
                 'postalCode' => '3000',
-            )
-        );
+            ]
+        ];
 
-        $client = HotelClient::factory(array(
-            'defaults' => array(
+        $client = HotelClient::factory([
+            'defaults' => [
                 'cid' => '55505',
                 'apiKey' => 'cbrzfta369qwyrm9t5b8y8kf',
                 'minorRev' => 26,
@@ -174,10 +174,10 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'customerSessionId'  => 'x',
                 'customerIpAddress'  => 'y',
                 'customerUserAgent'  => 'z',
-            )
-        ));
+            ]
+        ]);
 
-        $mock = new Mock(array(new Response(200)));
+        $mock = new Mock([new Response(200)]);
         $history = new History();
 
         $emitter = $client->getHttpClient()->getEmitter();
@@ -249,15 +249,15 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testRoomCancellationRequest()
     {
-        $params = array(
+        $params = [
             'email' => 'user@example.org',
             'confirmationNumber' => 'C1234',
             'itineraryId' => 1234,
             'reason' => 'HOC',
-        );
+        ];
 
-        $client = HotelClient::factory(array(
-            'defaults' => array(
+        $client = HotelClient::factory([
+            'defaults' => [
                 'cid' => '55505',
                 'apiKey' => 'cbrzfta369qwyrm9t5b8y8kf',
                 'minorRev' => 26,
@@ -266,10 +266,10 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'customerSessionId'  => 'x',
                 'customerIpAddress'  => 'y',
                 'customerUserAgent'  => 'z',
-            )
-        ));
+            ]
+        ]);
 
-        $mock = new Mock(array(new Response(200)));
+        $mock = new Mock([new Response(200)]);
         $history = new History();
 
         $emitter = $client->getHttpClient()->getEmitter();
@@ -307,21 +307,21 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testHotelListRequest()
     {
-        $params = array(
+        $params = [
             'hotelId' => 204421,
             'arrivalDate' => new DateTime('2013-05-29'),
             'departureDate' => new DateTime('2013-05-31'),
-            'RoomGroup' => array(
-                array(
+            'RoomGroup' => [
+                [
                     'numberOfAdults' => 2,
                     'numberOfChildren' => 2,
-                    'childAges' => array(7,8)
-                )
-            )
-        );
+                    'childAges' => [7,8]
+                ]
+            ]
+        ];
 
-        $client = HotelClient::factory(array(
-            'defaults' => array(
+        $client = HotelClient::factory([
+            'defaults' => [
                 'cid' => '55505',
                 'apiKey' => 'cbrzfta369qwyrm9t5b8y8kf',
                 'minorRev' => 26,
@@ -330,10 +330,10 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'customerSessionId'  => 'x',
                 'customerIpAddress'  => 'y',
                 'customerUserAgent'  => 'z',
-            )
-        ));
+            ]
+        ]);
 
-        $mock = new Mock(array(new Response(200)));
+        $mock = new Mock([new Response(200)]);
         $history = new History();
 
         $emitter = $client->getHttpClient()->getEmitter();

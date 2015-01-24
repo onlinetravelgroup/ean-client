@@ -18,17 +18,17 @@ class ContentLengthTest extends \PHPUnit_Framework_TestCase
      */
     public function testContentLengthHeaderExists()
     {
-        $client = new HotelClient(new Client(), new Description(array(
-            'operations' => array(
-                'PostReservation' => array(
+        $client = new HotelClient(new Client(), new Description([
+            'operations' => [
+                'PostReservation' => [
                     'httpMethod' => 'post'
-                )
-            )
-        )));
+                ]
+            ]
+        ]));
 
         $client->getEmitter()->attach(new ContentLength());
 
-        $mock = new Mock(array(new Response(200)));
+        $mock = new Mock([new Response(200)]);
         $history = new History();
 
         $client->getHttpClient()->getEmitter()->attach($mock);

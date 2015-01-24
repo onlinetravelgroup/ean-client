@@ -28,15 +28,15 @@ class HotelClient extends GuzzleClient
      * @param  array       $httpConfig GuzzleHttp\Client $config options
      * @return HotelClient
      */
-    public static function factory($config = array(), $httpConfig = array())
+    public static function factory($config = [], $httpConfig = [])
     {
         $description = new Description(include(__DIR__ . '/Resources/hotel-xml-v3.php'));
 
-        $defaults = array(
-            'serializer' => new Serializer($description, array(
+        $defaults = [
+            'serializer' => new Serializer($description, [
                 'xml.query' => new XmlQueryLocation('xml.query')
-            ))
-        );
+            ])
+        ];
 
         $config += $defaults;
 

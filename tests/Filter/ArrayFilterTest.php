@@ -11,16 +11,16 @@ class ArrayFilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testArrayReIndex()
     {
-        $fixture = array(
-            array(
+        $fixture = [
+            [
                 'id' => '13',
                 'description' => 'Two Queen Beds'
-            ),
-            array(
+            ],
+            [
                 'id' => '15',
                 'description' => 'One King Bed'
-            )
-        );
+            ]
+        ];
 
         $output = ArrayFilter::reIndex($fixture, 'id', 'description');
 

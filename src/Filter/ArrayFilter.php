@@ -19,7 +19,7 @@ class ArrayFilter
      */
     public static function reIndex($array, $indexProperty, $valueProperty)
     {
-        $output = array();
+        $output = [];
         foreach ($array as $value) {
             $output[$value[$indexProperty]] = $value[$valueProperty];
         }

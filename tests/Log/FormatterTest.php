@@ -115,7 +115,7 @@ SendReceiveHostMessage :IR: =
 IGD
 EOD;
 
-        $response = new Response(200, array(), Stream::factory($body));
+        $response = new Response(200, [], Stream::factory($body));
 
         $this->assertEquals('http://foo.com - XXXX...', $formatter->format($request, $response));
     }
@@ -151,7 +151,7 @@ SendReceiveHostMessage :IR: =
 IGD
 EOD;
 
-        $response = new Response(200, array(), Stream::factory($body));
+        $response = new Response(200, [], Stream::factory($body));
 
         $this->assertEquals('http://foo.com - XXXX...', $formatter->format($request, $response));
     }

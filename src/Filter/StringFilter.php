@@ -30,7 +30,7 @@ class StringFilter
      */
     public static function maskCreditCard($value)
     {
-        $pattern = array(
+        $pattern = [
             '~(^)(.*credit card.*complete trace.*)($)~is',
             '~(creditCardType=)([^&]+)(&|$)~',
             '~(creditCardNumber=)([^&]+)(&|$)~',
@@ -49,7 +49,7 @@ class StringFilter
             '~(%3CcreditCardExpirationMonth%3E)([^<]+)(%3C%2FcreditCardExpirationMonth%3E)~',
             '~(%3CcreditCardExpirationYear%3E)([^<]+)(%3C%2FcreditCardExpirationYear%3E)~',
             '~(%3CcreditCard%3E)(.*)(%3C%2FcreditCard%3E)~is'
-        );
+        ];
 
         // mask details with X's
         $value = preg_replace_callback($pattern,
