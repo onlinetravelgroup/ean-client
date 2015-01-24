@@ -24,10 +24,11 @@ class HotelClient extends GuzzleClient
     /**
      * Gets a new HotelClient
      *
-     * @param  array       $config GuzzleClient $config options
+     * @param  array       $config     GuzzleHttp\Command\Guzzle\GuzzleClient $config options
+     * @param  array       $httpConfig GuzzleHttp\Client $config options
      * @return HotelClient
      */
-    public static function factory($config = array())
+    public static function factory($config = array(), $httpConfig = array())
     {
         $description = new Description(include(__DIR__ . '/Resources/hotel-xml-v3.php'));
 
@@ -48,7 +49,7 @@ class HotelClient extends GuzzleClient
         $config += $defaults;
         $config['defaults'] += $defaults['defaults'];
 
-        $httpClient = new HttpClient();
+        $httpClient = new HttpClient($httpConfig);
 
         $client = new self($httpClient, $description, $config);
         $client->getEmitter()->attach(new EanError());
