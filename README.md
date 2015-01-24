@@ -58,7 +58,7 @@ $rooms = $client->getRoomAvailability([
 $bedTypes = $rooms['Rooms'][0]['BedTypes'];
 $smokingPreferences = explode(',', $rooms['Rooms'][0]['smokingPreferences']);
 
-$reservation = $client->postReservation(array_merge([
+$reservation = $client->postReservation([
     'RoomGroup' => [[
         'numberOfAdults' => 2,
         'firstName' => 'Test',
@@ -83,12 +83,17 @@ $reservation = $client->postReservation(array_merge([
         'stateProvinceCode' => 'VC',
         'countryCode' => 'AU',
         'postalCode' => '3000'
-    ]],
-    $rooms->getReservationParameters(
-        $rooms['Rooms'][0]['roomTypeCode'],
-        $rooms['Rooms'][0]['rateCode']
-    )
-));
+    ],
+    'hotelId' => $rooms['hotelId'],
+    'arrivalDate' => $rooms['arrivalDate'],
+    'departureDate' => $rooms['departureDate'],
+    'supplierType' => $rooms['Rooms'][0]['supplierType'],
+    'rateKey' => $rooms['Rooms'][0]['RateInfos'][0]['RoomGroup'][0]['rateKey'],
+    'roomTypeCode' => isset($rooms['Rooms'][0]['roomTypeCode']) ? $rooms['Rooms'][0]['roomTypeCode'] : $rooms['Rooms'][0]['RoomType']['roomCode'],
+    'rateCode' => $rooms['Rooms'][0]['rateCode'],
+    'chargeableRate' => $rooms['Rooms'][0]['RateInfos'][0]['ChargeableRateInfo']['total'],
+    'currencyCode' => $rooms['Rooms'][0]['RateInfos'][0]['ChargeableRateInfo']['currencyCode']
+]);
 ```
 
 ### Cancel the reservation
