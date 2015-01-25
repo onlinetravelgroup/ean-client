@@ -19,6 +19,7 @@ use Otg\Ean\Subscriber\ContentLength;
  * @method array getItinerary(array $arguments)
  * @method array getRoomCancellation(array $arguments)
  * @method array getRoomImages(array $arguments)
+ * @method array getPaymentTypes(array $arguments)
  * @package Otg\Ean
  */
 class HotelClient extends GuzzleClient

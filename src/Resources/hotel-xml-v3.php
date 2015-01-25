@@ -780,6 +780,36 @@ return [
                     'required' => true
                 ]
             ]
+        ],
+        'GetPaymentTypes' => [
+            'extends' => 'AbstractOperation',
+            'httpMethod' => 'GET',
+            'uri' => '{+generalEndpoint}/ean-services/rs/hotel/v3/paymentInfo',
+            'summary' => 'Determine the credit card types a property will accept for a specific currency',
+            'documentationUrl' => 'https://dev.ean.com/docs/payment-types/',
+            'responseModel' => 'PaymentTypesResponse',
+            'data' => [
+                'xmlRoot' => [
+                    'name' => 'HotelPaymentRequest',
+                ],
+            ],
+            'parameters' => [
+                'hotelId' => [
+                    'location' => 'xml.query',
+                    'type' => 'string',
+                    'required' => true
+                ],
+                'supplierType' => [
+                    'location' => 'xml.query',
+                    'type' => 'string',
+                    'required' => true
+                ],
+                'rateType' => [
+                    'location' => 'xml.query',
+                    'type' => 'string',
+                    'required' => true
+                ]
+            ]
         ]
     ],
     'models' => [
@@ -2050,6 +2080,30 @@ return [
                                 'type' => 'string'
                             ],
                             'url' => [
+                                'type' => 'string'
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ],
+        'PaymentTypesResponse' => [
+            'type' => 'object',
+            'properties' => [
+                'customerSessionId' => [
+                    'location' => 'xml',
+                    'type' => 'string'
+                ],
+                'PaymentType' => [
+                    'location' => 'xml',
+                    'type' => 'array',
+                    'items' => [
+                        'type' => 'object',
+                        'properties' => [
+                            'code' => [
+                                'type' => 'string'
+                            ],
+                            'name' => [
                                 'type' => 'string'
                             ]
                         ]
