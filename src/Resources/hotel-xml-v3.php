@@ -13,7 +13,7 @@ return [
                 'generalEndpoint' => [
                     'location' => 'uri',
                     'required' => true,
-                    'default' => 'http://api.ean.com'
+                    'default' => 'https://api.ean.com'
                 ],
                 'bookingEndpoint' => [
                     'location' => 'uri',
@@ -650,6 +650,82 @@ return [
                         ],
                     ]
                 ],
+            ]
+        ],
+        'GetItinerary' => [
+            'extends' => 'AbstractOperation',
+            'httpMethod' => 'GET',
+            'uri' => '{+generalEndpoint}/ean-services/rs/hotel/v3/itin',
+            'summary' => 'Retrieve the itinerary for an existing reservation',
+            'documentationUrl' => 'https://dev.ean.com/docs/request-itinerary/',
+            'responseModel' => 'ItineraryResponse',
+            'data' => [
+                'xmlRoot' => [
+                    'name' => 'HotelItineraryRequest',
+                ],
+            ],
+            'parameters' => [
+                'itineraryId' => [
+                    'location' => 'xml.query',
+                    'type' => 'numeric',
+                ],
+                'affiliateConfirmationId' => [
+                    'location' => 'xml.query',
+                    'type' => 'string'
+                ],
+                'email' => [
+                    'location' => 'xml.query',
+                    'type' => 'string'
+                ],
+                'lastName' => [
+                    'location' => 'xml.query',
+                    'type' => 'string'
+                ],
+                'creditCardNumber' => [
+                    'location' => 'xml.query',
+                    'type' => 'string'
+                ],
+                'confirmationExtras' => [
+                    'location' => 'xml.query',
+                    'type' => 'string'
+                ],
+                'resendConfirmationEmail' => [
+                    'location' => 'xml.query',
+                    'type' => 'boolean'
+                ],
+                'ItineraryQuery' => [
+                    'location' => 'xml.query',
+                    'type' => 'object',
+                    'properties' => [
+                        'creationDateStart' => [
+                            'type' => 'string',
+                            'filters' => [
+                                'Otg\Ean\Filter\StringFilter::formatUsDate'
+                            ]
+                        ],
+                        'creationDateEnd' => [
+                            'type' => 'string',
+                            'filters' => [
+                                'Otg\Ean\Filter\StringFilter::formatUsDate'
+                            ]
+                        ],
+                        'departureDateStart' => [
+                            'type' => 'string',
+                            'filters' => [
+                                'Otg\Ean\Filter\StringFilter::formatUsDate'
+                            ]
+                        ],
+                        'departureDateEnd' => [
+                            'type' => 'string',
+                            'filters' => [
+                                'Otg\Ean\Filter\StringFilter::formatUsDate'
+                            ]
+                        ],
+                        'includeChildAffiliates' => [
+                            'type' => 'boolean'
+                        ]
+                    ]
+                ]
             ]
         ],
         'GetRoomCancellation' => [
@@ -1645,6 +1721,280 @@ return [
                                         'smokingPreference' => [
                                             'type' => 'string'
                                         ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ],
+        'ItineraryResponse' => [
+            'type' => 'object',
+            'properties' => [
+                'customerSessionId' => [
+                    'location' => 'xml',
+                    'type' => 'string'
+                ],
+                'Itinerary' => [
+                    'location' => 'xml',
+                    'type' => 'array',
+                    'items' => [
+                        'type' => 'object',
+                        'properties' => [
+                            'itineraryId' => [
+                                'type' => 'numeric'
+                            ],
+                            'affiliateId' => [
+                                'type' => 'numeric'
+                            ],
+                            'creationDate' => [
+                                'type' => 'string'
+                            ],
+                            'itineraryStartDate' => [
+                                'type' => 'string'
+                            ],
+                            'itineraryEndDate' => [
+                                'type' => 'string'
+                            ],
+                            'affiliateCustomerId' => [
+                                'type' => 'string'
+                            ],
+                            'Customer' => [
+                                'type' => 'object',
+                                'properties' => [
+                                    'email' => [
+                                        'type' => 'string'
+                                    ],
+                                    'firstName' => [
+                                        'type' => 'string'
+                                    ],
+                                    'lastName' => [
+                                        'type' => 'string'
+                                    ],
+                                    'homePhone' => [
+                                        'type' => 'string'
+                                    ],
+                                    'workPhone' => [
+                                        'type' => 'string'
+                                    ],
+                                    'extension' => [
+                                        'type' => 'string'
+                                    ],
+                                    'faxPhone' => [
+                                        'type' => 'string'
+                                    ],
+                                    'CustomerAddresses' => [
+                                        'type' => 'object',
+                                        'properties' => [
+                                            'address1' => [
+                                                'type' => 'string'
+                                            ],
+                                            'address2' => [
+                                                'type' => 'string'
+                                            ],
+                                            'address3' => [
+                                                'type' => 'string'
+                                            ],
+                                            'city' => [
+                                                'type' => 'string'
+                                            ],
+                                            'stateProvinceCode' => [
+                                                'type' => 'string'
+                                            ],
+                                            'countryCode' => [
+                                                'type' => 'string'
+                                            ],
+                                            'postalCode' => [
+                                                'type' => 'string'
+                                            ],
+                                            'isPrimary' => [
+                                                'type' => 'boolean'
+                                            ],
+                                            'type' => [
+                                                'type' => 'numeric'
+                                            ]
+                                        ]
+                                    ],
+
+                                ]
+                            ],
+                            'HotelConfirmation' => [
+                                'type' => 'object',
+                                'properties' => [
+                                    'supplierId' => [
+                                        'type' => 'string'
+                                    ],
+                                    'chainCode' => [
+                                        'type' => 'string'
+                                    ],
+                                    'creditCardType' => [
+                                        'type' => 'string'
+                                    ],
+                                    'arrivalDate' => [
+                                        'type' => 'string'
+                                    ],
+                                    'departureDate' => [
+                                        'type' => 'string'
+                                    ],
+                                    'confirmationNumber' => [
+                                        'type' => 'string'
+                                    ],
+                                    'cancellationNumber' => [
+                                        'type' => 'string'
+                                    ],
+                                    'numberOfAdults' => [
+                                        'type' => 'numeric'
+                                    ],
+                                    'numberOfChildren' => [
+                                        'type' => 'numeric'
+                                    ],
+                                    'affiliateConfirmationId' => [
+                                        'type' => 'string'
+                                    ],
+                                    'smokingPreference' => [
+                                        'type' => 'string'
+                                    ],
+                                    'supplierPropertyId' => [
+                                        'type' => 'string'
+                                    ],
+                                    'roomTypeCode' => [
+                                        'type' => 'string'
+                                    ],
+                                    'rateCode' => [
+                                        'type' => 'string'
+                                    ],
+                                    'rateDescription' => [
+                                        'type' => 'string'
+                                    ],
+                                    'roomDescription' => [
+                                        'type' => 'string'
+                                    ],
+                                    'status' => [
+                                        'type' => 'string'
+                                    ],
+                                    'locale' => [
+                                        'type' => 'string'
+                                    ],
+                                    'nights' => [
+                                        'type' => 'numeric'
+                                    ],
+                                    'GenericRefund' => [
+                                        'type' => 'object',
+                                        'properties' => [
+                                            'refundAmount' => [
+                                                'type' => 'string'
+                                            ],
+                                            'currencyCode' => [
+                                                'type' => 'string'
+                                            ]
+                                        ]
+                                    ],
+                                    'RateInfos' => [
+                                        'extends' => 'AbstractRateInfos'
+                                    ],
+                                    'ReservationGuest' => [
+                                        'type' => 'object',
+                                        'properties' => [
+                                            'firstName' => [
+                                                'type' => 'string'
+                                            ],
+                                            'lastName' => [
+                                                'type' => 'string'
+                                            ]
+                                        ]
+                                    ],
+                                    'Hotel' => [
+                                        'type' => 'object',
+                                        'properties' => [
+                                            'hotelId' => [
+                                                'type' => 'numeric'
+                                            ],
+                                            'statusCode' => [
+                                                'type' => 'string'
+                                            ],
+                                            'name' => [
+                                                'type' => 'string'
+                                            ],
+                                            'address1' => [
+                                                'type' => 'string'
+                                            ],
+                                            'address2' => [
+                                                'type' => 'string'
+                                            ],
+                                            'address3' => [
+                                                'type' => 'string'
+                                            ],
+                                            'city' => [
+                                                'type' => 'string'
+                                            ],
+                                            'stateProvinceCode' => [
+                                                'type' => 'string'
+                                            ],
+                                            'countryCode' => [
+                                                'type' => 'string'
+                                            ],
+                                            'postalCode' => [
+                                                'type' => 'string'
+                                            ],
+                                            'phone' => [
+                                                'type' => 'string'
+                                            ],
+                                            'fax' => [
+                                                'type' => 'string'
+                                            ],
+                                            'latitude' => [
+                                                'type' => 'string'
+                                            ],
+                                            'longitude' => [
+                                                'type' => 'string'
+                                            ],
+                                            'coordinateAccuracyCode' => [
+                                                'type' => 'string'
+                                            ],
+                                            'lowRate' => [
+                                                'type' => 'string'
+                                            ],
+                                            'highRate' => [
+                                                'type' => 'string'
+                                            ],
+                                            'hotelRating' => [
+                                                'type' => 'string'
+                                            ],
+                                            'tripAdvisorRating' => [
+                                                'type' => 'string'
+                                            ],
+                                            'market' => [
+                                                'type' => 'string'
+                                            ],
+                                            'region' => [
+                                                'type' => 'string'
+                                            ],
+                                            'superRegion' => [
+                                                'type' => 'string'
+                                            ],
+                                            'theme' => [
+                                                'type' => 'string'
+                                            ]
+                                        ]
+                                    ],
+                                    'ConfirmationExtras' => [
+                                        'type' => 'array',
+                                        'items' => [
+                                            'type' => 'object',
+                                            'sentAs' => 'ConfirmationExtra',
+                                            'properties' => [
+                                                'name' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'value' => [
+                                                    'type' => 'string'
+                                                ]
+                                            ]
+                                        ]
+                                    ],
+                                    'ValueAdds' => [
+                                        'extends' => 'AbstractValueAdds'
                                     ]
                                 ]
                             ]

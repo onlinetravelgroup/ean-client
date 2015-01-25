@@ -98,7 +98,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('application/xml', $request->getHeader('Accept'));
         $this->assertEquals('gzip,deflate', $request->getHeader('Accept-Encoding'));
 
-        $this->assertEquals('http://api.ean.com/ean-services/rs/hotel/v3/avail?'.
+        $this->assertEquals('https://api.ean.com/ean-services/rs/hotel/v3/avail?'.
             'cid=55505' .
             '&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
             '&minorRev=26' .
@@ -286,7 +286,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('application/xml', $request->getHeader('Accept'));
         $this->assertEquals('gzip,deflate', $request->getHeader('Accept-Encoding'));
 
-        $this->assertEquals('http://api.ean.com/ean-services/rs/hotel/v3/cancel?' .
+        $this->assertEquals('https://api.ean.com/ean-services/rs/hotel/v3/cancel?' .
             'cid=55505&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
             '&minorRev=26' .
             '&locale=en_US' .
@@ -350,7 +350,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('application/xml', $request->getHeader('Accept'));
         $this->assertEquals('gzip,deflate', $request->getHeader('Accept-Encoding'));
 
-        $this->assertEquals('http://api.ean.com/ean-services/rs/hotel/v3/list?' .
+        $this->assertEquals('https://api.ean.com/ean-services/rs/hotel/v3/list?' .
             'cid=55505&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
             '&minorRev=26' .
             '&locale=en_US' .
