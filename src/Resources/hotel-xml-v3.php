@@ -119,11 +119,23 @@ return [
                 ],
                 'includeDetails' => [
                     'type' => 'boolean',
-                    'location' => 'xml.query'
+                    'location' => 'xml.query',
+                    'filters' => [
+                        [
+                            'method' => 'var_export',
+                            'args' => ['@value', 1]
+                        ]
+                    ]
                 ],
                 'includeHotelFeeBreakdown' => [
                     'type' => 'boolean',
-                    'location' => 'xml.query'
+                    'location' => 'xml.query',
+                    'filters' => [
+                        [
+                            'method' => 'var_export',
+                            'args' => ['@value', 1]
+                        ]
+                    ]
                 ],
 
                 /* Primary search methods */
@@ -200,7 +212,13 @@ return [
 
                 'includeSurrounding' => [
                     'type' => 'boolean',
-                    'location' => 'xml.query'
+                    'location' => 'xml.query',
+                    'filters' => [
+                        [
+                            'method' => 'var_export',
+                            'args' => ['@value', 1]
+                        ]
+                    ]
                 ],
                 'propertyCategory' => [
                     'location' => 'xml.query',
@@ -355,15 +373,33 @@ return [
                 ],
                 'includeDetails' => [
                     'type' => 'boolean',
-                    'location' => 'xml.query'
+                    'location' => 'xml.query',
+                    'filters' => [
+                        [
+                            'method' => 'var_export',
+                            'args' => ['@value', 1]
+                        ]
+                    ]
                 ],
                 'includeRoomImages' => [
                     'type' => 'boolean',
-                    'location' => 'xml.query'
+                    'location' => 'xml.query',
+                    'filters' => [
+                        [
+                            'method' => 'var_export',
+                            'args' => ['@value', 1]
+                        ]
+                    ]
                 ],
                 'includeHotelFeeBreakdown' => [
                     'type' => 'boolean',
-                    'location' => 'xml.query'
+                    'location' => 'xml.query',
+                    'filters' => [
+                        [
+                            'method' => 'var_export',
+                            'args' => ['@value', 1]
+                        ]
+                    ]
                 ],
                 'options' => [
                     'type' => 'string',
@@ -510,7 +546,13 @@ return [
                 ],
                 'sendReservationEmail' => [
                     'type' => 'boolean',
-                    'location' => 'xml.query'
+                    'location' => 'xml.query',
+                    'filters' => [
+                        [
+                            'method' => 'var_export',
+                            'args' => ['@value', 1]
+                        ]
+                    ]
                 ],
                 'ReservationInfo' => [
                     'type' => 'object',
@@ -691,7 +733,13 @@ return [
                 ],
                 'resendConfirmationEmail' => [
                     'location' => 'xml.query',
-                    'type' => 'boolean'
+                    'type' => 'boolean',
+                    'filters' => [
+                        [
+                            'method' => 'var_export',
+                            'args' => ['@value', 1]
+                        ]
+                    ]
                 ],
                 'ItineraryQuery' => [
                     'location' => 'xml.query',
@@ -722,7 +770,13 @@ return [
                             ]
                         ],
                         'includeChildAffiliates' => [
-                            'type' => 'boolean'
+                            'type' => 'boolean',
+                            'filters' => [
+                                [
+                                    'method' => 'var_export',
+                                    'args' => ['@value', 1]
+                                ]
+                            ]
                         ]
                     ]
                 ]
@@ -808,6 +862,73 @@ return [
                     'location' => 'xml.query',
                     'type' => 'string',
                     'required' => true
+                ]
+            ]
+        ],
+        'GetGeoSearch' => [
+            'extends' => 'AbstractOperation',
+            'httpMethod' => 'GET',
+            'uri' => '{+generalEndpoint}/ean-services/rs/hotel/v3/geoSearch',
+            'summary' => '',
+            'documentationUrl' => 'https://dev.ean.com/docs/geo-functions/',
+            'responseModel' => 'GeoSearchResponse',
+            'data' => [
+                'xmlRoot' => [
+                    'name' => 'LocationInfoRequest',
+                ],
+            ],
+            'parameters' => [
+                'type' => [
+                    'location' => 'xml.query',
+                    'type' => 'string'
+                ],
+                'destinationString' => [
+                    'location' => 'xml.query',
+                    'type' => 'string'
+                ],
+                'address' => [
+                    'location' => 'xml.query',
+                    'type' => 'string'
+                ],
+                'city' => [
+                    'location' => 'xml.query',
+                    'type' => 'string'
+                ],
+                'stateProvinceCode' => [
+                    'location' => 'xml.query',
+                    'type' => 'string'
+                ],
+                'countryCode' => [
+                    'location' => 'xml.query',
+                    'type' => 'string'
+                ],
+                'postalCode' => [
+                    'location' => 'xml.query',
+                    'type' => 'string'
+                ],
+                'destinationId' => [
+                    'location' => 'xml.query',
+                    'type' => 'string'
+                ],
+                'ignoreSearchWeight' => [
+                    'location' => 'xml.query',
+                    'type' => 'boolean',
+                    'filters' => [
+                        [
+                            'method' => 'var_export',
+                            'args' => ['@value', 1]
+                        ]
+                    ]
+                ],
+                'useGeoCoder' => [
+                    'location' => 'xml.query',
+                    'type' => 'boolean',
+                    'filters' => [
+                        [
+                            'method' => 'var_export',
+                            'args' => ['@value', 1]
+                        ]
+                    ]
                 ]
             ]
         ]
@@ -2105,6 +2226,79 @@ return [
                             ],
                             'name' => [
                                 'type' => 'string'
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ],
+        'GeoSearchResponse' => [
+            'type' => 'object',
+            'properties' => [
+                'customerSessionId' => [
+                    'location' => 'xml',
+                    'type' => 'string'
+                ],
+                'LocationInfos' => [
+                    'location' => 'xml',
+                    'type' => 'array',
+                    'items' => [
+                        'type' => 'object',
+                        'sentAs' => 'LocationInfo',
+                        'properties' => [
+                            'destinationId' => [
+                                'type' => 'string'
+                            ],
+                            'active' => [
+                                'type' => 'boolean'
+                            ],
+                            'type' => [
+                                'type' => 'string'
+                            ],
+                            'address' => [
+                                'type' => 'string'
+                            ],
+                            'city' => [
+                                'type' => 'string'
+                            ],
+                            'stateProvinceCode' => [
+                                'type' => 'string'
+                            ],
+                            'postalCode' => [
+                                'type' => 'string'
+                            ],
+                            'countryCode' => [
+                                'type' => 'string'
+                            ],
+                            'countryName' => [
+                                'type' => 'string'
+                            ],
+                            'code' => [
+                                'type' => 'string'
+                            ],
+                            'description' => [
+                                'type' => 'string'
+                            ],
+                            'geoAccuracy' => [
+                                'type' => 'string'
+                            ],
+                            'locationInDestination' => [
+                                'type' => 'boolean'
+                            ],
+                            'latitude' => [
+                                'type' => 'string'
+                            ],
+                            'longitude' => [
+                                'type' => 'string'
+                            ],
+                            'refLocationMileage' => [
+                                'type' => 'string'
+                            ],
+                            'referenceLocationCode' => [
+                                'type' => 'string'
+                            ],
+                            'activePropertyCount' => [
+                                'type' => 'numeric'
                             ]
                         ]
                     ]

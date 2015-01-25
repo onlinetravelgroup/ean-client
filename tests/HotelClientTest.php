@@ -221,7 +221,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 '%3C%2FRoom%3E' .
             '%3C%2FRoomGroup%3E' .
             '%3CchargeableRate%3E389.0%3C%2FchargeableRate%3E' .
-            '%3CsendReservationEmail%3E%3C%2FsendReservationEmail%3E' .
+            '%3CsendReservationEmail%3Efalse%3C%2FsendReservationEmail%3E' .
             '%3CReservationInfo%3E' .
                 '%3CcreditCardExpirationMonth%3E01%3C%2FcreditCardExpirationMonth%3E' .
                 '%3CcreditCardExpirationYear%3E2016%3C%2FcreditCardExpirationYear%3E' .
