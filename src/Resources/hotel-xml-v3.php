@@ -869,7 +869,7 @@ return [
             'extends' => 'AbstractOperation',
             'httpMethod' => 'GET',
             'uri' => '{+generalEndpoint}/ean-services/rs/hotel/v3/geoSearch',
-            'summary' => '',
+            'summary' => 'Search for locations and landmarks to use with the GetHotelList command',
             'documentationUrl' => 'https://dev.ean.com/docs/geo-functions/',
             'responseModel' => 'GeoSearchResponse',
             'data' => [
@@ -927,6 +927,73 @@ return [
                         [
                             'method' => 'var_export',
                             'args' => ['@value', 1]
+                        ]
+                    ]
+                ]
+            ]
+        ],
+        'GetAlternateProperties' => [
+            'extends' => 'AbstractOperation',
+            'httpMethod' => 'GET',
+            'uri' => '{+generalEndpoint}/ean-services/rs/hotel/v3/altProps',
+            'summary' => 'Retrieve a list of alternate available properties similar to a specific hotel',
+            'documentationUrl' => 'https://dev.ean.com/docs/alt-props/',
+            'responseModel' => 'AlternatePropertiesResponse',
+            'data' => [
+                'xmlRoot' => [
+                    'name' => 'AlternatePropertyListRequest',
+                ],
+            ],
+            'parameters' => [
+                'originalHotelId' => [
+                    'required' => true,
+                    'location' => 'xml.query',
+                    'type' => 'numeric'
+                ],
+                'arrivalDate' => [
+                    'required' => true,
+                    'location' => 'xml.query',
+                    'filters' => [
+                        'Otg\Ean\Filter\StringFilter::formatUsDate'
+                    ]
+                ],
+                'departureDate' => [
+                    'required' => true,
+                    'location' => 'xml.query',
+                    'filters' => [
+                        'Otg\Ean\Filter\StringFilter::formatUsDate'
+                    ]
+                ],
+                'originalAverageNightlyRate' => [
+                    'required' => true,
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+                'priceType' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+                'RoomGroup' => [
+                    'required' => true,
+                    'type' => 'array',
+                    'location' => 'xml.query',
+                    'items' => [
+                        'type' => 'object',
+                        'sentAs' => 'Room',
+                        'properties' => [
+                            'numberOfAdults' => [
+                                'type' => 'numeric',
+                                'minimum' => 1,
+                                'required' => true
+                            ],
+                            'numberOfChildren' => [
+                                'type' => 'numeric',
+                            ],
+                            'childAges' => [
+                                'filters' => [
+                                    'Otg\Ean\Filter\StringFilter::joinValues'
+                                ]
+                            ]
                         ]
                     ]
                 ]
@@ -2299,6 +2366,146 @@ return [
                             ],
                             'activePropertyCount' => [
                                 'type' => 'numeric'
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ],
+        'AlternatePropertiesResponse' => [
+            'type' => 'object',
+            'properties' => [
+                'customerSessionId' => [
+                    'location' => 'xml'
+                ],
+                'arrivalDate' => [
+                    'location' => 'xml'
+                ],
+                'departureDate' => [
+                    'location' => 'xml'
+                ],
+                'originalHotelId' => [
+                    'location' => 'xml',
+                    'type' => 'numeric'
+                ],
+                'rateKey' => [
+                    'location' => 'xml'
+                ],
+                'AlternateHotelResponse' => [
+                    'location' => 'xml',
+                    'type' => 'array',
+                    'items' => [
+                        'type' => 'object',
+                        'properties' => [
+                            'HotelInfo' => [
+                                'type' => 'object',
+                                'properties' => [
+                                    'hotelId' => [
+                                        'type' => 'numeric'
+                                    ],
+                                    'name' => [
+                                        'type' => 'string'
+                                    ],
+                                    'address' => [
+                                        'type' => 'string'
+                                    ],
+                                    'city' => [
+                                        'type' => 'string'
+                                    ],
+                                    'stateProvinceCode' => [
+                                        'type' => 'string'
+                                    ],
+                                    'countryCode' => [
+                                        'type' => 'string'
+                                    ],
+                                    'postalCode' => [
+                                        'type' => 'string'
+                                    ],
+                                    'starRating' => [
+                                        'type' => 'string'
+                                    ],
+                                    'thumbnailUrl' => [
+                                        'type' => 'string'
+                                    ],
+                                    'locationDescription' => [
+                                        'type' => 'string'
+                                    ]
+                                ]
+                            ],
+                            'Amenities' => [
+                                'type' => 'object',
+                                'properties' => [
+                                    'businessCenter' => [
+                                        'type' => 'boolean'
+                                    ],
+                                    'fitnessCenter' => [
+                                        'type' => 'boolean'
+                                    ],
+                                    'hasHotTubOnsite' => [
+                                        'type' => 'boolean'
+                                    ],
+                                    'interAccessAvailable' => [
+                                        'type' => 'boolean'
+                                    ],
+                                    'childrensActivities' => [
+                                        'type' => 'boolean'
+                                    ],
+                                    'kitchenOrKitchenette' => [
+                                        'type' => 'boolean'
+                                    ],
+                                    'petsAllowed' => [
+                                        'type' => 'boolean'
+                                    ],
+                                    'pool' => [
+                                        'type' => 'boolean'
+                                    ],
+                                    'restaurantOnsite' => [
+                                        'type' => 'boolean'
+                                    ],
+                                    'spaOnsite' => [
+                                        'type' => 'boolean'
+                                    ],
+                                    'whirlPoolBathAvailable' => [
+                                        'type' => 'boolean'
+                                    ]
+                                ]
+                            ],
+                            'LowestRateInfo' => [
+                                'type' => 'object',
+                                'properties' => [
+                                    'NightlyRates' => [
+                                        'type' => 'array',
+                                        'items' => [
+                                            'type' => 'object',
+                                            'properties' => [
+                                                'nightlyRate' => [
+                                                    'type' => 'string'
+                                                ]
+                                            ],
+                                            'additionalProperties' => [
+                                                'location' => 'xml'
+                                            ]
+                                        ]
+                                    ],
+                                    'rateCurrencyCode' => [
+                                        'type' => 'string'
+                                    ],
+                                    'roomDescription' => [
+                                        'type' => 'string'
+                                    ],
+                                    'promotion' => [
+                                        'type' => 'boolean'
+                                    ],
+                                    'rateCode' => [
+                                        'type' => 'string'
+                                    ],
+                                    'roomTypeCode' => [
+                                        'type' => 'string'
+                                    ],
+                                    'supplierType' => [
+                                        'type' => 'string'
+                                    ]
+                                ]
                             ]
                         ]
                     ]
