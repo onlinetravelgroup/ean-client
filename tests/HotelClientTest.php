@@ -144,6 +144,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
             'roomTypeCode' => '198058',
             'rateCode' => '484072',
             'chargeableRate' => '389.0',
+            'sendReservationEmail' => false,
             'ReservationInfo' => [
                 'creditCardExpirationMonth' => '01',
                 'creditCardExpirationYear' => '2016',

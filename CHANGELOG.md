@@ -1,9 +1,19 @@
 ### 0.4.0
 
+ * API minorRev upgraded to 28 from 26 (http://dev.ean.com/docs/api-change-log/)
  * Commands now return arrays instead of GuzzleHttp\Command\Model objects 
  * Removed Otg\Ean\Result\HotelListResult and Otg\Ean\ResultRoomAvailabilityResult
  * Otg\Ean\EanErrorException now extends GuzzleHttp\Command\Exception\CommandException and is no longer an \UnexpectedValueException
- * Renamed the `booking_endpoint` and `general_endpoint` config options to `bookingEndpoint` and `generalEndpoint` respectively
+ * The value of sendReservationEmail no longer defaults to false
+ 
+ Parameter names:
+ 
+ * booking_endpoint is now bookingEndpoint
+ * general_endpoint is now generalEndpoint
+ * HotelList.thumbnailPath is now HotelList.thumbnailUrl
+ * Surcharges.description is now Surcharges.type
+ * RoomAmenities.description is now RoomAmenities.amenity
+ * PropertyAmenities.description is now PropertyAmenities.amenity
 
 ### 0.3.0
 

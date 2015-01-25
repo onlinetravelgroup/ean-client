@@ -31,7 +31,7 @@ return [
                 'minorRev' => [
                     'location' => 'query',
                     'required' => true,
-                    'default' => '26'
+                    'default' => '28'
                 ],
                 'locale' => [
                     'location' => 'query',
@@ -75,6 +75,9 @@ return [
                 ]
             ],
             'parameters' => [
+                'apiExperience' => [
+                    'location' => 'xml.query',
+                ],
                 'arrivalDate' => [
                     'location' => 'xml.query',
                     'filters' => [
@@ -123,7 +126,8 @@ return [
                     'location' => 'xml.query'
                 ],
 
-                /* Use only one of the following methods to limit hotels returned */
+                /* Primary search methods */
+                /* Use only one of these methods at a time */
 
                 /* Method 1: City/state/country search */
                 'city' => [
@@ -177,7 +181,8 @@ return [
                     'location' => 'xml.query'
                 ],
 
-                /* Additional (secondary] search methods */
+                /* Additional (secondary) search methods */
+
                 'address' => [
                     'type' => 'string',
                     'location' => 'xml.query'
@@ -191,7 +196,7 @@ return [
                     'location' => 'xml.query'
                 ],
 
-                /* Filtering */
+                /* Filtering methods */
 
                 'includeSurrounding' => [
                     'type' => 'boolean',
@@ -203,9 +208,8 @@ return [
                         'Otg\Ean\Filter\StringFilter::joinValues'
                     ]
                 ],
-                /* note: amenities is deprecated in favour of local filtering
-                 * http://dev.ean.com/docs/hotel-list/#amenities
-                 */
+                // note: amenities is deprecated in favour of local filtering
+                // http://dev.ean.com/docs/hotel-list/#amenities
                 'amenities' => [
                     'location' => 'xml.query',
                     'filters' => [
@@ -232,29 +236,35 @@ return [
                     'type' => 'numeric',
                     'location' => 'xml.query'
                 ],
-                'supplierType' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
                 'maxRatePlanCount' => [
                     'type' => 'numeric',
                     'location' => 'xml.query'
                 ],
+                'minTripAdvisorRating' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+                'maxTripAdvisorRating' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
 
-                /**/
+                /* Sorting options */
 
                 'sort' => [
                     'type' => 'string',
                     'location' => 'xml.query'
                 ],
+
+                /* Additional data request */
+
                 'options' => [
                     'type' => 'string',
                     'location' => 'xml.query'
                 ],
-                'supplierCacheTolerance' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
+
+                /* Paging for more hotels */
+
                 'cacheKey' => [
                     'type' => 'string',
                     'location' => 'xml.query'
@@ -278,6 +288,9 @@ return [
                 ],
             ],
             'parameters' => [
+                'apiExperience' => [
+                    'location' => 'xml.query',
+                ],
                 'hotelId' => [
                     'type' => 'numeric',
                     'required' => true,
@@ -348,6 +361,10 @@ return [
                     'type' => 'boolean',
                     'location' => 'xml.query'
                 ],
+                'includeHotelFeeBreakdown' => [
+                    'type' => 'boolean',
+                    'location' => 'xml.query'
+                ],
                 'options' => [
                     'type' => 'string',
                     'location' => 'xml.query'
@@ -366,6 +383,12 @@ return [
                 ],
             ],
             'parameters' => [
+                'additionalData' => [
+                    'location' => 'query'
+                ],
+                'apiExperience' => [
+                    'location' => 'xml.query',
+                ],
                 'hotelId' => [
                     'type' => 'numeric',
                     'required' => true,
@@ -457,11 +480,11 @@ return [
                         ]
                     ]
                 ],
-                'affiliateCustomerId' => [
+                'affiliateConfirmationId' => [
                     'type' => 'string',
                     'location' => 'xml.query'
                 ],
-                'frequentGuestNumber' => [
+                'affiliateCustomerId' => [
                     'type' => 'string',
                     'location' => 'xml.query'
                 ],
@@ -487,8 +510,7 @@ return [
                 ],
                 'sendReservationEmail' => [
                     'type' => 'boolean',
-                    'location' => 'xml.query',
-                    'default' => false
+                    'location' => 'xml.query'
                 ],
                 'ReservationInfo' => [
                     'type' => 'object',
@@ -540,14 +562,6 @@ return [
                         ],
                         'companyName' => [
                             'type' => 'string'
-                        ],
-                        'EmailItineraryAddresses' => [
-                            'type' => 'array',
-                            'maxItems' => 4,
-                            'items' => [
-                                'sentAs' => 'emailItineraryAddress',
-                                'type' => 'string'
-                            ]
                         ],
                         'creditCardType' => [
                             'type' => 'string',
@@ -642,7 +656,7 @@ return [
             'extends' => 'AbstractOperation',
             'httpMethod' => 'GET',
             'uri' => '{+generalEndpoint}/ean-services/rs/hotel/v3/cancel',
-            'summery' => 'Cancel the room reservation by confirmation number',
+            'summary' => 'Cancel a single room on an itinerary',
             'responseModel' => 'RoomCancellationResponse',
             'data' => [
                 'xmlRoot' => [
@@ -779,8 +793,7 @@ return [
                                     'xmlAttribute' => true
                                 ]
                             ],
-                            'description' => [
-                                'sentAs' => 'type',
+                            'type' => [
                                 'type' => 'string',
                                 'data' => [
                                     'xmlAttribute' => true
@@ -891,11 +904,6 @@ return [
                 'type' => 'object',
                 'sentAs' => 'ValueAdd',
                 'properties' => [
-                    'id' => [
-                        'data' => [
-                            'xmlAttribute' => true
-                        ]
-                    ],
                     'description' => [
                         'type' => 'string'
                     ]
@@ -935,21 +943,11 @@ return [
                     'promoDetailText' => [
                         'type' => 'string'
                     ],
-                    'taxRate' => [
-                        'type' => 'string'
-                    ],
                     'nonRefundable' => [
-                        'type' => 'boolean'
-                    ],
-                    'guaranteeRequired' => [
                         'type' => 'boolean'
                     ],
                     'depositRequired' => [
                         'type' => 'boolean'
-                    ],
-                    'deposit' => [
-                        'sentAs' => 'Deposit',
-                        'type' => 'numeric'
                     ],
                     'rateType' => [
                         'type' => 'string'
@@ -1025,6 +1023,15 @@ return [
                         'sentAs' => 'HotelSummary',
                         'type' => 'object',
                         'properties' => [
+                            'tripAdvisorRating' => [
+                                'type' => 'string'
+                            ],
+                            'tripAdvisorReviewCount' => [
+                                'type' => 'numeric'
+                            ],
+                            'tripAdvisorRatingUrl' => [
+                                'type' => 'string'
+                            ],
                             'hotelId' => [
                                 'type' => 'numeric'
                             ],
@@ -1057,9 +1064,6 @@ return [
                             ],
                             'hotelRating' => [
                                 'type' => 'string'
-                            ],
-                            'confidenceRating' => [
-                                'type' => 'numeric'
                             ],
                             'amenityMask' => [
                                 'type' => 'numeric'
@@ -1094,9 +1098,8 @@ return [
                             'hotelInDestination' => [
                                 'type' => 'boolean'
                             ],
-                            'thumbnailPath' => [
-                                'type' => 'string',
-                                'sentAs' => 'thumbNailUrl'
+                            'thumbNailUrl' => [
+                                'type' => 'string'
                             ],
                             'deepLink' => [
                                 'type' => 'string'
@@ -1296,8 +1299,14 @@ return [
                 'checkInInstructions' => [
                     'location' => 'xml'
                 ],
-                'rateKey' => [
-                    'location' => 'xml'
+                'tripAdvisorRating' => [
+                    'type' => 'string'
+                ],
+                'tripAdvisorReviewCount' => [
+                    'type' => 'numeric'
+                ],
+                'tripAdvisorRatingUrl' => [
+                    'type' => 'string'
                 ],
                 'Rooms' => [
                     'sentAs' => 'HotelRoomResponse',
@@ -1327,9 +1336,6 @@ return [
                             'otherInformation' => [
                                 'type' => 'string',
                             ],
-                            'immediateChargeRequired' => [
-                                'type' => 'boolean',
-                            ],
                             'propertyId' => [
                                 'type' => 'string',
                             ],
@@ -1337,9 +1343,6 @@ return [
                                 'type' => 'string',
                             ],
                             'minGuestAge' => [
-                                'type' => 'numeric',
-                            ],
-                            'maxRoomOccupancy' => [
                                 'type' => 'numeric',
                             ],
                             'quotedOccupancy' => [
@@ -1401,8 +1404,7 @@ return [
                                                         'xmlAttribute' => true
                                                     ]
                                                 ],
-                                                'description' => [
-                                                    'sentAs' => 'amenity',
+                                                'amenity' => [
                                                     'type' => 'string'
                                                 ]
                                             ]
@@ -1424,8 +1426,7 @@ return [
                                                         'xmlAttribute' => true
                                                     ]
                                                 ],
-                                                'description' => [
-                                                    'sentAs' => 'amenity',
+                                                'amenity' => [
                                                     'type' => 'string'
                                                 ]
                                             ]
@@ -1559,40 +1560,6 @@ return [
                     'location' => 'xml',
                     'type' => 'numeric'
                 ],
-                'RoomGroup' => [
-                    'location' => 'xml',
-                    'type' => 'array',
-                    'items' => [
-                        'type' => 'object',
-                        'sentAs' => 'Room',
-                        'properties' => [
-                            'numberOfAdults' => [
-                                'type' => 'numeric'
-                            ],
-                            'numberOfChildren' => [
-                                'type' => 'numeric'
-                            ],
-                            'childAges' => [
-                                'type' => 'string'
-                            ],
-                            'firstName' => [
-                                'type' => 'string'
-                            ],
-                            'lastName' => [
-                                'type' => 'string'
-                            ],
-                            'bedTypeId' => [
-                                'type' => 'string'
-                            ],
-                            'numberOfBeds' => [
-                                'type' => 'numeric'
-                            ],
-                            'smokingPreference' => [
-                                'type' => 'string'
-                            ],
-                        ]
-                    ]
-                ],
                 'RateInfos' => [
                     'location' => 'xml',
                     'type' => 'array',
@@ -1639,10 +1606,6 @@ return [
                             'depositRequired' => [
                                 'type' => 'boolean'
                             ],
-                            'deposit' => [
-                                'sentAs' => 'Deposit',
-                                'type' => 'numeric'
-                            ],
                             'rateType' => [
                                 'type' => 'string'
                             ],
@@ -1659,7 +1622,7 @@ return [
                                             'type' => 'numeric'
                                         ],
                                         'numberOfChildren' => [
-                                            'type' => 'numeric',
+                                            'type' => 'numeric'
                                         ],
                                         'childAges' => [
                                             'type' => 'string'
@@ -1673,6 +1636,9 @@ return [
                                         'bedTypeId' => [
                                             'type' => 'string'
                                         ],
+                                        'bedTypeDescription' => [
+                                            'type' => 'string'
+                                        ],
                                         'numberOfBeds' => [
                                             'type' => 'numeric'
                                         ],
@@ -1681,8 +1647,7 @@ return [
                                         ]
                                     ]
                                 ]
-                            ],
-
+                            ]
                         ]
                     ]
                 ]
@@ -1700,6 +1665,6 @@ return [
                     'type' => 'string'
                 ]
             ]
-        ],
+        ]
     ]
 ];
