@@ -62,11 +62,209 @@ return [
                     'default' => 'gzip,deflate'
                 ]
             ],
-            'errorResponses' => [
-                ['handling' => 'RECOVERABLE', 'class' => 'Otg\\Ean\\Hotel\\Exception\\RecoverableException'],
-                ['handling' => 'UNRECOVERABLE', 'class' => 'Otg\\Ean\\Hotel\\Exception\\UnrecoverableException'],
-                ['handling' => 'AGENT_ATTENTION', 'class' => 'Otg\\Ean\\Hotel\\Exception\\AgentAttentionException'],
+        ],
+        'GetHotelList' => [
+            'extends' => 'AbstractOperation',
+            'httpMethod' => 'GET',
+            'uri' => '{+generalEndpoint}/ean-services/rs/hotel/v3/list',
+            'summary' => 'Retrieve a list of hotels by location or a list of specific hotelIds.',
+            'responseModel' => 'HotelListResponse',
+            'data' => [
+                'xmlRoot' => [
+                    'name' => 'HotelListRequest',
+                ]
             ],
+            'parameters' => [
+                'arrivalDate' => [
+                    'location' => 'xml.query',
+                    'filters' => [
+                        'Otg\Ean\Filter\StringFilter::formatUsDate'
+                    ]
+                ],
+                'departureDate' => [
+                    'location' => 'xml.query',
+                    'filters' => [
+                        'Otg\Ean\Filter\StringFilter::formatUsDate'
+                    ]
+                ],
+                'numberOfResults' => [
+                    'type' => 'numeric',
+                    'location' => 'xml.query'
+                ],
+                'RoomGroup' => [
+                    'type' => 'array',
+                    'location' => 'xml.query',
+                    'items' => [
+                        'type' => 'object',
+                        'sentAs' => 'Room',
+                        'properties' => [
+                            'numberOfAdults' => [
+                                'type' => 'numeric',
+                                'minimum' => 1,
+                                'required' => true
+                            ],
+                            'numberOfChildren' => [
+                                'type' => 'numeric',
+                            ],
+                            'childAges' => [
+                                'filters' => [
+                                    'Otg\Ean\Filter\StringFilter::joinValues'
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+                'includeDetails' => [
+                    'type' => 'boolean',
+                    'location' => 'xml.query'
+                ],
+                'includeHotelFeeBreakdown' => [
+                    'type' => 'boolean',
+                    'location' => 'xml.query'
+                ],
+
+                /* Use only one of the following methods to limit hotels returned */
+
+                /* Method 1: City/state/country search */
+                'city' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+                'stateProvinceCode' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+                'countryCode' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+
+                /* Method 2: Use a free text destination string */
+                'destinationString' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+
+                /* Method 3: Use a destinationId */
+                'destinationId' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+
+                /* Method 4: Use a list of hotelIds */
+                'hotelIdList' => [
+                    'location' => 'xml.query',
+                    'filters' => [
+                        'Otg\Ean\Filter\StringFilter::joinValues'
+                    ]
+                ],
+
+                /* Method 5: Search within a geographical area */
+                'latitude' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+                'longitude' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+                'searchRadius' => [
+                    'type' => 'numeric',
+                    'location' => 'xml.query'
+                ],
+                'searchRadiusUnit' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+
+                /* Additional (secondary] search methods */
+                'address' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+                'postalCode' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+                'propertyName' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+
+                /* Filtering */
+
+                'includeSurrounding' => [
+                    'type' => 'boolean',
+                    'location' => 'xml.query'
+                ],
+                'propertyCategory' => [
+                    'location' => 'xml.query',
+                    'filters' => [
+                        'Otg\Ean\Filter\StringFilter::joinValues'
+                    ]
+                ],
+                /* note: amenities is deprecated in favour of local filtering
+                 * http://dev.ean.com/docs/hotel-list/#amenities
+                 */
+                'amenities' => [
+                    'location' => 'xml.query',
+                    'filters' => [
+                        'Otg\Ean\Filter\StringFilter::joinValues'
+                    ]
+                ],
+                'maxStarRating' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+                'minStarRating' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+                'minRate' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+                'maxRate' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+                'numberOfBedRooms' => [
+                    'type' => 'numeric',
+                    'location' => 'xml.query'
+                ],
+                'supplierType' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+                'maxRatePlanCount' => [
+                    'type' => 'numeric',
+                    'location' => 'xml.query'
+                ],
+
+                /**/
+
+                'sort' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+                'options' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+                'supplierCacheTolerance' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+                'cacheKey' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+                'cacheLocation' => [
+                    'type' => 'string',
+                    'location' => 'xml.query'
+                ],
+
+            ]
         ],
         'GetRoomAvailability' => [
             'extends' => 'AbstractOperation',
@@ -440,209 +638,6 @@ return [
                 ],
             ]
         ],
-        'GetHotelList' => [
-            'extends' => 'AbstractOperation',
-            'httpMethod' => 'GET',
-            'uri' => '{+generalEndpoint}/ean-services/rs/hotel/v3/list',
-            'summary' => 'Retrieve a list of hotels by location or a list of specific hotelIds.',
-            'responseModel' => 'HotelListResponse',
-            'data' => [
-                'xmlRoot' => [
-                    'name' => 'HotelListRequest',
-                ]
-            ],
-            'parameters' => [
-                'arrivalDate' => [
-                    'location' => 'xml.query',
-                    'filters' => [
-                        'Otg\Ean\Filter\StringFilter::formatUsDate'
-                    ]
-                ],
-                'departureDate' => [
-                    'location' => 'xml.query',
-                    'filters' => [
-                        'Otg\Ean\Filter\StringFilter::formatUsDate'
-                    ]
-                ],
-                'numberOfResults' => [
-                    'type' => 'numeric',
-                    'location' => 'xml.query'
-                ],
-                'RoomGroup' => [
-                    'type' => 'array',
-                    'location' => 'xml.query',
-                    'items' => [
-                        'type' => 'object',
-                        'sentAs' => 'Room',
-                        'properties' => [
-                            'numberOfAdults' => [
-                                'type' => 'numeric',
-                                'minimum' => 1,
-                                'required' => true
-                            ],
-                            'numberOfChildren' => [
-                                'type' => 'numeric',
-                            ],
-                            'childAges' => [
-                                'filters' => [
-                                    'Otg\Ean\Filter\StringFilter::joinValues'
-                                ]
-                            ]
-                        ]
-                    ]
-                ],
-                'includeDetails' => [
-                    'type' => 'boolean',
-                    'location' => 'xml.query'
-                ],
-                'includeHotelFeeBreakdown' => [
-                    'type' => 'boolean',
-                    'location' => 'xml.query'
-                ],
-
-                /* Use only one of the following methods to limit hotels returned */
-
-                /* Method 1: City/state/country search */
-                'city' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-                'stateProvinceCode' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-                'countryCode' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-
-                /* Method 2: Use a free text destination string */
-                'destinationString' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-
-                /* Method 3: Use a destinationId */
-                'destinationId' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-
-                /* Method 4: Use a list of hotelIds */
-                'hotelIdList' => [
-                    'location' => 'xml.query',
-                    'filters' => [
-                        'Otg\Ean\Filter\StringFilter::joinValues'
-                    ]
-                ],
-
-                /* Method 5: Search within a geographical area */
-                'latitude' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-                'longitude' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-                'searchRadius' => [
-                    'type' => 'numeric',
-                    'location' => 'xml.query'
-                ],
-                'searchRadiusUnit' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-
-                /* Additional (secondary] search methods */
-                'address' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-                'postalCode' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-                'propertyName' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-
-                /* Filtering */
-
-                'includeSurrounding' => [
-                    'type' => 'boolean',
-                    'location' => 'xml.query'
-                ],
-                'propertyCategory' => [
-                    'location' => 'xml.query',
-                    'filters' => [
-                        'Otg\Ean\Filter\StringFilter::joinValues'
-                    ]
-                ],
-                /* note: amenities is deprecated in favour of local filtering
-                 * http://dev.ean.com/docs/hotel-list/#amenities
-                 */
-                'amenities' => [
-                    'location' => 'xml.query',
-                    'filters' => [
-                        'Otg\Ean\Filter\StringFilter::joinValues'
-                    ]
-                ],
-                'maxStarRating' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-                'minStarRating' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-                'minRate' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-                'maxRate' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-                'numberOfBedRooms' => [
-                    'type' => 'numeric',
-                    'location' => 'xml.query'
-                ],
-                'supplierType' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-                'maxRatePlanCount' => [
-                    'type' => 'numeric',
-                    'location' => 'xml.query'
-                ],
-
-                /**/
-
-                'sort' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-                'options' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-                'supplierCacheTolerance' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-                'cacheKey' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-                'cacheLocation' => [
-                    'type' => 'string',
-                    'location' => 'xml.query'
-                ],
-
-            ]
-        ],
         'GetRoomCancellation' => [
             'extends' => 'AbstractOperation',
             'httpMethod' => 'GET',
@@ -1000,6 +995,269 @@ return [
                     ],
                     'HotelFees' => [
                         'extends' => 'AbstractHotelFees'
+                    ]
+                ]
+            ]
+        ],
+        'HotelListResponse' => [
+            'type' => 'object',
+            'properties' => [
+                'moreResultsAvailable' => [
+                    'location' => 'xml',
+                    'type' => 'boolean'
+                ],
+                'numberOfRoomsRequested' => [
+                    'location' => 'xml',
+                    'type' => 'numeric'
+                ],
+                'cacheKey' => [
+                    'location' => 'xml',
+                    'type' => 'string'
+                ],
+                'cacheLocation' => [
+                    'location' => 'xml',
+                    'type' => 'string'
+                ],
+                'HotelList' => [
+                    'location' => 'xml',
+                    'type' => 'array',
+                    'items' => [
+                        'sentAs' => 'HotelSummary',
+                        'type' => 'object',
+                        'properties' => [
+                            'hotelId' => [
+                                'type' => 'numeric'
+                            ],
+                            'name' => [
+                                'type' => 'string'
+                            ],
+                            'address1' => [
+                                'type' => 'string'
+                            ],
+                            'city' => [
+                                'type' => 'string'
+                            ],
+                            'stateProvinceCode' => [
+                                'type' => 'string'
+                            ],
+                            'countryCode' => [
+                                'type' => 'string'
+                            ],
+                            'postalCode' => [
+                                'type' => 'string'
+                            ],
+                            'airportCode' => [
+                                'type' => 'string'
+                            ],
+                            'supplierType' => [
+                                'type' => 'string'
+                            ],
+                            'propertyCategory' => [
+                                'type' => 'string'
+                            ],
+                            'hotelRating' => [
+                                'type' => 'string'
+                            ],
+                            'confidenceRating' => [
+                                'type' => 'numeric'
+                            ],
+                            'amenityMask' => [
+                                'type' => 'numeric'
+                            ],
+                            'shortDescription' => [
+                                'type' => 'string'
+                            ],
+                            'locationDescription' => [
+                                'type' => 'string'
+                            ],
+                            'lowRate' => [
+                                'type' => 'string'
+                            ],
+                            'highRate' => [
+                                'type' => 'string'
+                            ],
+                            'rateCurrencyCode' => [
+                                'type' => 'string'
+                            ],
+                            'latitude' => [
+                                'type' => 'string'
+                            ],
+                            'longitude' => [
+                                'type' => 'string'
+                            ],
+                            'proximityDistance' => [
+                                'type' => 'string'
+                            ],
+                            'proximityUnit' => [
+                                'type' => 'string'
+                            ],
+                            'hotelInDestination' => [
+                                'type' => 'boolean'
+                            ],
+                            'thumbnailPath' => [
+                                'type' => 'string',
+                                'sentAs' => 'thumbNailUrl'
+                            ],
+                            'deepLink' => [
+                                'type' => 'string'
+                            ],
+                            'RoomRateDetailsList' => [
+                                'type' => 'array',
+                                'items' => [
+                                    'sentAs' => 'RoomRateDetails',
+                                    'type' => 'object',
+                                    'properties' => [
+                                        'roomTypeCode' => [
+                                            'type' => 'string'
+                                        ],
+                                        'rateCode' => [
+                                            'type' => 'string'
+                                        ],
+                                        'maxRoomOccupancy' => [
+                                            'type' => 'numeric'
+                                        ],
+                                        'quotedRoomOccupancy' => [
+                                            'type' => 'numeric'
+                                        ],
+                                        'minGuestAge' => [
+                                            'type' => 'numeric'
+                                        ],
+                                        'roomDescription' => [
+                                            'type' => 'string'
+                                        ],
+                                        'promoId' => [
+                                            'type' => 'string'
+                                        ],
+                                        'promoDescription' => [
+                                            'type' => 'string'
+                                        ],
+                                        'promoDetailText' => [
+                                            'type' => 'string'
+                                        ],
+                                        'currentAllotment' => [
+                                            'type' => 'numeric'
+                                        ],
+                                        'propertyAvailable' => [
+                                            'type' => 'boolean'
+                                        ],
+                                        'propertyRestricted' => [
+                                            'type' => 'boolean'
+                                        ],
+                                        'expediaPropertyId' => [
+                                            'type' => 'string'
+                                        ],
+                                        'BedTypes' => [
+                                            'extends' => 'AbstractBedTypes'
+                                        ],
+                                        'rateKey' => [
+                                            'type' => 'string'
+                                        ],
+                                        'smokingPreferences' => [
+                                            'type' => 'string'
+                                        ],
+                                        'nonRefundable' => [
+                                            'type' => 'boolean'
+                                        ],
+                                        'ValueAdds' => [
+                                            'extends' => 'AbstractValueAdds'
+                                        ],
+                                        'RateInfos' => [
+                                            'extends' => 'AbstractRateInfos'
+                                        ]
+                                    ]
+                                ]
+                            ],
+                        ]
+                    ]
+                ],
+                'cachedSupplierResponse' => [
+                    'location' => 'xml',
+                    'type' => 'object',
+                    'properties' => [
+                        'cacheEntryHitNum' => [
+                            'type' => 'numeric',
+                            'data' => [
+                                'xmlAttribute' => true
+                            ]
+                        ],
+                        'cacheEntryMissNum' => [
+                            'type' => 'numeric',
+                            'data' => [
+                                'xmlAttribute' => true
+                            ]
+                        ],
+                        'cacheEntryExpiredNum' => [
+                            'type' => 'numeric',
+                            'data' => [
+                                'xmlAttribute' => true
+                            ]
+                        ],
+                        'cacheRetrievalTime' => [
+                            'type' => 'numeric',
+                            'data' => [
+                                'xmlAttribute' => true
+                            ]
+                        ],
+                        'supplierRequestNum' => [
+                            'type' => 'numeric',
+                            'data' => [
+                                'xmlAttribute' => true
+                            ]
+                        ],
+                        'supplierResponseNum' => [
+                            'type' => 'numeric',
+                            'data' => [
+                                'xmlAttribute' => true
+                            ]
+                        ],
+                        'supplierResponseTime' => [
+                            'type' => 'numeric',
+                            'data' => [
+                                'xmlAttribute' => true
+                            ]
+                        ],
+                        'candidatePrepTime' => [
+                            'type' => 'numeric',
+                            'data' => [
+                                'xmlAttribute' => true
+                            ]
+                        ],
+                        'otherOverheadTime' => [
+                            'type' => 'numeric',
+                            'data' => [
+                                'xmlAttribute' => true
+                            ]
+                        ],
+                        'tpidUsed' => [
+                            'type' => 'numeric',
+                            'data' => [
+                                'xmlAttribute' => true
+                            ]
+                        ],
+                        'matchedCurrency' => [
+                            'type' => 'boolean',
+                            'data' => [
+                                'xmlAttribute' => true
+                            ]
+                        ],
+                        'matchedLocale' => [
+                            'type' => 'boolean',
+                            'data' => [
+                                'xmlAttribute' => true
+                            ]
+                        ],
+                        'extrapolatedCurrency' => [
+                            'type' => 'boolean',
+                            'data' => [
+                                'xmlAttribute' => true
+                            ]
+                        ],
+                        'extrapolatedLocale' => [
+                            'type' => 'boolean',
+                            'data' => [
+                                'xmlAttribute' => true
+                            ]
+                        ]
                     ]
                 ]
             ]
@@ -1425,269 +1683,6 @@ return [
                                 ]
                             ],
 
-                        ]
-                    ]
-                ]
-            ]
-        ],
-        'HotelListResponse' => [
-            'type' => 'object',
-            'properties' => [
-                'moreResultsAvailable' => [
-                    'location' => 'xml',
-                    'type' => 'boolean'
-                ],
-                'numberOfRoomsRequested' => [
-                    'location' => 'xml',
-                    'type' => 'numeric'
-                ],
-                'cacheKey' => [
-                    'location' => 'xml',
-                    'type' => 'string'
-                ],
-                'cacheLocation' => [
-                    'location' => 'xml',
-                    'type' => 'string'
-                ],
-                'HotelList' => [
-                    'location' => 'xml',
-                    'type' => 'array',
-                    'items' => [
-                        'sentAs' => 'HotelSummary',
-                        'type' => 'object',
-                        'properties' => [
-                            'hotelId' => [
-                                'type' => 'numeric'
-                            ],
-                            'name' => [
-                                'type' => 'string'
-                            ],
-                            'address1' => [
-                                'type' => 'string'
-                            ],
-                            'city' => [
-                                'type' => 'string'
-                            ],
-                            'stateProvinceCode' => [
-                                'type' => 'string'
-                            ],
-                            'countryCode' => [
-                                'type' => 'string'
-                            ],
-                            'postalCode' => [
-                                'type' => 'string'
-                            ],
-                            'airportCode' => [
-                                'type' => 'string'
-                            ],
-                            'supplierType' => [
-                                'type' => 'string'
-                            ],
-                            'propertyCategory' => [
-                                'type' => 'string'
-                            ],
-                            'hotelRating' => [
-                                'type' => 'string'
-                            ],
-                            'confidenceRating' => [
-                                'type' => 'numeric'
-                            ],
-                            'amenityMask' => [
-                                'type' => 'numeric'
-                            ],
-                            'shortDescription' => [
-                                'type' => 'string'
-                            ],
-                            'locationDescription' => [
-                                'type' => 'string'
-                            ],
-                            'lowRate' => [
-                                'type' => 'string'
-                            ],
-                            'highRate' => [
-                                'type' => 'string'
-                            ],
-                            'rateCurrencyCode' => [
-                                'type' => 'string'
-                            ],
-                            'latitude' => [
-                                'type' => 'string'
-                            ],
-                            'longitude' => [
-                                'type' => 'string'
-                            ],
-                            'proximityDistance' => [
-                                'type' => 'string'
-                            ],
-                            'proximityUnit' => [
-                                'type' => 'string'
-                            ],
-                            'hotelInDestination' => [
-                                'type' => 'boolean'
-                            ],
-                            'thumbnailPath' => [
-                                'type' => 'string',
-                                'sentAs' => 'thumbNailUrl'
-                            ],
-                            'deepLink' => [
-                                'type' => 'string'
-                            ],
-                            'RoomRateDetailsList' => [
-                                'type' => 'array',
-                                'items' => [
-                                    'sentAs' => 'RoomRateDetails',
-                                    'type' => 'object',
-                                    'properties' => [
-                                        'roomTypeCode' => [
-                                            'type' => 'string'
-                                        ],
-                                        'rateCode' => [
-                                            'type' => 'string'
-                                        ],
-                                        'maxRoomOccupancy' => [
-                                            'type' => 'numeric'
-                                        ],
-                                        'quotedRoomOccupancy' => [
-                                            'type' => 'numeric'
-                                        ],
-                                        'minGuestAge' => [
-                                            'type' => 'numeric'
-                                        ],
-                                        'roomDescription' => [
-                                            'type' => 'string'
-                                        ],
-                                        'promoId' => [
-                                            'type' => 'string'
-                                        ],
-                                        'promoDescription' => [
-                                            'type' => 'string'
-                                        ],
-                                        'promoDetailText' => [
-                                            'type' => 'string'
-                                        ],
-                                        'currentAllotment' => [
-                                            'type' => 'numeric'
-                                        ],
-                                        'propertyAvailable' => [
-                                            'type' => 'boolean'
-                                        ],
-                                        'propertyRestricted' => [
-                                            'type' => 'boolean'
-                                        ],
-                                        'expediaPropertyId' => [
-                                            'type' => 'string'
-                                        ],
-                                        'BedTypes' => [
-                                            'extends' => 'AbstractBedTypes'
-                                        ],
-                                        'rateKey' => [
-                                            'type' => 'string'
-                                        ],
-                                        'smokingPreferences' => [
-                                            'type' => 'string'
-                                        ],
-                                        'nonRefundable' => [
-                                            'type' => 'boolean'
-                                        ],
-                                        'ValueAdds' => [
-                                            'extends' => 'AbstractValueAdds'
-                                        ],
-                                        'RateInfos' => [
-                                            'extends' => 'AbstractRateInfos'
-                                        ]
-                                    ]
-                                ]
-                            ],
-                        ]
-                    ]
-                ],
-                'cachedSupplierResponse' => [
-                    'location' => 'xml',
-                    'type' => 'object',
-                    'properties' => [
-                        'cacheEntryHitNum' => [
-                            'type' => 'numeric',
-                            'data' => [
-                                'xmlAttribute' => true
-                            ]
-                        ],
-                        'cacheEntryMissNum' => [
-                            'type' => 'numeric',
-                            'data' => [
-                                'xmlAttribute' => true
-                            ]
-                        ],
-                        'cacheEntryExpiredNum' => [
-                            'type' => 'numeric',
-                            'data' => [
-                                'xmlAttribute' => true
-                            ]
-                        ],
-                        'cacheRetrievalTime' => [
-                            'type' => 'numeric',
-                            'data' => [
-                                'xmlAttribute' => true
-                            ]
-                        ],
-                        'supplierRequestNum' => [
-                            'type' => 'numeric',
-                            'data' => [
-                                'xmlAttribute' => true
-                            ]
-                        ],
-                        'supplierResponseNum' => [
-                            'type' => 'numeric',
-                            'data' => [
-                                'xmlAttribute' => true
-                            ]
-                        ],
-                        'supplierResponseTime' => [
-                            'type' => 'numeric',
-                            'data' => [
-                                'xmlAttribute' => true
-                            ]
-                        ],
-                        'candidatePrepTime' => [
-                            'type' => 'numeric',
-                            'data' => [
-                                'xmlAttribute' => true
-                            ]
-                        ],
-                        'otherOverheadTime' => [
-                            'type' => 'numeric',
-                            'data' => [
-                                'xmlAttribute' => true
-                            ]
-                        ],
-                        'tpidUsed' => [
-                            'type' => 'numeric',
-                            'data' => [
-                                'xmlAttribute' => true
-                            ]
-                        ],
-                        'matchedCurrency' => [
-                            'type' => 'boolean',
-                            'data' => [
-                                'xmlAttribute' => true
-                            ]
-                        ],
-                        'matchedLocale' => [
-                            'type' => 'boolean',
-                            'data' => [
-                                'xmlAttribute' => true
-                            ]
-                        ],
-                        'extrapolatedCurrency' => [
-                            'type' => 'boolean',
-                            'data' => [
-                                'xmlAttribute' => true
-                            ]
-                        ],
-                        'extrapolatedLocale' => [
-                            'type' => 'boolean',
-                            'data' => [
-                                'xmlAttribute' => true
-                            ]
                         ]
                     ]
                 ]
