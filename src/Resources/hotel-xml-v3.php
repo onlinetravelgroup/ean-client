@@ -761,6 +761,26 @@ return [
                 ]
             ],
         ],
+        'GetRoomImages' => [
+            'extends' => 'AbstractOperation',
+            'httpMethod' => 'GET',
+            'uri' => '{+generalEndpoint}/ean-services/rs/hotel/v3/roomImages',
+            'summary' => 'Retrieve room-level photos for a specific property',
+            'documentationUrl' => 'https://dev.ean.com/docs/room-images/',
+            'responseModel' => 'RoomImagesResponse',
+            'data' => [
+                'xmlRoot' => [
+                    'name' => 'HotelRoomImageRequest',
+                ],
+            ],
+            'parameters' => [
+                'hotelId' => [
+                    'location' => 'xml.query',
+                    'type' => 'numeric',
+                    'required' => true
+                ]
+            ]
+        ]
     ],
     'models' => [
         // extended by ChargeableRateInfo and ConvertedRateInfo
@@ -2013,6 +2033,27 @@ return [
                 'customerSessionId' => [
                     'location' => 'xml',
                     'type' => 'string'
+                ]
+            ]
+        ],
+        'RoomImagesResponse' => [
+            'type' => 'object',
+            'properties' => [
+                'RoomImages' => [
+                    'location' => 'xml',
+                    'type' => 'array',
+                    'items' => [
+                        'sentAs' => 'RoomImage',
+                        'type' => 'object',
+                        'properties' => [
+                            'roomTypeCode' => [
+                                'type' => 'string'
+                            ],
+                            'url' => [
+                                'type' => 'string'
+                            ]
+                        ]
+                    ]
                 ]
             ]
         ]
