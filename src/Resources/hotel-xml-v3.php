@@ -998,6 +998,30 @@ return [
                     ]
                 ]
             ]
+        ],
+        'GetHotelInfo' => [
+            'extends' => 'AbstractOperation',
+            'httpMethod' => 'GET',
+            'uri' => '{+generalEndpoint}/ean-services/rs/hotel/v3/info',
+            'summary' => 'Retrieve data for a single hotel',
+            'documentationUrl' => 'https://dev.ean.com/docs/hotel-info/',
+            'responseModel' => 'HotelInfoResponse',
+            'data' => [
+                'xmlRoot' => [
+                    'name' => 'HotelInformationRequest',
+                ],
+            ],
+            'parameters' => [
+                'hotelId' => [
+                    'required' => true,
+                    'location' => 'xml.query',
+                    'type' => 'numeric'
+                ],
+                'options' => [
+                    'location' => 'xml.query',
+                    'type' => 'string'
+                ]
+            ]
         ]
     ],
     'models' => [
@@ -1308,6 +1332,157 @@ return [
                     'HotelFees' => [
                         'extends' => 'AbstractHotelFees'
                     ]
+                ]
+            ]
+        ],
+        'AbstractRoomAmenities' => [
+            'type' => 'array',
+            'sentAs' => 'roomAmenities',
+            'items' => [
+                'sentAs' => 'RoomAmenity',
+                'type' => 'object',
+                'properties' => [
+                    'amenityId' => [
+                        'data' => [
+                            'xmlAttribute' => true
+                        ]
+                    ],
+                    'amenity' => [
+                        'type' => 'string'
+                    ]
+                ]
+            ]
+        ],
+        'AbstractPropertyAmenities' => [
+            'type' => 'array',
+            'items' => [
+                'sentAs' => 'PropertyAmenity',
+                'type' => 'object',
+                'properties' => [
+                    'amenityId' => [
+                        'data' => [
+                            'xmlAttribute' => true
+                        ]
+                    ],
+                    'amenity' => [
+                        'type' => 'string'
+                    ]
+                ]
+            ]
+        ],
+        'AbstractHotelImages' => [
+            'type' => 'array',
+            'items' => [
+                'sentAs' => 'HotelImage',
+                'type' => 'object',
+                'properties' => [
+                    'hotelImageId' => [
+                        'type' => 'numeric',
+                    ],
+                    'name' => [
+                        'type' => 'string'
+                    ],
+                    'category' => [
+                        'type' => 'numeric'
+                    ],
+                    'type' => [
+                        'type' => 'numeric',
+                    ],
+                    'caption' => [
+                        'type' => 'string'
+                    ],
+                    'url' => [
+                        'type' => 'string'
+                    ],
+                    'thumbnailUrl' => [
+                        'type' => 'string'
+                    ],
+                    'supplierId' => [
+                        'type' => 'numeric'
+                    ],
+                    'width' => [
+                        'type' => 'numeric'
+                    ],
+                    'height' => [
+                        'type' => 'numeric'
+                    ],
+                    'byteSize' => [
+                        'type' => 'numeric'
+                    ],
+                ]
+            ]
+        ],
+        'AbstractHotelDetails' => [
+            'type' => 'object',
+            'properties' => [
+                'nativeCurrencyCode' => [
+                    'type' => 'string'
+                ],
+                'numberOfRooms' => [
+                    'type' => 'numeric'
+                ],
+                'numberOfFloors' => [
+                    'type' => 'numeric'
+                ],
+                'checkInTime' => [
+                    'type' => 'string'
+                ],
+                'checkOutTime' => [
+                    'type' => 'string'
+                ],
+                'extraPersonCharge' => [
+                    'type' => 'string'
+                ],
+                'propertyInformation' => [
+                    'type' => 'string'
+                ],
+                'areaInformation' => [
+                    'type' => 'string'
+                ],
+                'propertyDescription' => [
+                    'type' => 'string'
+                ],
+                'hotelPolicy' => [
+                    'type' => 'string'
+                ],
+                'depositCreditCardsAccepted' => [
+                    'type' => 'string'
+                ],
+                'roomInformation' => [
+                    'type' => 'string'
+                ],
+                'checkInInstructions' => [
+                    'type' => 'string'
+                ],
+                'locationDescription' => [
+                    'type' => 'string'
+                ],
+                'diningDescription' => [
+                    'type' => 'string'
+                ],
+                'amenitiesDescription' => [
+                    'type' => 'string'
+                ],
+                'businessAmenitiesDescription' => [
+                    'type' => 'string'
+                ],
+                'roomDetailDescription' => [
+                    'type' => 'string'
+                ],
+                'roomFeesDescription' => [
+                    'type' => 'string'
+                ],
+                'mandatoryFeesDescription' => [
+                    'type' => 'string'
+                ],
+                'nationalRatingsDescription' => [
+                    'type' => 'string'
+                ],
+                'knowBeforeYouGoDescription' => [
+                    'type' => 'string'
+                ],
+                'renovationsDescription' => [
+                    'type' => 'string'
                 ]
             ]
         ],
@@ -1706,97 +1881,28 @@ return [
                                         'type' => 'string'
                                     ],
                                     'RoomAmenities' => [
-                                        // todo: extend from abstract model (shared with HotelInfo model]
-                                        'type' => 'array',
-                                        'sentAs' => 'roomAmenities',
-                                        'items' => [
-                                            'sentAs' => 'RoomAmenity',
-                                            'type' => 'object',
-                                            'properties' => [
-                                                'amenityId' => [
-                                                    'data' => [
-                                                        'xmlAttribute' => true
-                                                    ]
-                                                ],
-                                                'amenity' => [
-                                                    'type' => 'string'
-                                                ]
-                                            ]
-                                        ]
-                                    ],
-                                    'HotelDetails' => [
-                                        // todo: extend from abstract model (shared with HotelInfo model]
-                                        'type' => 'object'
-                                    ],
-                                    'PropertyAmenities' => [
-                                        // todo: extend from abstract model (shared with HotelInfo model]
-                                        'type' => 'array',
-                                        'items' => [
-                                            'sentAs' => 'PropertyAmenity',
-                                            'type' => 'object',
-                                            'properties' => [
-                                                'amenityId' => [
-                                                    'data' => [
-                                                        'xmlAttribute' => true
-                                                    ]
-                                                ],
-                                                'amenity' => [
-                                                    'type' => 'string'
-                                                ]
-                                            ]
-                                        ]
-                                    ],
-                                    'HotelImages' => [
-                                        // todo: extend from abstract model (shared with HotelInfo model]
-                                        'type' => 'array',
-                                        'items' => [
-                                            'sentAs' => 'HotelImage',
-                                            'type' => 'object',
-                                            'properties' => [
-                                                'hotelImageId' => [
-                                                    'type' => 'numeric',
-                                                ],
-                                                'name' => [
-                                                    'type' => 'string'
-                                                ],
-                                                'category' => [
-                                                    'type' => 'numeric'
-                                                ],
-                                                'type' => [
-                                                    'type' => 'numeric',
-                                                ],
-                                                'caption' => [
-                                                    'type' => 'string'
-                                                ],
-                                                'url' => [
-                                                    'type' => 'string'
-                                                ],
-                                                'thumbnailUrl' => [
-                                                    'type' => 'string'
-                                                ],
-                                                'supplierId' => [
-                                                    'type' => 'numeric'
-                                                ],
-                                                'width' => [
-                                                    'type' => 'numeric'
-                                                ],
-                                                'height' => [
-                                                    'type' => 'numeric'
-                                                ],
-                                                'byteSize' => [
-                                                    'type' => 'numeric'
-                                                ],
-                                            ]
-                                        ]
+                                        'extends' => 'AbstractRoomAmenities'
                                     ]
                                 ]
                             ],
                             'RateInfos' => [
                                 'extends' => 'AbstractRateInfos'
                             ]
-                        ],
+                        ]
                     ]
                 ],
+                'HotelDetails' => [
+                    'location' => 'xml',
+                    'extends' => 'AbstractHotelDetails'
+                ],
+                'PropertyAmenities' => [
+                    'location' => 'xml',
+                    'extends' => 'AbstractPropertyAmenities'
+                ],
+                'HotelImages' => [
+                    'location' => 'xml',
+                    'extends' => 'AbstractHotelImages'
+                ]
             ]
         ],
         'ReservationResponse' => [
@@ -2509,6 +2615,140 @@ return [
                             ]
                         ]
                     ]
+                ]
+            ]
+        ],
+        'HotelInfoResponse' => [
+            'type' => 'object',
+            'properties' => [
+                'customerSessionId' => [
+                    'location' => 'xml'
+                ],
+                'HotelSummary' => [
+                    'location' => 'xml',
+                    'type' => 'object',
+                    'properties' => [
+                        'tripAdvisorRating' => [
+                            'type' => 'string'
+                        ],
+                        'tripAdvisorReviewCount' => [
+                            'type' => 'numeric'
+                        ],
+                        'tripAdvisorRatingUrl' => [
+                            'type' => 'string'
+                        ],
+                        'hotelId' => [
+                            'type' => 'numeric'
+                        ],
+                        'name' => [
+                            'type' => 'string'
+                        ],
+                        'address1' => [
+                            'type' => 'string'
+                        ],
+                        'city' => [
+                            'type' => 'string'
+                        ],
+                        'stateProvinceCode' => [
+                            'type' => 'string'
+                        ],
+                        'countryCode' => [
+                            'type' => 'string'
+                        ],
+                        'postalCode' => [
+                            'type' => 'string'
+                        ],
+                        'airportCode' => [
+                            'type' => 'string'
+                        ],
+                        'propertyCategory' => [
+                            'type' => 'numeric'
+                        ],
+                        'hotelRating' => [
+                            'type' => 'string'
+                        ],
+                        'locationDescription' => [
+                            'type' => 'string'
+                        ],
+                        'lowRate' => [
+                            'type' => 'string'
+                        ],
+                        'highRate' => [
+                            'type' => 'string'
+                        ],
+                        'rateCurrencyCode' => [
+                            'type' => 'string'
+                        ],
+                        'latitude' => [
+                            'type' => 'string'
+                        ],
+                        'longitude' => [
+                            'type' => 'string'
+                        ]
+                    ]
+                ],
+                'HotelDetails' => [
+                    'location' => 'xml',
+                    'extends' => 'AbstractHotelDetails'
+                ],
+                'Suppliers' => [
+                    'location' => 'xml',
+                    'type' => 'array',
+                    'items' => [
+                        'type' => 'object',
+                        'sentAs' => 'Supplier',
+                        'properties' => [
+                            'chainCode' => [
+                                'type' => 'string',
+                                'data' => [
+                                    'xmlAttribute' => true
+                                ]
+                            ],
+                            'id' => [
+                                'type' => 'numeric',
+                                'data' => [
+                                    'xmlAttribute' => true
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+                'RoomTypes' => [
+                    'location' => 'xml',
+                    'type' => 'array',
+                    'items' => [
+                        'type' => 'object',
+                        'sentAs' => 'RoomType',
+                        'properties' => [
+                            'roomCode' => [
+                                'data' => [
+                                    'xmlAttribute' => true
+                                ]
+                            ],
+                            'roomTypeId' => [
+                                'data' => [
+                                    'xmlAttribute' => true
+                                ]
+                            ],
+                            'description' => [
+                                'type' => 'string'
+                            ],
+                            'descriptionLong' => [
+                                'type' => 'string'
+                            ],
+                            'RoomAmenities' => [
+                                'extends' => 'AbstractRoomAmenities'
+                            ]
+                        ]
+                    ]
+                ],
+                'PropertyAmenities' => [
+                    'location' => 'xml',
+                    'extends' => 'AbstractPropertyAmenities'
+                ],
+                'HotelImages' => [
+                    'location' => 'xml',
+                    'extends' => 'AbstractHotelImages'
                 ]
             ]
         ]
