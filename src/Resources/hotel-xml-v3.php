@@ -13,7 +13,7 @@ return [
                 'generalEndpoint' => [
                     'location' => 'uri',
                     'required' => true,
-                    'default' => 'https://api.ean.com'
+                    'default' => 'http://api.ean.com'
                 ],
                 'bookingEndpoint' => [
                     'location' => 'uri',
@@ -697,7 +697,7 @@ return [
         'GetItinerary' => [
             'extends' => 'AbstractOperation',
             'httpMethod' => 'GET',
-            'uri' => '{+generalEndpoint}/ean-services/rs/hotel/v3/itin',
+            'uri' => '{+bookingEndpoint}/ean-services/rs/hotel/v3/itin',
             'summary' => 'Retrieve the itinerary for an existing reservation',
             'documentationUrl' => 'https://dev.ean.com/docs/request-itinerary/',
             'responseModel' => 'ItineraryResponse',
