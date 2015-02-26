@@ -2164,181 +2164,184 @@ return [
                                 ]
                             ],
                             'HotelConfirmation' => [
-                                'type' => 'object',
-                                'properties' => [
-                                    'supplierId' => [
-                                        'type' => 'string'
-                                    ],
-                                    'chainCode' => [
-                                        'type' => 'string'
-                                    ],
-                                    'creditCardType' => [
-                                        'type' => 'string'
-                                    ],
-                                    'arrivalDate' => [
-                                        'type' => 'string'
-                                    ],
-                                    'departureDate' => [
-                                        'type' => 'string'
-                                    ],
-                                    'confirmationNumber' => [
-                                        'type' => 'string'
-                                    ],
-                                    'cancellationNumber' => [
-                                        'type' => 'string'
-                                    ],
-                                    'numberOfAdults' => [
-                                        'type' => 'numeric'
-                                    ],
-                                    'numberOfChildren' => [
-                                        'type' => 'numeric'
-                                    ],
-                                    'affiliateConfirmationId' => [
-                                        'type' => 'string'
-                                    ],
-                                    'smokingPreference' => [
-                                        'type' => 'string'
-                                    ],
-                                    'supplierPropertyId' => [
-                                        'type' => 'string'
-                                    ],
-                                    'roomTypeCode' => [
-                                        'type' => 'string'
-                                    ],
-                                    'rateCode' => [
-                                        'type' => 'string'
-                                    ],
-                                    'rateDescription' => [
-                                        'type' => 'string'
-                                    ],
-                                    'roomDescription' => [
-                                        'type' => 'string'
-                                    ],
-                                    'status' => [
-                                        'type' => 'string'
-                                    ],
-                                    'locale' => [
-                                        'type' => 'string'
-                                    ],
-                                    'nights' => [
-                                        'type' => 'numeric'
-                                    ],
-                                    'GenericRefund' => [
-                                        'type' => 'object',
-                                        'properties' => [
-                                            'refundAmount' => [
-                                                'type' => 'string'
-                                            ],
-                                            'currencyCode' => [
-                                                'type' => 'string'
-                                            ]
-                                        ]
-                                    ],
-                                    'RateInfos' => [
-                                        'extends' => 'AbstractRateInfos'
-                                    ],
-                                    'ReservationGuest' => [
-                                        'type' => 'object',
-                                        'properties' => [
-                                            'firstName' => [
-                                                'type' => 'string'
-                                            ],
-                                            'lastName' => [
-                                                'type' => 'string'
-                                            ]
-                                        ]
-                                    ],
-                                    'Hotel' => [
-                                        'type' => 'object',
-                                        'properties' => [
-                                            'hotelId' => [
-                                                'type' => 'numeric'
-                                            ],
-                                            'statusCode' => [
-                                                'type' => 'string'
-                                            ],
-                                            'name' => [
-                                                'type' => 'string'
-                                            ],
-                                            'address1' => [
-                                                'type' => 'string'
-                                            ],
-                                            'address2' => [
-                                                'type' => 'string'
-                                            ],
-                                            'address3' => [
-                                                'type' => 'string'
-                                            ],
-                                            'city' => [
-                                                'type' => 'string'
-                                            ],
-                                            'stateProvinceCode' => [
-                                                'type' => 'string'
-                                            ],
-                                            'countryCode' => [
-                                                'type' => 'string'
-                                            ],
-                                            'postalCode' => [
-                                                'type' => 'string'
-                                            ],
-                                            'phone' => [
-                                                'type' => 'string'
-                                            ],
-                                            'fax' => [
-                                                'type' => 'string'
-                                            ],
-                                            'latitude' => [
-                                                'type' => 'string'
-                                            ],
-                                            'longitude' => [
-                                                'type' => 'string'
-                                            ],
-                                            'coordinateAccuracyCode' => [
-                                                'type' => 'string'
-                                            ],
-                                            'lowRate' => [
-                                                'type' => 'string'
-                                            ],
-                                            'highRate' => [
-                                                'type' => 'string'
-                                            ],
-                                            'hotelRating' => [
-                                                'type' => 'string'
-                                            ],
-                                            'tripAdvisorRating' => [
-                                                'type' => 'string'
-                                            ],
-                                            'market' => [
-                                                'type' => 'string'
-                                            ],
-                                            'region' => [
-                                                'type' => 'string'
-                                            ],
-                                            'superRegion' => [
-                                                'type' => 'string'
-                                            ],
-                                            'theme' => [
-                                                'type' => 'string'
-                                            ]
-                                        ]
-                                    ],
-                                    'ConfirmationExtras' => [
-                                        'type' => 'array',
-                                        'items' => [
+                                'type' => 'array',
+                                'items' => [
+                                    'type' => 'object',
+                                    'properties' => [
+                                        'supplierId' => [
+                                            'type' => 'string'
+                                        ],
+                                        'chainCode' => [
+                                            'type' => 'string'
+                                        ],
+                                        'creditCardType' => [
+                                            'type' => 'string'
+                                        ],
+                                        'arrivalDate' => [
+                                            'type' => 'string'
+                                        ],
+                                        'departureDate' => [
+                                            'type' => 'string'
+                                        ],
+                                        'confirmationNumber' => [
+                                            'type' => 'string'
+                                        ],
+                                        'cancellationNumber' => [
+                                            'type' => 'string'
+                                        ],
+                                        'numberOfAdults' => [
+                                            'type' => 'numeric'
+                                        ],
+                                        'numberOfChildren' => [
+                                            'type' => 'numeric'
+                                        ],
+                                        'affiliateConfirmationId' => [
+                                            'type' => 'string'
+                                        ],
+                                        'smokingPreference' => [
+                                            'type' => 'string'
+                                        ],
+                                        'supplierPropertyId' => [
+                                            'type' => 'string'
+                                        ],
+                                        'roomTypeCode' => [
+                                            'type' => 'string'
+                                        ],
+                                        'rateCode' => [
+                                            'type' => 'string'
+                                        ],
+                                        'rateDescription' => [
+                                            'type' => 'string'
+                                        ],
+                                        'roomDescription' => [
+                                            'type' => 'string'
+                                        ],
+                                        'status' => [
+                                            'type' => 'string'
+                                        ],
+                                        'locale' => [
+                                            'type' => 'string'
+                                        ],
+                                        'nights' => [
+                                            'type' => 'numeric'
+                                        ],
+                                        'GenericRefund' => [
                                             'type' => 'object',
-                                            'sentAs' => 'ConfirmationExtra',
                                             'properties' => [
-                                                'name' => [
+                                                'refundAmount' => [
                                                     'type' => 'string'
                                                 ],
-                                                'value' => [
+                                                'currencyCode' => [
                                                     'type' => 'string'
                                                 ]
                                             ]
+                                        ],
+                                        'RateInfos' => [
+                                            'extends' => 'AbstractRateInfos'
+                                        ],
+                                        'ReservationGuest' => [
+                                            'type' => 'object',
+                                            'properties' => [
+                                                'firstName' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'lastName' => [
+                                                    'type' => 'string'
+                                                ]
+                                            ]
+                                        ],
+                                        'Hotel' => [
+                                            'type' => 'object',
+                                            'properties' => [
+                                                'hotelId' => [
+                                                    'type' => 'numeric'
+                                                ],
+                                                'statusCode' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'name' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'address1' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'address2' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'address3' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'city' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'stateProvinceCode' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'countryCode' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'postalCode' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'phone' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'fax' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'latitude' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'longitude' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'coordinateAccuracyCode' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'lowRate' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'highRate' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'hotelRating' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'tripAdvisorRating' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'market' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'region' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'superRegion' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'theme' => [
+                                                    'type' => 'string'
+                                                ]
+                                            ]
+                                        ],
+                                        'ConfirmationExtras' => [
+                                            'type' => 'array',
+                                            'items' => [
+                                                'type' => 'object',
+                                                'sentAs' => 'ConfirmationExtra',
+                                                'properties' => [
+                                                    'name' => [
+                                                        'type' => 'string'
+                                                    ],
+                                                    'value' => [
+                                                        'type' => 'string'
+                                                    ]
+                                                ]
+                                            ]
+                                        ],
+                                        'ValueAdds' => [
+                                            'extends' => 'AbstractValueAdds'
                                         ]
-                                    ],
-                                    'ValueAdds' => [
-                                        'extends' => 'AbstractValueAdds'
                                     ]
                                 ]
                             ]
