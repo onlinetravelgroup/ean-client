@@ -9,6 +9,7 @@ use GuzzleHttp\Command\Guzzle\Serializer;
 use Otg\Ean\RequestLocation\XmlQueryLocation;
 use Otg\Ean\Subscriber\EanError;
 use Otg\Ean\Subscriber\ContentLength;
+use Otg\Ean\Subscriber\Authentication;
 
 /**
  * HotelClient object for executing commands against the EAN Hotel API
@@ -49,8 +50,29 @@ class HotelClient extends GuzzleClient
         $httpClient = new HttpClient($httpConfig);
 
         $client = new self($httpClient, $description, $config);
-        $client->getEmitter()->attach(new EanError());
-        $client->getEmitter()->attach(new ContentLength());
+
+        $emitter = $client->getEmitter();
+
+        $emitter->attach(new ContentLength());
+
+        if (!isset($config['throw_errors']) ||
+            $config['throw_errors'] === true
+        ) {
+            $emitter->attach(new EanError());
+        }
+
+        if (isset($config['auth']) &&
+            isset($config['auth']['apiKey']) &&
+            isset($config['auth']['cid'])
+        ) {
+            $emitter->attach(
+                new Authentication(
+                    $config['auth']['apiKey'],
+                    $config['auth']['cid'],
+                    isset($config['auth']['secret']) ? $config['auth']['secret'] : null
+                )
+            );
+        }
 
         return $client;
     }

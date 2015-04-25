@@ -2,11 +2,28 @@
 
 A PHP implementation of the EAN Hotel API.
 
-This project currently implements the Hotel List, Room Availability, Book Reservation and Cancel Reservation requests. For information on the API and possible request parameters refer to EANs official documentation, http://dev.ean.com/
+Supports all API requests and both IP and signature authentication. Internally it uses the XML request and response types.
 
 ## Usage
 
-You will need an API Key and CID to run the examples. You can get them from EAN by signing up as a developer https://devsecure.ean.com/member/register
+To get an API key register with EAN: https://devsecure.ean.com/member/register
+
+For testing you can use the example API key and CID with the http://dev.api.ean.com endpoint eg.
+
+```php
+use Otg\Ean\HotelClient;
+
+$client = HotelClient::factory([
+    'auth' => [
+        'cid' => 55505,
+        'apiKey' => 'cbrzfta369qwyrm9t5b8y8kf'
+    ],
+    'defaults' => [
+        'bookingEndpoint' => 'http://dev.api.ean.com',
+        'generalEndpoint' => 'http://dev.api.ean.com',
+    ]
+]);
+```
 
 ### Basic hotel search
 
@@ -19,9 +36,12 @@ require 'vendor/autoload.php';
 use Otg\Ean\HotelClient;
 
 $client = HotelClient::factory([
-    'defaults' => [
-        'apiKey' => YOUR_API_KEY,
+    'auth' => [
         'cid' => YOUR_CID,
+        'apiKey' => YOUR_API_KEY,
+        'secret' => YOUR_API_SECRET, // optional, omit if using IP authentication
+    ],
+    'defaults' => [
         'customerIpAddress' => getenv('REMOTE_ADDR'),
         'customerUserAgent' => getenv('HTTP_USER_AGENT'),
     ]
@@ -39,7 +59,7 @@ $hotels = $client->getHotelList([
 
 ### List additional rooms
 
-When searching hotels only the cheapest room type from each hotel is returned in the result. Additional room types for a hotel can be retrieved using the RoomAvailability request.
+Additional room types for a hotel can be retrieved using the RoomAvailability request.
 
 ```php
 $rooms = $client->getRoomAvailability([
@@ -112,7 +132,7 @@ if (isset($result['cancellationNumber'])) {
 
 ## Installation
 
-    $ composer require 'onlinetravelgroup/ean-client:~0.3'
+    $ composer require 'onlinetravelgroup/ean-client:~1.0@dev'
 
 ## Requirements
 

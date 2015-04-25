@@ -28,6 +28,9 @@ return [
                     'location' => 'query',
                     'required' => true
                 ],
+                'sig' => [
+                    'location' => 'query'
+                ],
                 'minorRev' => [
                     'location' => 'query',
                     'required' => true,

@@ -70,9 +70,11 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
         ];
 
         $client = HotelClient::factory([
-            'defaults' => [
+            'auth' => [
                 'cid' => '55505',
-                'apiKey' => 'cbrzfta369qwyrm9t5b8y8kf',
+                'apiKey' => 'cbrzfta369qwyrm9t5b8y8kf'
+            ],
+            'defaults' => [
                 'minorRev' => 26,
                 'locale' => 'en_US',
                 'currencyCode' => 'AUD',
@@ -175,6 +177,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'customerSessionId'  => 'x',
                 'customerIpAddress'  => 'y',
                 'customerUserAgent'  => 'z',
+                'secret' => 'SomeSecret',
             ]
         ]);
 
