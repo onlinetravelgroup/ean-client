@@ -5,6 +5,11 @@
             <directory suffix="Test.php">test/</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/</directory>
+        </whitelist>
+    </filter>
     <php>
         <ini name="error_reporting" value="2147483647"/> <!-- E_ALL -->
     </php>
