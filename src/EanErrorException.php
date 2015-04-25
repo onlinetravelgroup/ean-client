@@ -65,5 +65,4 @@ class EanErrorException extends CommandException
     {
         return $this->itineraryId;
     }
-
 }

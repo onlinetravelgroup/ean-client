@@ -96,14 +96,12 @@ IGD
 EOD;
         $this->assertEquals('XXXX...', StringFilter::maskCreditCard($eanResponse1));
         $this->assertEquals('XXXX...', StringFilter::maskCreditCard($eanResponse2));
-
     }
 
     public function testMaskCreditCardXmlErrors()
     {
         $this->assertEquals('<creditCard>XXXX...</creditCard>',
             StringFilter::maskCreditCard('<creditCard><type>AMEX</type><number>***********4564</number><holder>John Doe</holder><expiration>02-16</expiration><securityCode>1234</securityCode></creditCard>'));
-
     }
 
     public function testMaskCreditCardXmlEncoded()
@@ -136,7 +134,7 @@ EOD;
      */
     public function testCommaSeparated()
     {
-        $this->assertEquals('1,2', StringFilter::joinValues([1,2]));
+        $this->assertEquals('1,2', StringFilter::joinValues([1, 2]));
     }
 
     /**

@@ -121,7 +121,6 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
             '%3C%2FRoomGroup%3E' .
             '%3C%2FHotelRoomAvailabilityRequest%3E',
             $request->getUrl());
-
     }
 
     /**
@@ -245,7 +244,6 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
             '%3C%2FAddressInfo%3E' .
             '%3C%2FHotelRoomReservationRequest%3E',
             $request->getUrl());
-
     }
 
     /**
@@ -374,5 +372,4 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
             '%3C%2FHotelListRequest%3E',
             $request->getUrl());
     }
-
 }

@@ -32,7 +32,6 @@ class EanError implements SubscriberInterface
         $eanError = $xml->EanError ?: $xml->EanWsError;
 
         if ($eanError) {
-
             $e = new EanErrorException((string) $eanError->presentationMessage, $event->getTransaction());
 
             $e->setHandling((string) $eanError->handling);

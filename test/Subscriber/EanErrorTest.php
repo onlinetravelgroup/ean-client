@@ -72,7 +72,7 @@ class EanErrorTest extends \PHPUnit_Framework_TestCase
                 [
                     'numberOfAdults' => 2,
                     'numberOfChildren' => 2,
-                    'childAges' => [7,8]
+                    'childAges' => [7, 8]
                 ]
             ]
         ]);

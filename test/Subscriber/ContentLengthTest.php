@@ -43,5 +43,4 @@ class ContentLengthTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('Content-Length', $request->getHeaders());
         $this->assertEquals('0', $request->getHeader('Content-Length'));
     }
-
 }

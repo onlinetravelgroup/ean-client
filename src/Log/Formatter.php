@@ -41,5 +41,4 @@ class Formatter extends \GuzzleHttp\Subscriber\Log\Formatter
     {
         return StringFilter::maskCreditCard($string);
     }
-
 }

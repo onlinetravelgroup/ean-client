@@ -10,7 +10,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Otg\\Ean\\": "src/"
+            "Otg\\Ean\\": "src/",
+            "Otg\\Ean\\Tests\\": "test/"
         }
     },
     "authors": [
