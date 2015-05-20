@@ -6,7 +6,8 @@
         "guzzlehttp/guzzle-services": "0.5.*"
     },
     "require-dev": {
-        "guzzlehttp/log-subscriber": "~1.0"
+        "guzzlehttp/log-subscriber": "~1.0",
+        "guzzlehttp/cache-subscriber": "~0.2@dev"
     },
     "autoload": {
         "psr-4": {
