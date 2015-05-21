@@ -30,7 +30,6 @@ class CacheControl implements SubscriberInterface
         } else {
             $this->paths = [
                 '/ean-services/rs/hotel/v3/list',
-                '/ean-services/rs/hotel/v3/avail',
                 '/ean-services/rs/hotel/v3/roomImages',
                 '/ean-services/rs/hotel/v3/paymentInfo',
                 '/ean-services/rs/hotel/v3/geoSearch',
