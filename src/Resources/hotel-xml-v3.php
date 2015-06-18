@@ -1321,7 +1321,10 @@ return [
                                     'type' => 'numeric',
                                 ],
                                 'childAges' => [
-                                    'type' => 'string'
+                                    'type' => 'array',
+                                    'items' => [
+                                        'type' => 'string'
+                                    ]
                                 ],
                                 'rateKey' => [
                                     'type' => 'string'
@@ -2048,7 +2051,10 @@ return [
                                             'type' => 'numeric'
                                         ],
                                         'childAges' => [
-                                            'type' => 'string'
+                                            'type' => 'array',
+                                            'items' => [
+                                                'type' => 'string'
+                                            ]
                                         ],
                                         'firstName' => [
                                             'type' => 'string'
