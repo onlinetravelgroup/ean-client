@@ -49,8 +49,8 @@ $client = HotelClient::factory([
 
 $hotels = $client->getHotelList([
     'destinationString' => 'Montpellier France',
-    'arrivalDate' => '2015-06-13',
-    'departureDate' => '2015-06-27',
+    'arrivalDate' => '2016-06-13',
+    'departureDate' => '2016-06-27',
     'RoomGroup' => [
        ['numberOfAdults' => 2]
     ]
@@ -64,8 +64,8 @@ Additional room types for a hotel can be retrieved using the RoomAvailability re
 ```php
 $rooms = $client->getRoomAvailability([
     'hotelId' => $hotels['HotelList'][0]['hotelId'],
-    'arrivalDate' => '2015-06-13',
-    'departureDate' => '2015-06-27',
+    'arrivalDate' => '2016-06-13',
+    'departureDate' => '2016-06-27',
     'RoomGroup' => [
         ['numberOfAdults' => 2]
     ]
