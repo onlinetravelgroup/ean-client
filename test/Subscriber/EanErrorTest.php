@@ -62,7 +62,7 @@ class EanErrorTest extends \PHPUnit_Framework_TestCase
         $command = $client->getCommand('GetRoomAvailability', [
             'cid' => '55505',
             'apiKey' => 'cbrzfta369qwyrm9t5b8y8kf',
-            'minorRev' => 26,
+            'minorRev' => 30,
             'locale' => 'en_US',
             'currencyCode' => 'AUD',
             'hotelId' => 204421,

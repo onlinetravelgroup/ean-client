@@ -34,7 +34,7 @@ return [
                 'minorRev' => [
                     'location' => 'query',
                     'required' => true,
-                    'default' => '28'
+                    'default' => '30'
                 ],
                 'locale' => [
                     'location' => 'query',
@@ -1028,6 +1028,29 @@ return [
         ]
     ],
     'models' => [
+        'AbstractNightlyRate' => [
+            'type' => 'object',
+            'properties' => [
+                'promo' => [
+                    'type' => 'boolean',
+                    'data' => [
+                        'xmlAttribute' => true
+                    ]
+                ],
+                'rate' => [
+                    'type' => 'numeric',
+                    'data' => [
+                        'xmlAttribute' => true
+                    ]
+                ],
+                'baseRate' => [
+                    'type' => 'numeric',
+                    'data' => [
+                        'xmlAttribute' => true
+                    ]
+                ]
+            ]
+        ],
         // extended by ChargeableRateInfo and ConvertedRateInfo
         'AbstractRateObject' => [
             'type' => 'object',
@@ -1095,31 +1118,11 @@ return [
                 ],
                 // end undocumented
                 'NightlyRates' => [
-                    'type' => 'array',
                     'sentAs' => 'NightlyRatesPerRoom',
+                    'type' => 'array',
                     'items' => [
                         'sentAs' => 'NightlyRate',
-                        'type' => 'object',
-                        'properties' => [
-                            'promo' => [
-                                'type' => 'boolean',
-                                'data' => [
-                                    'xmlAttribute' => true
-                                ]
-                            ],
-                            'rate' => [
-                                'type' => 'numeric',
-                                'data' => [
-                                    'xmlAttribute' => true
-                                ]
-                            ],
-                            'baseRate' => [
-                                'type' => 'numeric',
-                                'data' => [
-                                    'xmlAttribute' => true
-                                ]
-                            ],
-                        ]
+                        'extends' => 'AbstractNightlyRate'
                     ]
                 ],
                 'Surcharges' => [
@@ -1328,6 +1331,20 @@ return [
                                 ],
                                 'rateKey' => [
                                     'type' => 'string'
+                                ],
+                                'ChargeableNightlyRates' => [
+                                    'type' => 'array',
+                                    'items' => [
+                                        'sentAs' => 'NightlyRate',
+                                        'extends' => 'AbstractNightlyRate'
+                                    ]
+                                ],
+                                'ConvertedNightlyRates' => [
+                                    'type' => 'array',
+                                    'items' => [
+                                        'sentAs' => 'NightlyRate',
+                                        'extends' => 'AbstractNightlyRate'
+                                    ]
                                 ]
                             ]
                         ]
@@ -2073,6 +2090,20 @@ return [
                                         ],
                                         'smokingPreference' => [
                                             'type' => 'string'
+                                        ],
+                                        'ChargeableNightlyRates' => [
+                                            'type' => 'array',
+                                            'items' => [
+                                                'sentAs' => 'NightlyRate',
+                                                'extends' => 'AbstractNightlyRate'
+                                            ]
+                                        ],
+                                        'ConvertedNightlyRates' => [
+                                            'type' => 'array',
+                                            'items' => [
+                                                'sentAs' => 'NightlyRate',
+                                                'extends' => 'AbstractNightlyRate'
+                                            ]
                                         ]
                                     ]
                                 ]
@@ -2677,6 +2708,9 @@ return [
                             'type' => 'numeric'
                         ],
                         'hotelRating' => [
+                            'type' => 'string'
+                        ],
+                        'hotelRatingDisplay' => [
                             'type' => 'string'
                         ],
                         'locationDescription' => [

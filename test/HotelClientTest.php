@@ -71,7 +71,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'GET',
                 'http://api.ean.com/ean-services/rs/hotel/v3/list?' .
                 'cid=55505&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
-                '&minorRev=28' .
+                '&minorRev=30' .
                 '&locale=en_US' .
                 '&currencyCode=AUD' .
                 '&customerSessionId=x' .
@@ -112,7 +112,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'GET',
                 'http://api.ean.com/ean-services/rs/hotel/v3/list?' .
                 'cid=55505&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
-                '&minorRev=28' .
+                '&minorRev=30' .
                 '&locale=en_US' .
                 '&currencyCode=AUD' .
                 '&customerSessionId=x' .
@@ -157,7 +157,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'GET',
                 'http://api.ean.com/ean-services/rs/hotel/v3/list?' .
                 'cid=55505&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
-                '&minorRev=28' .
+                '&minorRev=30' .
                 '&locale=en_US' .
                 '&currencyCode=AUD' .
                 '&customerSessionId=x' .
@@ -198,7 +198,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'http://api.ean.com/ean-services/rs/hotel/v3/avail?'.
                 'cid=55505' .
                 '&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
-                '&minorRev=28' .
+                '&minorRev=30' .
                 '&locale=en_US' .
                 '&currencyCode=AUD' .
                 '&customerSessionId=x' .
@@ -260,7 +260,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'https://book.api.ean.com/ean-services/rs/hotel/v3/res?' .
                 'cid=55505' .
                 '&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
-                '&minorRev=28' .
+                '&minorRev=30' .
                 '&locale=en_US' .
                 '&currencyCode=AUD' .
                 '&customerSessionId=x' .
@@ -316,7 +316,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'GET',
                 'http://api.ean.com/ean-services/rs/hotel/v3/cancel?' .
                 'cid=55505&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
-                '&minorRev=28' .
+                '&minorRev=30' .
                 '&locale=en_US' .
                 '&currencyCode=AUD' .
                 '&customerSessionId=x' .
@@ -338,7 +338,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'GET',
                 'https://book.api.ean.com/ean-services/rs/hotel/v3/itin?' .
                 'cid=55505&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
-                '&minorRev=28' .
+                '&minorRev=30' .
                 '&locale=en_US' .
                 '&currencyCode=AUD' .
                 '&customerSessionId=x' .
@@ -357,7 +357,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'GET',
                 'https://book.api.ean.com/ean-services/rs/hotel/v3/itin?' .
                 'cid=55505&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
-                '&minorRev=28' .
+                '&minorRev=30' .
                 '&locale=en_US' .
                 '&currencyCode=AUD' .
                 '&customerSessionId=x' .
@@ -381,7 +381,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'GET',
                 'https://book.api.ean.com/ean-services/rs/hotel/v3/itin?' .
                 'cid=55505&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
-                '&minorRev=28' .
+                '&minorRev=30' .
                 '&locale=en_US' .
                 '&currencyCode=AUD' .
                 '&customerSessionId=x' .
@@ -412,7 +412,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'GET',
                 'https://book.api.ean.com/ean-services/rs/hotel/v3/itin?' .
                 'cid=55505&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
-                '&minorRev=28' .
+                '&minorRev=30' .
                 '&locale=en_US' .
                 '&currencyCode=AUD' .
                 '&customerSessionId=x' .
@@ -437,7 +437,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'GET',
                 'http://api.ean.com/ean-services/rs/hotel/v3/roomImages?' .
                 'cid=55505&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
-                '&minorRev=28' .
+                '&minorRev=30' .
                 '&locale=en_US' .
                 '&currencyCode=AUD' .
                 '&customerSessionId=x' .
@@ -457,7 +457,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'GET',
                 'http://api.ean.com/ean-services/rs/hotel/v3/paymentInfo?' .
                 'cid=55505&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
-                '&minorRev=28' .
+                '&minorRev=30' .
                 '&locale=en_US' .
                 '&currencyCode=AUD' .
                 '&customerSessionId=x' .
@@ -478,7 +478,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'GET',
                 'http://api.ean.com/ean-services/rs/hotel/v3/geoSearch?' .
                 'cid=55505&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
-                '&minorRev=28' .
+                '&minorRev=30' .
                 '&locale=en_US' .
                 '&currencyCode=AUD' .
                 '&customerSessionId=x' .
@@ -503,7 +503,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'GET',
                 'http://api.ean.com/ean-services/rs/hotel/v3/geoSearch?' .
                 'cid=55505&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
-                '&minorRev=28' .
+                '&minorRev=30' .
                 '&locale=en_US' .
                 '&currencyCode=AUD' .
                 '&customerSessionId=x' .
@@ -538,7 +538,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'GET',
                 'http://api.ean.com/ean-services/rs/hotel/v3/altProps?' .
                 'cid=55505&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
-                '&minorRev=28' .
+                '&minorRev=30' .
                 '&locale=en_US' .
                 '&currencyCode=AUD' .
                 '&customerSessionId=x' .
@@ -568,7 +568,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'GET',
                 'http://api.ean.com/ean-services/rs/hotel/v3/info?' .
                 'cid=55505&apiKey=cbrzfta369qwyrm9t5b8y8kf' .
-                '&minorRev=28' .
+                '&minorRev=30' .
                 '&locale=en_US' .
                 '&currencyCode=AUD' .
                 '&customerSessionId=x' .
@@ -593,7 +593,7 @@ class HotelClientTest extends \PHPUnit_Framework_TestCase
                 'apiKey' => 'cbrzfta369qwyrm9t5b8y8kf',
             ],
             'defaults' => [
-                'minorRev' => 28,
+                'minorRev' => 30,
                 'locale' => 'en_US',
                 'currencyCode' => 'AUD',
                 'customerSessionId'  => 'x',
