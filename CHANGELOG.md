@@ -1,3 +1,9 @@
+### 0.7.0
+
+ * API minorRev upgraded to 30 from 28 (http://dev.ean.com/docs/api-change-log/)
+ * ChargeableRateInfo.NightlyRates is now ChargeableRateInfo.NightlyRatesPerRoom 
+   - NightlyRatesPerRoom is the API default name and helps distinguish it from the new ChargeableNightlyRates and ConvertedNightlyRates.
+
 ### 0.4.0
 
  * API minorRev upgraded to 28 from 26 (http://dev.ean.com/docs/api-change-log/)

@@ -1117,8 +1117,7 @@ return [
                     ]
                 ],
                 // end undocumented
-                'NightlyRates' => [
-                    'sentAs' => 'NightlyRatesPerRoom',
+                'NightlyRatesPerRoom' => [
                     'type' => 'array',
                     'items' => [
                         'sentAs' => 'NightlyRate',
