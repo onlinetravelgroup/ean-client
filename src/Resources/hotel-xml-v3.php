@@ -1811,13 +1811,13 @@ return [
                     'location' => 'xml'
                 ],
                 'tripAdvisorRating' => [
-                    'type' => 'string'
+                    'location' => 'xml'
                 ],
                 'tripAdvisorReviewCount' => [
-                    'type' => 'numeric'
+                    'location' => 'xml'
                 ],
                 'tripAdvisorRatingUrl' => [
-                    'type' => 'string'
+                    'location' => 'xml'
                 ],
                 'Rooms' => [
                     'sentAs' => 'HotelRoomResponse',
