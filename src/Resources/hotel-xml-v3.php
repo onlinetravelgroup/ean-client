@@ -2624,15 +2624,8 @@ return [
                                     'NightlyRates' => [
                                         'type' => 'array',
                                         'items' => [
-                                            'type' => 'object',
-                                            'properties' => [
-                                                'nightlyRate' => [
-                                                    'type' => 'string'
-                                                ]
-                                            ],
-                                            'additionalProperties' => [
-                                                'location' => 'xml'
-                                            ]
+                                            'type' => 'string',
+                                            'sentAs' => 'nightlyRate',
                                         ]
                                     ],
                                     'rateCurrencyCode' => [
