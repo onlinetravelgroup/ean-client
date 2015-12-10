@@ -1534,6 +1534,12 @@ return [
                         'sentAs' => 'HotelSummary',
                         'type' => 'object',
                         'properties' => [
+                            'ubsScore' => [
+                                'type' => 'string',
+                                'data' => [
+                                    'xmlAttribute' => true
+                                ]
+                            ],
                             'tripAdvisorRating' => [
                                 'type' => 'string'
                             ],
