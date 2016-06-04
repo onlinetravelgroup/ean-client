@@ -4,30 +4,13 @@ A PHP implementation of the EAN Hotel API.
 
 Supports all API requests and both IP and signature authentication. Internally it uses the XML request and response types.
 
+[![Build Status](https://travis-ci.org/onlinetravelgroup/ean-client.svg?branch=master)](https://travis-ci.org/onlinetravelgroup/ean-client)
+
 ## Usage
 
-To get an API key register with EAN: https://devsecure.ean.com/member/register
+Each of the API services are represented by a method on the `HotelClient` object. Each API method takes parameters in a single array argument and returns the results as an array. The parameter names and structure match those of the [API spec](http://developer.ean.com/spec/).
 
-For testing you can use the example API key and CID with the http://dev.api.ean.com endpoint eg.
-
-```php
-use Otg\Ean\HotelClient;
-
-$client = HotelClient::factory([
-    'auth' => [
-        'cid' => 55505,
-        'apiKey' => 'cbrzfta369qwyrm9t5b8y8kf'
-    ],
-    'defaults' => [
-        'bookingEndpoint' => 'http://dev.api.ean.com',
-        'generalEndpoint' => 'http://dev.api.ean.com',
-    ]
-]);
-```
-
-### Basic hotel search
-
-This request returns the available hotels in Montpellier France with a room on the given dates.
+A HotelClient object is instantiated using the `HotelClient::factory()` method
 
 ```php
 <?php
@@ -42,11 +25,17 @@ $client = HotelClient::factory([
         'secret' => YOUR_API_SECRET, // optional, omit if using IP authentication
     ],
     'defaults' => [
+        'bookingEndpoint' => 'http://dev.api.ean.com',
+        'generalEndpoint' => 'http://dev.api.ean.com',
         'customerIpAddress' => getenv('REMOTE_ADDR'),
         'customerUserAgent' => getenv('HTTP_USER_AGENT'),
     ]
 ]);
-
+```
+### Examples
+#### Hotel List
+http://developer.ean.com/docs/hotel-list
+```php
 $hotels = $client->getHotelList([
     'destinationString' => 'Montpellier France',
     'arrivalDate' => '2016-06-13',
@@ -57,10 +46,8 @@ $hotels = $client->getHotelList([
 ]);
 ```
 
-### List additional rooms
-
-Additional room types for a hotel can be retrieved using the RoomAvailability request.
-
+#### Room Availability
+http://developer.ean.com/docs/room-avail
 ```php
 $rooms = $client->getRoomAvailability([
     'hotelId' => $hotels['HotelList'][0]['hotelId'],
@@ -72,8 +59,8 @@ $rooms = $client->getRoomAvailability([
 ]);
 ```
 
-### Make a reservation
-
+#### Book Reservation
+http://developer.ean.com/docs/book-reservation
 ```php
 $bedTypes = $rooms['Rooms'][0]['BedTypes'];
 $smokingPreferences = explode(',', $rooms['Rooms'][0]['smokingPreferences']);
@@ -116,8 +103,8 @@ $reservation = $client->postReservation([
 ]);
 ```
 
-### Cancel the reservation
-
+#### Cancel Reservation
+http://developer.ean.com/docs/cancel-reservation
 ```php
 $result = $client->getRoomCancellation([
     'itineraryId' => $reservation['itineraryId'],
@@ -132,7 +119,7 @@ if (isset($result['cancellationNumber'])) {
 
 ## Installation
 
-    $ composer require 'onlinetravelgroup/ean-client:~1.0@dev'
+    $ composer require onlinetravelgroup/ean-client
 
 ## Requirements
 
@@ -142,6 +129,12 @@ if (isset($result['cancellationNumber'])) {
 ## Contributing
 
 Pull requests are welcome. Just be sure to follow the PSR-1/2 coding standards and don't make a mess.
+
+Commit messages should follow the advice at http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
+
+Messy commits should be squashed until it looks like it was programmed perfectly the first time. This does not necessarily mean a single commit.
+
+Diffs should be clean. This means the only lines with changes should be those relevant to the commit message. 
 
 ## Running the tests
 
