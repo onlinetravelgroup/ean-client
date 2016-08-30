@@ -11,7 +11,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase
 {
     public function testEnsuresRequestIsMasked()
     {
-        $formatter = new Formatter('{request}');
+        $formatter = new Formatter('{request}', ['/']);
 
         $request = new Request('POST', 'http://foo.com?q=test');
         $request->setBody(Stream::factory('<xml><creditCardType>CA</creditCardType>' .
@@ -32,7 +32,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase
 
     public function testEnsuresRequestBodyIsMasked()
     {
-        $formatter = new Formatter('{req_body}');
+        $formatter = new Formatter('{req_body}', ['/']);
 
         $request = new Request('POST', 'http://foo.com?q=test');
         $request->setBody(Stream::factory('<xml><creditCardType>CA</creditCardType>' .
@@ -50,7 +50,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase
 
     public function testEnsuresReqUrlIsMasked()
     {
-        $formatter = new Formatter('{url}');
+        $formatter = new Formatter('{url}', ['/']);
 
         $request = new Request('POST',
             'http://foo.com?creditCardType=CA' .
@@ -68,7 +68,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase
 
     public function testEnsuresResourceIsMasked()
     {
-        $formatter = new Formatter('{resource}');
+        $formatter = new Formatter('{resource}', ['/']);
 
         $request = new Request('POST',
             'http://foo.com?creditCardType=CA' .
@@ -86,7 +86,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase
 
     public function testEnsuresResponseBodyIsMasked()
     {
-        $formatter = new Formatter('{url} - {res_body}');
+        $formatter = new Formatter('{url} - {res_body}', ['/']);
 
         $request = new Request('POST', 'http://foo.com');
 
@@ -122,7 +122,7 @@ EOD;
 
     public function testEnsuresResponseIsMasked()
     {
-        $formatter = new Formatter('{url} - {response}');
+        $formatter = new Formatter('{url} - {response}', ['/']);
 
         $request = new Request('POST', 'http://foo.com');
 
@@ -154,5 +154,25 @@ EOD;
         $response = new Response(200, [], Stream::factory($body));
 
         $this->assertEquals('http://foo.com - XXXX...', $formatter->format($request, $response));
+    }
+
+    public function testEnsuresOnlySpecifiedPathAreMasked()
+    {
+        $pathsToMask = [
+            '/reservations',
+        ];
+
+        $searchPath = 'http://foo.com/search' .
+            '?creditCardType=CA' .
+            '&creditCardNumber=4564456445644564' .
+            '&creditCardIdentifier=123' .
+            '&creditCardExpirationMonth=01' .
+            '&creditCardExpirationYear=16';
+
+        $formatter = new Formatter('{url}', $pathsToMask);
+
+        $request = new Request('GET', $searchPath);
+
+        $this->assertEquals($searchPath, $formatter->format($request));
     }
 }

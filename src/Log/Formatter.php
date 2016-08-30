@@ -16,6 +16,27 @@ use Otg\Ean\Filter\StringFilter;
  */
 class Formatter extends \GuzzleHttp\Subscriber\Log\Formatter
 {
+    protected $paths;
+
+    /**
+     * Formatter constructor.
+     * @param string $template Log message template
+     * @param string[] $paths Request paths to apply masking to
+     */
+    public function __construct($template, $paths = null)
+    {
+        if ($paths) {
+            $this->paths = $paths;
+        } else {
+            $this->paths = [
+                '/ean-services/rs/hotel/v3/itin',
+                '/ean-services/rs/hotel/v3/res',
+            ];
+        }
+
+        parent::__construct($template);
+    }
+
     /**
      * @inheritDoc
      */
@@ -25,14 +46,16 @@ class Formatter extends \GuzzleHttp\Subscriber\Log\Formatter
         \Exception $error = null,
         array $customData = []
     ) {
-        $customData = array_merge([
-            'url' => $this->mask((string) $request->getUrl()),
-            'resource' => $this->mask($request->getResource()),
-            'request' => $this->mask((string) $request),
-            'response' => $this->mask((string) $response),
-            'res_body' => $response ? $this->mask((string) $response) : 'NULL',
-            'req_body' => $this->mask((string) $request->getBody()),
-        ], $customData);
+        if (in_array($request->getPath(), $this->paths)) {
+            $customData = array_merge([
+                'url' => $this->mask((string) $request->getUrl()),
+                'resource' => $this->mask($request->getResource()),
+                'request' => $this->mask((string) $request),
+                'response' => $this->mask((string) $response),
+                'res_body' => $response ? $this->mask((string) $response) : 'NULL',
+                'req_body' => $this->mask((string) $request->getBody()),
+            ], $customData);
+        }
 
         return parent::format($request, $response, $error, $customData);
     }
