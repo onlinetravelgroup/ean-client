@@ -55,6 +55,9 @@ return [
                     'location' => 'query',
                     'required' => true
                 ],
+                'apiExperience' => [
+                    'location' => 'query'
+                ],
                 'Accept' => [
                     'location' => 'header',
                     'static' => true,
@@ -78,9 +81,6 @@ return [
                 ]
             ],
             'parameters' => [
-                'apiExperience' => [
-                    'location' => 'xml.query',
-                ],
                 'arrivalDate' => [
                     'location' => 'xml.query',
                     'filters' => [
@@ -309,9 +309,6 @@ return [
                 ],
             ],
             'parameters' => [
-                'apiExperience' => [
-                    'location' => 'xml.query',
-                ],
                 'hotelId' => [
                     'type' => 'numeric',
                     'required' => true,
@@ -424,9 +421,6 @@ return [
             'parameters' => [
                 'additionalData' => [
                     'location' => 'query'
-                ],
-                'apiExperience' => [
-                    'location' => 'xml.query',
                 ],
                 'hotelId' => [
                     'type' => 'numeric',
