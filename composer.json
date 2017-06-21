@@ -8,7 +8,8 @@
     "require-dev": {
         "guzzlehttp/log-subscriber": "~1.0",
         "guzzlehttp/cache-subscriber": "~0.2@dev",
-        "friendsofphp/php-cs-fixer": "^1.11"
+        "friendsofphp/php-cs-fixer": "^1.11",
+        "phpunit/phpunit": "^5.7||^4.8"
     },
     "autoload": {
         "psr-4": {

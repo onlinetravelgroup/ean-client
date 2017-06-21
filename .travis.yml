@@ -4,22 +4,25 @@ php:
   - '5.4'
   - '5.5'
   - '5.6'
-  - '7.0'
-  - hhvm
-  - nightly
 
-# remove after guzzle 5.3.1 https://github.com/guzzle/guzzle/issues/1269
 matrix:
-  allow_failures:
+  include:
+    - php: '7.0'
+      dist: trusty
+    - php: '7.1'
+      dist: trusty
     - php: nightly
+      dist: trusty
+    - php: hhvm
+      dist: trusty
 
 install:
   - composer self-update
-  - composer install --no-interaction --prefer-source --dev
+  - composer install --no-interaction --prefer-source
 
 before_script:
   - phpenv config-rm xdebug.ini || return 0
 
 script:
-  - phpunit --verbose
+  - bin/phpunit --verbose
   - bin/php-cs-fixer --diff --dry-run -v fix
