@@ -1576,6 +1576,9 @@ return [
                             'hotelRating' => [
                                 'type' => 'string'
                             ],
+                            'hotelRatingDisplay' => [
+                                'type' => 'string'
+                            ],
                             'amenityMask' => [
                                 'type' => 'numeric'
                             ],
@@ -1795,6 +1798,9 @@ return [
                 'hotelAddress' => [
                     'location' => 'xml'
                 ],
+                'address2' => [
+                    'location' => 'xml'
+                ],
                 'hotelCity' => [
                     'location' => 'xml'
                 ],
@@ -1808,6 +1814,9 @@ return [
                     'location' => 'xml'
                 ],
                 'checkInInstructions' => [
+                    'location' => 'xml'
+                ],
+                'specialCheckInInstructions' => [
                     'location' => 'xml'
                 ],
                 'tripAdvisorRating' => [
@@ -1969,6 +1978,9 @@ return [
                     'location' => 'xml',
                 ],
                 'checkInInstructions' => [
+                    'location' => 'xml',
+                ],
+                'specialCheckInInstructions' => [
                     'location' => 'xml',
                 ],
                 'arrivalDate' => [
@@ -2263,6 +2275,9 @@ return [
                                         ],
                                         'nights' => [
                                             'type' => 'numeric'
+                                        ],
+                                        'specialCheckInInstructions' => [
+                                            'type' => 'string'
                                         ],
                                         'GenericRefund' => [
                                             'type' => 'object',
