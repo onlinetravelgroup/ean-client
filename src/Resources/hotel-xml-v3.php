@@ -140,6 +140,10 @@ return [
                         ]
                     ]
                 ],
+                'rateType' => [
+                    'type' => 'string',
+                    'location' => 'xml.query',
+                ],
 
                 /* Primary search methods */
                 /* Use only one of these methods at a time */
@@ -405,6 +409,10 @@ return [
                     'type' => 'string',
                     'location' => 'xml.query'
                 ],
+                'rateType' => [
+                    'type' => 'string',
+                    'location' => 'xml.query',
+                ],
             ]
         ],
         'PostReservation' => [
@@ -459,6 +467,10 @@ return [
                     'required' => true,
                     'type' => 'string',
                     'location' => 'xml.query'
+                ],
+                'rateType' => [
+                    'type' => 'string',
+                    'location' => 'xml.query',
                 ],
                 'RoomGroup' => [
                     'type' => 'array',
